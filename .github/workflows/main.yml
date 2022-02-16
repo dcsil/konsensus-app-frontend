@@ -27,4 +27,4 @@ jobs:
           context: .
           file: Dockerfile
           push: true
-          tags: konsensus-app-frontend/app:latest
+          tags: teamkonsensus/konsensus-app-frontend:latest
