@@ -601,12 +601,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0xe89C2E353F131b754c4e10db65216E52162f1898",
-      "transactionHash": "0x1302ebece12be7baaa25b4ce0fd03866c50991e37ddbabdc7a38358ff84fa347"
+      "address": "0x54Cd2fEAe284d5DE90f7741539F27Db24A22a603",
+      "transactionHash": "0x693ea8d926dfc120f1bcce7d7d98e8c6c7a2e599f2b15a77881fb2e327b0df69"
     }
   },
   "schemaVersion": "3.4.4",
-  "updatedAt": "2022-02-17T02:26:34.247Z",
+  "updatedAt": "2022-02-17T02:28:16.947Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}
