@@ -30,6 +30,12 @@ import {
 } from "reactstrap";
 
 const AdminNavbar = () => {
+
+  const logoStyle = {
+    width: '10em',
+    height: 'auto'
+  }
+
   return (
     <>
       <Navbar className="navbar-top navbar-horizontal navbar-dark" expand="md">
@@ -37,8 +43,9 @@ const AdminNavbar = () => {
           <NavbarBrand to="/" tag={Link}>
             <img
               alt="..."
+              style={logoStyle}
               src={
-                require("../../assets/img/brand/argon-react-white.png").default
+                require("../../assets/img/brand/konsensus_transparent.png").default
               }
             />
           </NavbarBrand>
@@ -53,7 +60,7 @@ const AdminNavbar = () => {
                     <img
                       alt="..."
                       src={
-                        require("../../assets/img/brand/argon-react.png")
+                        require("../../assets/img/brand/konsensus_transparent.png")
                           .default
                       }
                     />
