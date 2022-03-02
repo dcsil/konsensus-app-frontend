@@ -24,6 +24,13 @@ import Recent from 'views/Recent.js';
 
 var routes = [
   {
+    path: '/index',
+    name: 'All Files',
+    icon: 'ni ni-books text-primary',
+    component: Index,
+    layout: '/admin',
+  },
+  {
     path: '/shared_with_me',
     name: 'Shared',
     icon: 'fa fa-share text-blue',
@@ -42,13 +49,6 @@ var routes = [
     name: 'Starred',
     icon: 'fa fa-star text-blue',
     component: Starred,
-    layout: '/admin',
-  },
-  {
-    path: '/index',
-    name: 'Dashboard',
-    icon: 'ni ni-tv-2 text-primary',
-    component: Index,
     layout: '/admin',
   },
   {
