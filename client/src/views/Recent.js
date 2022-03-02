@@ -1793,4 +1793,4 @@ const Recent = () => {
   );
 };
 
-export default Recent;
+export default Tables;
