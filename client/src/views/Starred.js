@@ -38,7 +38,7 @@ import {
 // core components
 import Header from 'components/Headers/Header.js';
 
-const Recent = () => {
+const Starred = () => {
   return (
     <>
       <Header />
@@ -1835,4 +1835,4 @@ const Recent = () => {
   );
 };
 
-export default Recent;
+export default Starred;
