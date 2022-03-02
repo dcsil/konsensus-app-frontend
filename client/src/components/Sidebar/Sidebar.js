@@ -77,6 +77,7 @@ const Sidebar = (props) => {
             to={prop.layout + prop.path}
             tag={NavLinkRRD}
             onClick={closeCollapse}
+            className="text-muted"
             activeClassName="active"
           >
             <i className={prop.icon} />
@@ -101,9 +102,14 @@ const Sidebar = (props) => {
     };
   }
 
+  const logoStyle = {
+    width: '4em',
+    height: 'auto'
+  }
+
   return (
     <Navbar
-      className="navbar-vertical fixed-left navbar-light bg-white"
+      className="navbar-vertical fixed-left navbar-light bg-default"
       expand="md"
       id="sidenav-main"
     >
@@ -120,6 +126,7 @@ const Sidebar = (props) => {
         {logo ? (
           <NavbarBrand className="pt-0" {...navbarBrandProps}>
             <img
+              style={logoStyle}
               alt={logo.imgAlt}
               className="navbar-brand-img"
               src={logo.imgSrc}
@@ -159,7 +166,7 @@ const Sidebar = (props) => {
             </DropdownToggle>
             <DropdownMenu className="dropdown-menu-arrow" right>
               <DropdownItem className="noti-title" header tag="div">
-                <h6 className="text-overflow m-0">Welcome!</h6>
+                <h6 className="text-overflow m-0 text-light">Welcome!</h6>
               </DropdownItem>
               <DropdownItem to="/admin/user-profile" tag={Link}>
                 <i className="ni ni-single-02" />
@@ -233,39 +240,6 @@ const Sidebar = (props) => {
           </Form>
           {/* Navigation */}
           <Nav navbar>{createLinks(routes)}</Nav>
-          {/* Divider */}
-          <hr className="my-3" />
-          {/* Heading */}
-          <h6 className="navbar-heading text-muted">Documentation</h6>
-          {/* Navigation */}
-          <Nav className="mb-md-3" navbar>
-            <NavItem>
-              <NavLink href="https://demos.creative-tim.com/argon-dashboard-react/#/documentation/overview?ref=adr-admin-sidebar">
-                <i className="ni ni-spaceship" />
-                Getting started
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="https://demos.creative-tim.com/argon-dashboard-react/#/documentation/colors?ref=adr-admin-sidebar">
-                <i className="ni ni-palette" />
-                Foundation
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="https://demos.creative-tim.com/argon-dashboard-react/#/documentation/alerts?ref=adr-admin-sidebar">
-                <i className="ni ni-ui-04" />
-                Components
-              </NavLink>
-            </NavItem>
-          </Nav>
-          <Nav className="mb-md-3" navbar>
-            <NavItem className="active-pro active">
-              <NavLink href="https://www.creative-tim.com/product/argon-dashboard-pro-react?ref=adr-admin-sidebar">
-                <i className="ni ni-spaceship" />
-                Upgrade to PRO
-              </NavLink>
-            </NavItem>
-          </Nav>
         </Collapse>
       </Container>
     </Navbar>
