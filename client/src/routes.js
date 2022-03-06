@@ -15,63 +15,55 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import Index from "views/Index.js";
-import Profile from "views/examples/Profile.js";
-import Maps from "views/examples/Maps.js";
-import Register from "views/examples/Register.js";
-import Login from "views/examples/Login.js";
-import Tables from "views/examples/Tables.js";
-import Icons from "views/examples/Icons.js";
+import Index from 'views/Index.js';
+import Register from 'views/examples/Register.js';
+import Login from 'views/examples/Login.js';
+import Starred from 'views/Starred.js';
+import Shared from 'views/Shared.js';
+import Recent from 'views/Recent.js';
 
 var routes = [
   {
-    path: "/index",
-    name: "Dashboard",
-    icon: "ni ni-tv-2 text-primary",
+    path: '/index',
+    name: 'All Files',
+    icon: 'ni ni-books text-primary',
     component: Index,
-    layout: "/admin",
+    layout: '/admin',
   },
   {
-    path: "/icons",
-    name: "Icons",
-    icon: "ni ni-planet text-blue",
-    component: Icons,
-    layout: "/admin",
+    path: '/shared_with_me',
+    name: 'Shared',
+    icon: 'fa fa-share text-blue',
+    component: Shared,
+    layout: '/admin',
   },
   {
-    path: "/maps",
-    name: "Maps",
-    icon: "ni ni-pin-3 text-orange",
-    component: Maps,
-    layout: "/admin",
+    path: '/recent',
+    name: 'Recent',
+    icon: 'fa fa-clock text-blue',
+    component: Recent,
+    layout: '/admin',
   },
   {
-    path: "/user-profile",
-    name: "User Profile",
-    icon: "ni ni-single-02 text-yellow",
-    component: Profile,
-    layout: "/admin",
+    path: '/starred',
+    name: 'Starred',
+    icon: 'fa fa-star text-blue',
+    component: Starred,
+    layout: '/admin',
   },
   {
-    path: "/tables",
-    name: "Tables",
-    icon: "ni ni-bullet-list-67 text-red",
-    component: Tables,
-    layout: "/admin",
-  },
-  {
-    path: "/login",
-    name: "Login",
-    icon: "ni ni-key-25 text-info",
+    path: '/login',
+    name: 'Login',
+    icon: 'ni ni-key-25 text-info',
     component: Login,
-    layout: "/auth",
+    layout: '/auth',
   },
   {
-    path: "/register",
-    name: "Register",
-    icon: "ni ni-circle-08 text-pink",
+    path: '/register',
+    name: 'Register',
+    icon: 'ni ni-circle-08 text-pink',
     component: Register,
-    layout: "/auth",
+    layout: '/auth',
   },
 ];
 export default routes;

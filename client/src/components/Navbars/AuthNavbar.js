@@ -32,7 +32,7 @@ import {
 const AdminNavbar = () => {
 
   const logoStyle = {
-    width: '10em',
+    width: '5em',
     height: 'auto'
   }
 
