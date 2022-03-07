@@ -11,4 +11,3 @@ cd "$(dirname "$0")/.."
 
 echo "==> Installing npm dependencies…"
 npm install
-npm run start
