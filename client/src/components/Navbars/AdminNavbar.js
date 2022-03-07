@@ -69,7 +69,7 @@ const AdminNavbar = (props) => {
                     <img
                       alt="..."
                       src={
-                        require('../../assets/img/theme/team-4-800x800.jpg')
+                        require('../../assets/img/theme/chibi_julian_profile.png')
                           .default
                       }
                     />
