@@ -21,6 +21,7 @@ import Login from 'views/examples/Login.js';
 import Starred from 'views/Starred.js';
 import Shared from 'views/Shared.js';
 import Recent from 'views/Recent.js';
+import Profile from 'views/examples/Profile.js';
 
 var routes = [
   {
@@ -49,6 +50,13 @@ var routes = [
     name: 'Starred',
     icon: 'fa fa-star text-blue',
     component: Starred,
+    layout: '/admin',
+  },
+  {
+    path: '/user-profile',
+    name: 'User Profile',
+    icon: 'ni ni-single-02 text-yellow',
+    component: Profile,
     layout: '/admin',
   },
   {

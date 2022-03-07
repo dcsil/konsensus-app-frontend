@@ -28,9 +28,9 @@ import {
   Container,
   Row,
   Col,
-} from "reactstrap";
+} from 'reactstrap';
 // core components
-import UserHeader from "components/Headers/UserHeader.js";
+import UserHeader from 'components/Headers/UserHeader.js';
 
 const Profile = () => {
   return (
@@ -44,12 +44,15 @@ const Profile = () => {
               <Row className="justify-content-center">
                 <Col className="order-lg-2" lg="3">
                   <div className="card-profile-image">
-                    <a href="#pablo" onClick={(e) => e.preventDefault()}>
+                    <a
+                      href="#pablo"
+                      onClick={(e) => e.preventDefault()}
+                    >
                       <img
                         alt="..."
                         className="rounded-circle"
                         src={
-                          require("../../assets/img/theme/team-4-800x800.jpg")
+                          require('../../assets/img/theme/team-4-800x800.jpg')
                             .default
                         }
                       />
@@ -100,7 +103,7 @@ const Profile = () => {
                 </Row>
                 <div className="text-center">
                   <h3>
-                    Jessica Jones
+                    Julian Nadeau
                     <span className="font-weight-light">, 27</span>
                   </h3>
                   <div className="h5 font-weight-300">
@@ -117,11 +120,14 @@ const Profile = () => {
                   </div>
                   <hr className="my-4" />
                   <p>
-                    Ryan — the name taken by Melbourne-raised, Brooklyn-based
-                    Nick Murphy — writes, performs and records all of his own
-                    music.
+                    Ryan — the name taken by Melbourne-raised,
+                    Brooklyn-based Nick Murphy — writes, performs and
+                    records all of his own music.
                   </p>
-                  <a href="#pablo" onClick={(e) => e.preventDefault()}>
+                  <a
+                    href="#pablo"
+                    onClick={(e) => e.preventDefault()}
+                  >
                     Show more
                   </a>
                 </div>
@@ -305,7 +311,9 @@ const Profile = () => {
                   </div>
                   <hr className="my-4" />
                   {/* Description */}
-                  <h6 className="heading-small text-muted mb-4">About me</h6>
+                  <h6 className="heading-small text-muted mb-4">
+                    About me
+                  </h6>
                   <div className="pl-lg-4">
                     <FormGroup>
                       <label>About Me</label>
