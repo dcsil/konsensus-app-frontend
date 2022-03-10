@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-free": "5.15.3",
+    "@sentry/react": "^6.18.2",
+    "@sentry/tracing": "^6.18.2",
     "axios": "^0.21.1",
     "bootstrap": "4.6.0",
     "chart.js": "2.9.4",
