@@ -1,10 +1,10 @@
 tools:
-  exceptions: ""
+  exceptions: "https://sentry.io/organizations/dcsil/projects/konsensus-frontend/?project=6253111"
   logging: ""
   ci: ""
 
 services:
-  production: ""
+  production: "https://konsensus-client.herokuapp.com/"
 
 docs:
   frontend: "https://github.com/dcsil/konsensus-app-frontend"
@@ -13,6 +13,6 @@ docs:
 commands:
   bootstrap: "./client/script/bootstrap"
   database: ""
-  server: ""
-  test: ""
+  server: "npm start"
+  test: "npm test"
 
