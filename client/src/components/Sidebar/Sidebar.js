@@ -285,7 +285,19 @@ const Sidebar = (props) => {
           {/* Navigation */}
           <h1 className="navbar-heading text-light pt-5">Files</h1>
           <Nav navbar>{createLinks(routes)}</Nav>
-          <Button onClick={throwError}>Test Sentry</Button>
+          <Button
+            color="primary"
+            className="btn-icon btn-3"
+            style={{ marginTop: '1em' }}
+            onClick={throwError}
+            size="sm"
+            type="button"
+          >
+            <span className="btn-inner--icon">
+              <i className="ni ni-active-40" />
+            </span>
+            <span className="btn-inner--text">Test Sentry</span>
+          </Button>
         </Collapse>
       </Container>
     </Navbar>
