@@ -22,10 +22,10 @@ jobs:
           command: cd client
       - run:
           name: Install Dependencies
-          command: npm install
+          command: cd client && npm install
       - run:
           name: Run tests
-          command: npm run test
+          command: cd client && npm run test
 
 workflows:
   heroku_deploy:
