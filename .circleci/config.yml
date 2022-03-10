@@ -5,12 +5,9 @@ orbs:
 
 jobs:
   build:
-    runs-on: macos-latest
-      defaults:
-        run:
-          working-directory: ~/repo/client
     docker:
       - image: circleci/node:10.16.3
+    working_directory: ~/repo/client
     steps:
       - checkout
       # install dependencies
