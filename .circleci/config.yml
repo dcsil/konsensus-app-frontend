@@ -7,10 +7,9 @@ jobs:
   build:
     docker:
       - image: circleci/node:10.16.3
-    working_directory: ~/konsensus-app-frontend/client
+    working_directory: ~/repo/client
     steps:
-      - checkout:
-        path: ~/konsensus-app-frontend
+      - checkout
       # install dependencies
       - run:
           name: Install Dependencies
