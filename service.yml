@@ -1,6 +1,6 @@
 tools:
   exceptions: "https://sentry.io/organizations/dcsil/projects/konsensus-frontend/?project=6253111"
-  logging: ""
+  logging: "https://service.us2.sumologic.com/ui/?appName=konsensus-client&addonId=sumologic#/home"
   ci: ""
 
 services:
