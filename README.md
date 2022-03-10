@@ -1,6 +1,6 @@
 # Konsensus App Frontend
 
-<img src="./client/src/assets/img/brand/konsensus.png.png" alt="Team Logo" width="500"/>
+<img src="./konsensus_dash.png" alt="Team Logo" width="700"/>
 
 
 ## Description
