@@ -18,6 +18,9 @@ jobs:
           name: Check files
           command: ls
       - run:
+          name: Cd Into Client Folder
+          command: cd client
+      - run:
           name: Install Dependencies
           command: npm install
       - run:
