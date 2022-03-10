@@ -131,6 +131,10 @@ const Sidebar = (props) => {
     height: 'auto',
   };
 
+  const throwError = () => {
+    throw new Error('Something went wrong!');
+  }
+
   return (
     <Navbar
       className="navbar-vertical fixed-left navbar-light bg-default"
@@ -281,6 +285,7 @@ const Sidebar = (props) => {
           {/* Navigation */}
           <h1 className="navbar-heading text-light pt-5">Files</h1>
           <Nav navbar>{createLinks(routes)}</Nav>
+          <Button onClick={throwError}>Test Sentry</Button>;
         </Collapse>
       </Container>
     </Navbar>
