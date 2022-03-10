@@ -11,7 +11,7 @@ docs:
   backend: "https://github.com/dcsil/konsensus-app-backend"
 
 commands:
-  bootstrap: ""
+  bootstrap: "./client/script/bootstrap"
   database: ""
   server: "npm start"
   test: "npm test"
