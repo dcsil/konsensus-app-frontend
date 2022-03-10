@@ -13,6 +13,6 @@ docs:
 commands:
   bootstrap: ""
   database: ""
-  server: ""
-  test: ""
+  server: "npm start"
+  test: "npm test"
 
