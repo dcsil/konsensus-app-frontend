@@ -12,6 +12,7 @@ docs:
 
 commands:
   bootstrap: "./client/script/bootstrap"
+  database: ""
   server: ""
   test: ""
 
