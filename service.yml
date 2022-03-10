@@ -13,6 +13,6 @@ docs:
 commands:
   bootstrap: "./client/script/bootstrap"
   client: "cd client && npm run start"
-  build: "cd client && npm run build
+  build: "cd client && npm run build"
   test: "cd client && npm run test"
 
