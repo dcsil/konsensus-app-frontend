@@ -6,6 +6,14 @@ orbs:
 general:
   build_dir: konsensus-app-frontend/client
 
+aliases:
+  - &defaults
+    docker:
+      - image: circleci/node:10
+
+  - &cache_key_node_modules
+    key: v1-node_modules-{{ checksum "package-lock.json" }}
+
 jobs:
   build:
     docker:
@@ -24,6 +32,8 @@ jobs:
       - run:
           name: Run tests
           command: cd client && npm run test
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
       - run:
           name: Install Smart Contract Dependencies
           command: |
@@ -31,8 +41,18 @@ jobs:
               npm ci
             fi
       - run:
-          name: Run smart contract tests
-          command: truffle test
+          name: Install npm wee
+          command: npm install
+      - run:
+          name: Migrate Contracts
+          command: ./node_modules/truffle/build/cli.bundled.js migrate --network development
+      - run:
+          name: Test Contracts
+          command: ./node_modules/truffle/build/cli.bundled.js test --network development
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - node_modules
 
 workflows:
   heroku_deploy:
