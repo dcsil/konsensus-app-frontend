@@ -10,8 +10,7 @@ jobs:
   build:
     docker:
       - image: circleci/node:10.16.3
-      - image: trufflesuite/ganache-cli
-        command: ganache-cli -i 5777 -e 100000000000 -l 4700038
+
     working_directory: ~/repo
     steps:
       - checkout
@@ -20,11 +19,17 @@ jobs:
           name: Check files
           command: ls
       - run:
-          name: Install Dependencies
+          name: Install Client Dependencies
           command: cd client && npm install
       - run:
           name: Run tests
           command: cd client && npm run test
+      - run:
+          name: Install Smart Contract Dependencies
+          command: |
+            if [ ! -d node_modules ]; then
+              npm ci
+            fi
       - run:
           name: Run smart contract tests
           command: truffle test
