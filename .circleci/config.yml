@@ -1,29 +1,68 @@
-version: 2
+version: 2.1
+
+orbs:
+  heroku: circleci/heroku@0.0.10
+
+general:
+  build_dir: konsensus-app-frontend/client
+
 jobs:
   build:
-    working_directory: ~/smart-contracts
-    # The primary container is an instance of the first image listed. The job's commands run in this container.
     docker:
-      - image: circleci/node:8-browsers
-      # The secondary container is an instance of the second listed image which is run in a common network where ports exposed on the primary container are available on localhost.
+      - image: circleci/node:10.16.3
       - image: trufflesuite/ganache-cli
+        command: ganache-cli -i 5777 -e 100000000000 -l 4700038
+
+    working_directory: ~/repo
     steps:
       - checkout
+      # install dependencies
+      # - run:
+      #     name: Check files
+      #     command: ls
+      # - run:
+      #     name: Install Client Dependencies
+      #     command: cd client && npm install
+      # - run:
+      #     name: Run tests
+      #     command: cd client && npm run test
+      # - restore_cache:
+      #     name: Restore npm Package Cache
+      #     working_directory: ./
+      #     key: dependency-cache-{{ checksum "package.json" }}
       - run:
-          name: Update npm
-          command: 'sudo npm install -g npm@latest'
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-      - run:
-          name: Install npm wee
-          command: npm install
+          name: Install Smart Contract Dependencies
+          command: npm ci
       - run:
           name: Migrate Contracts
           command: ./node_modules/truffle/build/cli.bundled.js migrate --network development
       - run:
           name: Test Contracts
           command: ./node_modules/truffle/build/cli.bundled.js test --network development
+      - run:
+          name: Codecheck
+          command: npx codechecks
+      - run:
+          name: Codecheck
+          command: npx codechecks
+      - run:
+          name: Code Coverage
+          command: npx truffle run coverage
+      - run:
+          name: Coveralls
+          command: cat coverage/lcov.info | npx coveralls
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - node_modules
+
+workflows:
+  heroku_deploy:
+    jobs:
+      - build
+      - heroku/deploy-via-git: # Use the pre-configured job, deploy-via-git
+          requires:
+            - build
+          filters:
+            branches:
+              only: main
