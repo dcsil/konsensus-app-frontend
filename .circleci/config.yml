@@ -25,6 +25,7 @@ jobs:
       #     name: Run tests
       #     command: cd client && npm run test
       - restore_cache:
+          working_directory: ~/repo
           key: dependency-cache-{{ checksum "package.json" }}
       - run:
           name: Install Smart Contract Dependencies
