@@ -10,19 +10,49 @@ jobs:
   build:
     docker:
       - image: circleci/node:10.16.3
+      - image: trufflesuite/ganache-cli
+        command: ganache-cli -i 5777 -p 7545 -e 100000000000 -l 4700038
+
     working_directory: ~/repo
     steps:
       - checkout
-      # install dependencies
+      # install client dependencies
       - run:
           name: Check files
           command: ls
       - run:
-          name: Install Dependencies
+          name: Install Client Dependencies
           command: cd client && npm install
       - run:
           name: Run tests
           command: cd client && npm run test
+      # smart contract commands
+      - restore_cache:
+          name: Restore npm Package Cache
+          working_directory: ./
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: Install Smart Contract Dependencies
+          command: npm ci
+      - run:
+          name: Migrate Contracts
+          command: ./node_modules/truffle/build/cli.bundled.js migrate --network development
+      - run:
+          name: Test Contracts
+          command: ./node_modules/truffle/build/cli.bundled.js test --network development
+      # - run:
+      #     name: Codecheck
+      #     command: npx codechecks
+      # - run:
+      #     name: Code Coverage
+      #     command: npx truffle run coverage
+      # - run:
+      #     name: Coveralls
+      #     command: cat coverage/lcov.info | npx coveralls
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - node_modules
 
 workflows:
   heroku_deploy:
