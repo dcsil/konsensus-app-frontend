@@ -33,10 +33,10 @@ jobs:
           command: npm ci
       - run:
           name: Migrate Contracts
-          command: truffle migrate
+          command: ./node_modules/truffle/build/cli.bundled.js migrate --network development
       - run:
           name: Test Contracts
-          command: truffle test
+          command: ./node_modules/truffle/build/cli.bundled.js test --network development
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
