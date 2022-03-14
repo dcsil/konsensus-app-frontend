@@ -39,12 +39,9 @@ jobs:
       - run:
           name: Test Contracts
           command: ./node_modules/truffle/build/cli.bundled.js test --network development
-      - run:
-          name: Codecheck
-          command: npx codechecks
-      - run:
-          name: Codecheck
-          command: npx codechecks
+      # - run:
+      #     name: Codecheck
+      #     command: npx codechecks
       - run:
           name: Code Coverage
           command: npx truffle run coverage
