@@ -6,14 +6,6 @@ orbs:
 general:
   build_dir: konsensus-app-frontend/client
 
-aliases:
-  - &defaults
-    docker:
-      - image: circleci/node:10
-
-  - &cache_key_node_modules
-    key: v1-node_modules-{{ checksum "package-lock.json" }}
-
 jobs:
   build:
     docker:
@@ -23,15 +15,15 @@ jobs:
     steps:
       - checkout
       # install dependencies
-      - run:
-          name: Check files
-          command: ls
-      - run:
-          name: Install Client Dependencies
-          command: cd client && npm install
-      - run:
-          name: Run tests
-          command: cd client && npm run test
+      # - run:
+      #     name: Check files
+      #     command: ls
+      # - run:
+      #     name: Install Client Dependencies
+      #     command: cd client && npm install
+      # - run:
+      #     name: Run tests
+      #     command: cd client && npm run test
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
       - run:
