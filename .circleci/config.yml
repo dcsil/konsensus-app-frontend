@@ -32,14 +32,11 @@ jobs:
           name: Install Smart Contract Dependencies
           command: npm ci
       - run:
-          name: Install npm wee
-          command: npm install
-      - run:
           name: Migrate Contracts
-          command: ./node_modules/truffle/build/cli.bundled.js migrate --network development
+          command: truffle migrate
       - run:
           name: Test Contracts
-          command: ./node_modules/truffle/build/cli.bundled.js test --network development
+          command: truffle test
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
