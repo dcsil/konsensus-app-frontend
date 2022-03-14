@@ -1,0 +1,26 @@
+{
+  "name": "konsensus-app-frontend",
+  "version": "1.0.0",
+  "description": "<img src=\"./konsensus_dash.png\" alt=\"Team Logo\" width=\"1200\"/>",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "eth-gas-reporter": "^0.2.24"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "truffle test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dcsil/konsensus-app-frontend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dcsil/konsensus-app-frontend/issues"
+  },
+  "homepage": "https://github.com/dcsil/konsensus-app-frontend#readme"
+}
