@@ -1,68 +1,51 @@
-version: 2.1
+version: 2
 
-orbs:
-  heroku: circleci/heroku@0.0.10
+aliases:
+  - &defaults
+    docker:
+      - image: circleci/node:10
 
-general:
-  build_dir: konsensus-app-frontend/client
+  - &cache_key_node_modules
+    key: v1-node_modules-{{ checksum "package-lock.json" }}
 
 jobs:
-  build:
-    docker:
-      - image: circleci/node:10.16.3
-      - image: trufflesuite/ganache-cli
-        command: ganache-cli -i 5777 -e 100000000000 -l 4700038
-
-    working_directory: ~/repo
+  dependencies:
+    <<: *defaults
     steps:
       - checkout
-      # install dependencies
-      # - run:
-      #     name: Check files
-      #     command: ls
-      # - run:
-      #     name: Install Client Dependencies
-      #     command: cd client && npm install
-      # - run:
-      #     name: Run tests
-      #     command: cd client && npm run test
-      # - restore_cache:
-      #     name: Restore npm Package Cache
-      #     working_directory: ./
-      #     key: dependency-cache-{{ checksum "package.json" }}
+      - restore_cache:
+          <<: *cache_key_node_modules
       - run:
-          name: Install Smart Contract Dependencies
-          command: npm ci
-      - run:
-          name: Migrate Contracts
-          command: ./node_modules/truffle/build/cli.bundled.js migrate --network development
-      - run:
-          name: Test Contracts
-          command: ./node_modules/truffle/build/cli.bundled.js test --network development
-      - run:
-          name: Codecheck
-          command: npx codechecks
-      - run:
-          name: Codecheck
-          command: npx codechecks
-      - run:
-          name: Code Coverage
-          command: npx truffle run coverage
-      - run:
-          name: Coveralls
-          command: cat coverage/lcov.info | npx coveralls
-      - save_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
+          name: Install npm dependencies
+          command: |
+            if [ ! -d node_modules ]; then
+              npm ci
+            fi
+      - persist_to_workspace:
+          root: .
           paths:
             - node_modules
+            - build
+      - save_cache:
+          paths:
+            - node_modules
+          <<: *cache_key_node_modules
+
+  test:
+    <<: *defaults
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Unit tests
+          command: npm test
 
 workflows:
-  heroku_deploy:
+  version: 2
+  everything:
     jobs:
-      - build
-      - heroku/deploy-via-git: # Use the pre-configured job, deploy-via-git
+      - dependencies
+      - test:
           requires:
-            - build
-          filters:
-            branches:
-              only: main
+            - dependencies
