@@ -10,6 +10,7 @@ jobs:
   build:
     docker:
       - image: circleci/node:10.16.3
+      - image: trufflesuite/ganache-cli
 
     working_directory: ~/repo
     steps:
