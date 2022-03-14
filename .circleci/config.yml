@@ -16,7 +16,7 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
-      # install dependencies
+      # install client dependencies
       - run:
           name: Check files
           command: ls
@@ -26,6 +26,7 @@ jobs:
       - run:
           name: Run tests
           command: cd client && npm run test
+      # smart contract commands
       - restore_cache:
           name: Restore npm Package Cache
           working_directory: ./
