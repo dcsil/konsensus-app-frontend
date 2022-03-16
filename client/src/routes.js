@@ -22,6 +22,7 @@ import Starred from 'views/Starred.js';
 import Shared from 'views/Shared.js';
 import Recent from 'views/Recent.js';
 import Profile from 'views/examples/Profile.js';
+import Upload from 'views/Upload.js'
 
 var routes = [
   {
@@ -73,5 +74,11 @@ var routes = [
     component: Register,
     layout: '/auth',
   },
+  {
+    path: '/upload',
+    name: 'Upload',
+    component: Upload, 
+    layout: '/admin'
+  }
 ];
 export default routes;
