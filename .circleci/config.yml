@@ -24,7 +24,7 @@ jobs:
           name: Install Client Dependencies
           command: cd client && npm install
       - run:
-          name: Run tests
+          name: Run tests and code coverage for client
           command: cd client && npm run test -- --coverage --watchAll=false
       # smart contract commands
       - restore_cache:
