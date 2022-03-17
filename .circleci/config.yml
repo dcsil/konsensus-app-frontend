@@ -43,9 +43,9 @@ jobs:
       # - run:
       #     name: Codecheck
       #     command: npx codechecks
-      # - run:
-      #     name: Code Coverage
-      #     command: npx truffle run coverage
+      - run:
+          name: Code Coverage
+          command: npx truffle run coverage
       # - run:
       #     name: Coveralls
       #     command: cat coverage/lcov.info | npx coveralls
