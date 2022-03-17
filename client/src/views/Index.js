@@ -47,6 +47,7 @@ import {
 } from "variables/charts.js";
 
 import Header from "components/Headers/Header.js";
+import Upload from "components/Upload/Upload.js";
 
 const Index = (props) => {
   const [activeNav, setActiveNav] = useState(1);
