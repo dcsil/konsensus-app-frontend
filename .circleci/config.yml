@@ -24,8 +24,8 @@ jobs:
           name: Install Client Dependencies
           command: cd client && npm install
       - run:
-          name: Run tests
-          command: cd client && npm run test
+          name: Run tests and code coverage for client
+          command: cd client && npm run test -- --coverage --watchAll=false
       # smart contract commands
       - restore_cache:
           name: Restore npm Package Cache
@@ -43,9 +43,9 @@ jobs:
       # - run:
       #     name: Codecheck
       #     command: npx codechecks
-      # - run:
-      #     name: Code Coverage
-      #     command: npx truffle run coverage
+      - run:
+          name: Code Coverage
+          command: npx truffle run coverage
       # - run:
       #     name: Coveralls
       #     command: cat coverage/lcov.info | npx coveralls
