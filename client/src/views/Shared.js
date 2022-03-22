@@ -38,6 +38,7 @@ import {
 // core components
 import Header from 'components/Headers/Header.js';
 
+
 const Shared = () => {
   return (
     <>
