@@ -20,6 +20,8 @@ import { useState } from 'react';
 import { NavLink as NavLinkRRD, Link } from 'react-router-dom';
 // nodejs library to set properties for components
 import { PropTypes } from 'prop-types';
+import { Upload } from 'components/Upload/Upload.js';
+
 
 // reactstrap components
 import {
@@ -276,12 +278,18 @@ const Sidebar = (props) => {
             className="btn-icon btn-3"
             color="secondary"
             type="button"
+            data-toggle="modal" // opens the modal window
+            data-target="#Upload" // points to id of modal
           >
             <span className="btn-inner--icon">
               <i className="ni ni-fat-add" />
             </span>
             <span className="btn-inner--text">Upload</span>
+            {/* <>
+            <Upload />
+            </> */}
           </Button>
+          {/* // student queue checkboxes -> variable snaps to true  */}
           {/* Navigation */}
           <h1 className="navbar-heading text-light pt-5">Files</h1>
           <Nav navbar>{createLinks(routes)}</Nav>

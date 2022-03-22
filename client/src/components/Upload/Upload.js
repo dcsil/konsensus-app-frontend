@@ -1,67 +1,71 @@
 
-import React, {Component} from 'react';
+import React from 'react';
 import Modal from 'react-bootstrap/Modal';
-import {
-  Button,
-  // Card,
-  // CardHeader,
-  // CardBody,
-  // FormGroup,
-  // Form,
-  // Input,
-  // InputGroupAddon,
-  // InputGroupText,
-  // InputGroup,
-  // Row,
-  // Col,
-} from "reactstrap";
-
-function MyVerticallyCenteredModal(props) {
-  return (
-    <Modal
-      {...props}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Modal heading
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <h4>Centered Modal</h4>
-        <p>
-          Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-          dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-          consectetur ac, vestibulum at eros.
-        </p>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button onClick={props.onHide}>Close</Button>
-      </Modal.Footer>
-    </Modal>
-  );
-}
+import { Button } from "reactstrap";
 
 function Upload() {
-  const [modalShow, setModalShow] = React.useState(false);
 
-  return (
-    <>
-      <Button variant="primary" onClick={() => setModalShow(true)}>
-        Launch vertically centered modal
-      </Button>
+  // state = {
+  //   showUploadOverlay: false // flag to toggle for the overlay to appear
+  // }
 
-      <MyVerticallyCenteredModal
-        show={modalShow}
-        onHide={() => setModalShow(false)}
-      />
-    </>
-  );
-}
+  // toggleUploadOverlay = () => {
+  //   this.setState({
+  //     showUploadOverlay: !this.state.showUploadOverlay
+  //   })
+  // }
 
-export default Upload;
+    return (
+      <div id="#Upload">
+      <Modal
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="containedTest Sentry-modal-title-vcenter">
+            Modal heading
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <h4>Centered Modal</h4>
+          <p>
+            Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
+            dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
+            consectetur ac, vestibulum at eros.
+          </p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={this.showUploadOverlay}>Close</Button>
+        </Modal.Footer>
+      </Modal>
+      </div>
+
+    );
+
+  }
+
+export { Upload };
+
+
+// function Upload() {
+//   const [modalShow, setModalShow] = React.useState(false);
+
+//   return (
+//     <>
+//       <Button variant="primary" onClick={() => setModalShow(true)}>
+//         Launch vertically centered modal
+//       </Button>
+
+//       <MyVerticallyCenteredModal
+//         show={modalShow}
+//         onHide={() => setModalShow(false)}
+//       />
+//     </>
+//   );
+// }
+
+
 
 // import { Container } from 'reactstrap';
 // import {useDropzone} from 'react-dropzone';
