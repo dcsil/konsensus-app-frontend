@@ -70,6 +70,7 @@ const Sidebar = (props) => {
   const closeCollapse = () => {
     setCollapseOpen(false);
   };
+
   // creates the links that appear in the left menu / Sidebar
   const createLinks = (routes) => {
     return routes.map((prop, key) => {
@@ -112,7 +113,7 @@ const Sidebar = (props) => {
     });
   };
 
-  const { bgColor, routes, logo } = props;
+  const { bgColor, routes, logo, toggleUploadModal } = props;
   let navbarBrandProps;
   if (logo && logo.innerLink) {
     navbarBrandProps = {
@@ -276,6 +277,7 @@ const Sidebar = (props) => {
             className="btn-icon btn-3"
             color="secondary"
             type="button"
+            onClick={toggleUploadModal}
           >
             <span className="btn-inner--icon">
               <i className="ni ni-fat-add" />
