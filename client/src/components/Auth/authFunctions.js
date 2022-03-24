@@ -3,23 +3,23 @@ import axios from 'axios';
 const API_HOST = 'https://konsensus-backend.herokuapp.com';
 
 // Send a request to check if a user is logged in through the session cookie
-// export const checkSession = (app) => {
-//   const url = `${API_HOST}/users/check-session`;
+export const checkSession = (app) => {
+  const url = `${API_HOST}/users/check-session`;
 
-//   axios
-//     .get(url)
-//     .then((res) => {
-//       if (res.status === 200 && res.data.id) {
-//         app.setState({
-//           id: res.data.id,
-//           role: res.data.role,
-//         });
-//       }
-//     })
-//     .catch((error) => {
-//       console.log(error);
-//     });
-// };
+  axios
+    .get(url)
+    .then((res) => {
+      if (res.status === 200 && res.data.id) {
+        app.setState({
+          id: res.data.id,
+          role: res.data.role,
+        });
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
 
 // A function to send a POST request with the user to be logged in
 export const login = (credentials, app) => {

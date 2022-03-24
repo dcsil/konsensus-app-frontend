@@ -1,80 +1,56 @@
-import React, { Component } from "react";
-import SimpleStorageContract from "./contracts/SimpleStorage.json";
-import HelloWorld from "./contracts/HelloWorld.json";
-import getWeb3 from "./getWeb3";
+import axios from 'axios';
+import { checkSession } from 'components/Auth/authFunctions';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {
+  BrowserRouter,
+  Route,
+  Switch,
+  Redirect,
+} from 'react-router-dom';
+import { createBrowserHistory } from 'history';
 
-import "./App.css";
+import 'assets/plugins/nucleo/css/nucleo.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import 'assets/scss/argon-dashboard-react.scss';
 
-class App extends Component {
-  state = { storageValue: 0, web3: null, accounts: null, contract: null };
+import AdminLayout from 'layouts/Admin.js';
+import AuthLayout from 'layouts/Auth.js';
 
-  componentDidMount = async () => {
-    try {
-      // Get network provider and web3 instance.
-      const web3 = await getWeb3();
+axios.defaults.withCredentials = true;
 
-      // Use web3 to get the user's accounts.
-      const accounts = await web3.eth.getAccounts();
+const getBasename = () => {
+  return `/${process.env.PUBLIC_URL.split('/').pop()}`;
+};
 
-      // Get the contract instance.
-      const networkId = await web3.eth.net.getId();
-      let deployedNetwork = SimpleStorageContract.networks[networkId];
-      const storageInstance = new web3.eth.Contract(
-        SimpleStorageContract.abi,
-        deployedNetwork && deployedNetwork.address,
-      );
-      deployedNetwork = HelloWorld.networks[networkId];
-      const helloWorldInstance = new web3.eth.Contract(
-        HelloWorld.abi,
-        deployedNetwork && deployedNetwork.address
-      );
+const history = createBrowserHistory();
 
-      // Set web3, accounts, and contract to the state, and then proceed with an
-      // example of interacting with the contract's methods.
-      this.setState({ web3, accounts, storageContract: storageInstance, helloWorldContract: helloWorldInstance }, this.runExample);
-    } catch (error) {
-      // Catch any errors for any of the above operations.
-      alert(
-        `Failed to load web3, accounts, or contract. Check console for details.`,
-      );
-      console.error(error);
-    }
-  };
+class App extends React.Component {
+  // componentDidMount() {
+  // checkSession(this);
+  // }
 
-  runExample = async () => {
-    const { accounts, storageContract, helloWorldContract } = this.state;
-
-    // Stores a given value, 5 by default.
-    await storageContract.methods.set(5).send({ from: accounts[0] });
-
-    // Get the value from the contract to prove it worked.
-    const storageResponse = await storageContract.methods.get().call();
-
-    const greetingResponse = await helloWorldContract.methods.getGreeting().call();
-
-    // Update state with the result.
-    this.setState({ storageValue: storageResponse, greeting: greetingResponse });
-  };
+  state = { id: null, role: null };
 
   render() {
-    if (!this.state.web3) {
-      return <div>Loading Web3, accounts, and contract...</div>;
-    }
+    const { id } = this.state;
+
     return (
-      <div className="App">
-        <h1>Good to Go!</h1>
-        <p>Your Truffle Box is installed and ready.</p>
-        <h2>Smart Contract Example</h2>
-        <p>
-          If your contracts compiled and migrated successfully, below will show
-          a stored value of 5 (by default).
-        </p>
-        <p>
-          Try changing the value stored on <strong>line 40</strong> of App.js.
-        </p>
-        <div>The stored value is: {this.state.storageValue}</div>
-        <div>The greeting response is: {this.state.greeting}</div>
-      </div>
+      <BrowserRouter basename={getBasename()} history={history}>
+        <Switch>
+          {!id ? (
+            <Route
+              path="/auth"
+              render={(props) => <AuthLayout {...props} />}
+            />
+          ) : (
+            <Route
+              path="/admin"
+              render={(props) => <AdminLayout {...props} />}
+            />
+          )}
+        </Switch>
+      </BrowserRouter>
     );
   }
 }
