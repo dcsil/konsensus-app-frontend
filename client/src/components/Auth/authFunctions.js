@@ -1,12 +1,13 @@
 // Functions to help with user actions.
-import axios from 'axios';
+import client from 'axios';
+
 const API_HOST = 'https://konsensus-backend.herokuapp.com';
 
 // Send a request to check if a user is logged in through the session cookie
 export const checkSession = (app) => {
   const url = `${API_HOST}/users/check-session`;
 
-  axios
+  client
     .get(url)
     .then((res) => {
       if (res.status === 200 && res.data.id) {
@@ -25,7 +26,7 @@ export const checkSession = (app) => {
 export const login = (credentials, app) => {
   const url = `${API_HOST}/users/authenticate`;
 
-  return axios
+  return client
     .post(url, credentials)
     .then((res) => {
       if (res.status === 200 && res.data.id !== undefined) {
@@ -52,7 +53,7 @@ export const login = (credentials, app) => {
 export const logout = (app) => {
   const url = `${API_HOST}/users/logout`;
 
-  axios
+  client
     .get(url)
     .then((res) => {
       app.setState({
@@ -70,7 +71,7 @@ export const logout = (app) => {
 export const signup = (credentials) => {
   const url = `${API_HOST}/users`;
 
-  return axios
+  return client
     .post(url, credentials)
     .then((res) => {
       if (res.status === 200 && res.data.email !== undefined) {
@@ -86,7 +87,7 @@ export const signup = (credentials) => {
 export const getUsers = () => {
   const url = `${API_HOST}/users/all`;
 
-  return axios
+  return client
     .get(url)
     .then((res) => {
       return res.data.user;
@@ -100,7 +101,7 @@ export const getUsers = () => {
 export const getCurrentUser = () => {
   const url = `${API_HOST}/users`;
 
-  return axios
+  return client
     .get(url)
     .then((res) => {
       return res.data;
@@ -116,7 +117,7 @@ export const edit = (userID, op, path, value) => {
   const url = `${API_HOST}/users/edit/${userID}`;
 
   const body = [{ op: op, path: path, value: value }];
-  return axios
+  return client
     .patch(url, body)
     .then((res) => {
       if (res.status === 200) {
@@ -133,7 +134,7 @@ export const edit = (userID, op, path, value) => {
 export const removeUser = (userID) => {
   const url = `${API_HOST}/users/remove/${userID}`;
 
-  return axios
+  return client
     .delete(url)
     .then((res) => {
       if (res.status === 200) {
