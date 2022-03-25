@@ -25,7 +25,7 @@ class LoginForm extends React.Component {
   handleLogin = (event) => {
     event.preventDefault();
     const credentials = {
-      username: this.state.username,
+      email: this.state.email,
       password: this.state.password,
     };
 
@@ -53,14 +53,14 @@ class LoginForm extends React.Component {
               <InputGroup className="input-group-alternative">
                 <InputGroupAddon addonType="prepend">
                   <InputGroupText>
-                    <i className="ni ni-single-02" />
+                    <i className="ni ni-email-83" />
                   </InputGroupText>
                 </InputGroupAddon>
                 <Input
-                  type="username"
-                  placeholder="Username"
+                  type="email"
+                  placeholder="Email"
                   onChange={(e) => {
-                    this.setState({ username: e.target.value });
+                    this.setState({ email: e.target.value });
                   }}
                 />
               </InputGroup>

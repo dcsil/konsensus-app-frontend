@@ -2,11 +2,11 @@
 import client from 'axios';
 
 // const API_HOST = 'https://konsensus-backend.herokuapp.com';
-const API_HOST = 'http://localhost:3306';
+const API_HOST = 'http://localhost:8080';
 
 // Send a request to check if a user is logged in through the session cookie
 export const checkSession = (app) => {
-  const url = `${API_HOST}/users/check-session`;
+  const url = `${API_HOST}/user/check-session`;
 
   client
     .get(url)
@@ -24,20 +24,27 @@ export const checkSession = (app) => {
 };
 
 // A function to send a POST request with the user to be logged in
-export const login = (credentials, app) => {
-  const url = `${API_HOST}/users/authenticate`;
+export const login = (credentials) => {
+  const url = `${API_HOST}/user/authenticate`;
 
   return client
-    .post(url, credentials)
+    .post(url, credentials, { withCredentials: true })
     .then((res) => {
       if (res.status === 200 && res.data.id !== undefined) {
-        app.setState({
+        console.log({
           id: res.data.id,
-          username: res.data.username,
+          email: res.data.email,
           firstName: res.data.firstName,
           lastName: res.data.lastName,
           token: res.data.token,
         });
+        // app.setState({
+        //   id: res.data.id,
+        //   email: res.data.email,
+        //   firstName: res.data.firstName,
+        //   lastName: res.data.lastName,
+        //   token: res.data.token,
+        // });
         window.location.href = '/admin/index';
         return true;
       } else {
