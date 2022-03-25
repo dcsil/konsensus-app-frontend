@@ -2,12 +2,7 @@ import axios from 'axios';
 import { checkSession } from 'components/Auth/authFunctions';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {
-  BrowserRouter,
-  Route,
-  Switch,
-  Redirect,
-} from 'react-router-dom';
+import { Router, Route, Switch, Redirect } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 
 import 'assets/plugins/nucleo/css/nucleo.css';
@@ -19,16 +14,12 @@ import AuthLayout from 'layouts/Auth.js';
 
 axios.defaults.withCredentials = true;
 
-const getBasename = () => {
-  return `/${process.env.PUBLIC_URL.split('/').pop()}`;
-};
-
 const history = createBrowserHistory();
 
 class App extends React.Component {
-  // componentDidMount() {
-  // checkSession(this);
-  // }
+  componentDidMount() {
+    // checkSession(this);
+  }
 
   state = { id: null, role: null };
 
@@ -36,7 +27,7 @@ class App extends React.Component {
     const { id } = this.state;
 
     return (
-      <BrowserRouter basename={getBasename()} history={history}>
+      <Router history={history}>
         <Switch>
           {!id ? (
             <Route
@@ -50,7 +41,7 @@ class App extends React.Component {
             />
           )}
         </Switch>
-      </BrowserRouter>
+      </Router>
     );
   }
 }

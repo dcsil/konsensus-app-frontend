@@ -1,7 +1,8 @@
 // Functions to help with user actions.
 import client from 'axios';
 
-const API_HOST = 'https://konsensus-backend.herokuapp.com';
+// const API_HOST = 'https://konsensus-backend.herokuapp.com';
+const API_HOST = 'http://localhost:3306';
 
 // Send a request to check if a user is logged in through the session cookie
 export const checkSession = (app) => {
