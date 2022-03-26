@@ -21,7 +21,7 @@ export const checkSession = () => {
 };
 
 // A function to send a POST request with the user to be logged in
-export const login = (credentials) => {
+export const login = (credentials, prop) => {
   const url = `${API_HOST}/user/authenticate`;
 
   return client
@@ -47,6 +47,7 @@ export const login = (credentials) => {
             Promise.reject(error);
           }
         );
+        prop.setState({ token: res.data.token });
       } else {
         return false;
       }

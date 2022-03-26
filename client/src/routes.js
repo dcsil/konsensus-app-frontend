@@ -21,7 +21,7 @@ import Login from 'views/Login.js';
 import Starred from 'views/Starred.js';
 import Shared from 'views/Shared.js';
 import Recent from 'views/Recent.js';
-import Profile from 'views/examples/Profile.js';
+import Profile from 'views/Profile.js';
 
 var routes = [
   {

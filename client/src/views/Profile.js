@@ -31,8 +31,13 @@ import {
 } from 'reactstrap';
 // core components
 import UserHeader from 'components/Headers/UserHeader.js';
+import { useEffect } from 'react';
+import { checkSession } from 'components/Auth/authFunctions';
 
-const Profile = () => {
+const Profile = (prop) => {
+  useEffect(() => {
+    checkSession();
+  }, []);
   return (
     <>
       <UserHeader />
@@ -52,7 +57,7 @@ const Profile = () => {
                         alt="..."
                         className="rounded-circle"
                         src={
-                          require('../../assets/img/theme/chibi_julian_profile.png')
+                          require('../assets/img/theme/chibi_julian_profile.png')
                             .default
                         }
                       />
