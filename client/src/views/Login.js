@@ -39,20 +39,11 @@ const Login = (prop) => {
       <Col lg="5" md="7">
         <LoginForm {...prop} />
         <Row className="mt-3">
-          <Col xs="6">
-            <a
-              className="text-light"
-              href="#pablo"
-              onClick={(e) => e.preventDefault()}
-            >
-              <small>Forgot password?</small>
-            </a>
-          </Col>
           <Col className="text-right" xs="6">
             <a
               className="text-light"
               href="#pablo"
-              onClick={(e) => e.preventDefault()}
+              onClick={(e) => prop.history.push('/auth/register')}
             >
               <small>Create new account</small>
             </a>

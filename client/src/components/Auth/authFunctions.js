@@ -57,6 +57,43 @@ export const login = (credentials) => {
     });
 };
 
+// A function to send a POST request with the user to register
+export const register = (credentials) => {
+  const url = `${API_HOST}/user/authenticate`;
+
+  return client
+    .post(url, credentials, { withCredentials: true })
+    .then((res) => {
+      if (res.status === 200 && res.data.id !== undefined) {
+        console.log({
+          id: res.data.id,
+          email: res.data.email,
+          firstName: res.data.firstName,
+          lastName: res.data.lastName,
+          token: res.data.token,
+        });
+        client.interceptors.request.use(
+          (config) => {
+            const token = Cookies.get('access');
+            if (token) {
+              config.headers['Authorization'] = 'Bearer ' + token;
+            }
+            return config;
+          },
+          (error) => {
+            Promise.reject(error);
+          }
+        );
+      } else {
+        return false;
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+      return false;
+    });
+};
+
 // A function to send a GET request to logout the current user
 export const logout = (app) => {
   const url = `${API_HOST}/users/logout`;
