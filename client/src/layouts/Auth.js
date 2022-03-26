@@ -15,25 +15,30 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
-import { useLocation, Route, Switch, Redirect } from "react-router-dom";
+import React from 'react';
+import {
+  useLocation,
+  Route,
+  Switch,
+  Redirect,
+} from 'react-router-dom';
 // reactstrap components
-import { Container, Row, Col } from "reactstrap";
+import { Container, Row, Col } from 'reactstrap';
 
 // core components
-import AuthNavbar from "components/Navbars/AuthNavbar.js";
-import AuthFooter from "components/Footers/AuthFooter.js";
+import AuthNavbar from 'components/Navbars/AuthNavbar.js';
+import AuthFooter from 'components/Footers/AuthFooter.js';
 
-import routes from "routes.js";
+import routes from 'routes.js';
 
 const Auth = (props) => {
   const mainContent = React.useRef(null);
   const location = useLocation();
 
   React.useEffect(() => {
-    document.body.classList.add("bg-default");
+    document.body.classList.add('bg-default');
     return () => {
-      document.body.classList.remove("bg-default");
+      document.body.classList.remove('bg-default');
     };
   }, []);
   React.useEffect(() => {
@@ -44,7 +49,7 @@ const Auth = (props) => {
 
   const getRoutes = (routes) => {
     return routes.map((prop, key) => {
-      if (prop.layout === "/auth") {
+      if (prop.layout === '/auth') {
         return (
           <Route
             path={prop.layout + prop.path}
@@ -69,12 +74,13 @@ const Auth = (props) => {
                 <Col lg="5" md="6">
                   <h1 className="text-white">Konsensus</h1>
                   <p className="text-lead text-light">
-                    Protecting your files with blockchain has never been easier!
+                    Protecting your files with blockchain has never
+                    been easier!
                   </p>
                 </Col>
               </Row>
               <Row className="justify-content-center">
-              <Switch>
+                <Switch>
                   {getRoutes(routes)}
                   <Redirect from="*" to="/auth/login" />
                 </Switch>
