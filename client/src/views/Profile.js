@@ -37,6 +37,7 @@ import {
   GlobalDispatchContext,
 } from 'components/GlobalState';
 import { checkSession } from 'components/Auth/authFunctions';
+import OrgTable from 'components/Profile/OrgTable';
 
 const Profile = () => {
   const [firstName, setFirstName] = useState('');
@@ -117,6 +118,11 @@ const Profile = () => {
                   </div>
                 </Row>
               </CardBody>
+              <OrgTable
+                firstName={firstName}
+                lastName={lastName}
+                email={email}
+              />
             </Card>
           </Col>
           <Col className="order-xl-1" xl="8">
