@@ -22,7 +22,9 @@ const history = createBrowserHistory();
 
 class App extends React.Component {
   componentDidMount() {
-    checkSession(this);
+    if (!window.location.href.includes('auth')) {
+      checkSession(this);
+    }
   }
 
   state = { id: null };
