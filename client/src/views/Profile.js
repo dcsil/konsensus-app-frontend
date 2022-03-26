@@ -106,46 +106,16 @@ const Profile = () => {
                   <div className="col">
                     <div className="card-profile-stats d-flex justify-content-center mt-md-5">
                       <div>
-                        <span className="heading">22</span>
-                        <span className="description">Friends</span>
-                      </div>
-                      <div>
-                        <span className="heading">10</span>
-                        <span className="description">Photos</span>
-                      </div>
-                      <div>
-                        <span className="heading">89</span>
-                        <span className="description">Comments</span>
+                        <span className="heading">
+                          {firstName} {lastName}
+                        </span>
+                        <span className="description">
+                          Company Name
+                        </span>
                       </div>
                     </div>
                   </div>
                 </Row>
-                <div className="text-center">
-                  <h3>
-                    Julian Nadeau
-                    <span className="font-weight-light">, 29</span>
-                  </h3>
-                  <div className="h5 font-weight-300">
-                    <i className="ni location_pin mr-2" />
-                    Toronto, Canada
-                  </div>
-                  <div className="h5 mt-4">
-                    <i className="ni business_briefcase-24 mr-2" />
-                    Stripe Staff Engineer / Stella's Future Boss
-                  </div>
-                  <div>
-                    <i className="ni education_hat mr-2" />
-                    University of Toronto
-                  </div>
-                  <hr className="my-4" />
-                  <p>Windsor is my favourite student.</p>
-                  <a
-                    href="#pablo"
-                    onClick={(e) => e.preventDefault()}
-                  >
-                    Show more
-                  </a>
-                </div>
               </CardBody>
             </Card>
           </Col>
@@ -218,11 +188,30 @@ const Profile = () => {
                     </Row>
                   </div>
                   {/* <hr className="my-4" /> */}
-                  {/* Address */}
+                  {/* Billing */}
                   {/* <h6 className="heading-small text-muted mb-4">
-                    Contact information
+                    Billing information
                   </h6>
                   <div className="pl-lg-4">
+                    <Row>
+                      <Col md="12">
+                        <FormGroup>
+                          <label
+                            className="form-control-label"
+                            htmlFor="input-address"
+                          >
+                            Card
+                          </label>
+                          <Input
+                            className="form-control-alternative"
+                            defaultValue="1234 1234 1234 1234"
+                            id="input-number"
+                            placeholder="Home Address"
+                            type="text"
+                          />
+                        </FormGroup>
+                      </Col>
+                    </Row>
                     <Row>
                       <Col md="12">
                         <FormGroup>
@@ -294,23 +283,6 @@ const Profile = () => {
                         </FormGroup>
                       </Col>
                     </Row>
-                  </div>
-                  <hr className="my-4" /> */}
-                  {/* Description */}
-                  {/* <h6 className="heading-small text-muted mb-4">
-                    About me
-                  </h6>
-                  <div className="pl-lg-4">
-                    <FormGroup>
-                      <label>About Me</label>
-                      <Input
-                        className="form-control-alternative"
-                        placeholder="A few words about you ..."
-                        rows="4"
-                        defaultValue="My secret talent is making memes of Windsor in CSC454."
-                        type="textarea"
-                      />
-                    </FormGroup>
                   </div> */}
                 </Form>
               </CardBody>
