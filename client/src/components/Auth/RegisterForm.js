@@ -32,7 +32,7 @@ const RegisterForm = (prop) => {
     if (!result) {
       setMessage('Invalid email/password combination.');
     } else {
-      prop.history.push('/admin/user-profile');
+      prop.history.push('/auth/login');
     }
   };
 
