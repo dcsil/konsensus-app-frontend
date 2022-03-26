@@ -45,14 +45,14 @@ const Profile = () => {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const globalState = useContext(GlobalStateContext);
-  useEffect(() => {
-    checkSession(
+  useEffect(async () => {
+    await checkSession(
       globalState.token,
       setFirstName,
       setLastName,
       setEmail
     );
-  }, [globalState.token]);
+  }, []);
   return (
     <>
       <UserHeader firstName={firstName} />

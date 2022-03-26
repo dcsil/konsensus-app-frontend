@@ -34,7 +34,9 @@ const LoginForm = (prop) => {
     if (!result) {
       setMessage('Invalid email/password combination.');
     } else {
-      prop.history.push('/admin/index');
+      setTimeout(function () {
+        prop.history.push('/admin/index');
+      }, 2000);
     }
   };
 
