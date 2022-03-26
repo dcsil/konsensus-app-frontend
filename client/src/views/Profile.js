@@ -18,7 +18,6 @@
 
 // reactstrap components
 import {
-  Button,
   Card,
   CardHeader,
   CardBody,
@@ -32,10 +31,7 @@ import {
 // core components
 import UserHeader from 'components/Headers/UserHeader.js';
 import { useEffect, useState, useContext } from 'react';
-import {
-  GlobalStateContext,
-  GlobalDispatchContext,
-} from 'components/GlobalState';
+import { GlobalStateContext } from 'components/GlobalState';
 import { checkSession } from 'components/Auth/authFunctions';
 import OrgTable from 'components/Profile/OrgTable';
 import Avatar from 'components/Profile/Avatar';
