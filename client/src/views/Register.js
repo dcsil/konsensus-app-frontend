@@ -30,7 +30,7 @@ import {
   InputGroup,
   Row,
   Col,
-} from "reactstrap";
+} from 'reactstrap';
 
 const Register = () => {
   return (
@@ -52,7 +52,7 @@ const Register = () => {
                   <img
                     alt="..."
                     src={
-                      require("../../assets/img/icons/common/github.svg")
+                      require('../assets/img/icons/common/github.svg')
                         .default
                     }
                   />
@@ -69,7 +69,7 @@ const Register = () => {
                   <img
                     alt="..."
                     src={
-                      require("../../assets/img/icons/common/google.svg")
+                      require('../assets/img/icons/common/google.svg')
                         .default
                     }
                   />
@@ -123,8 +123,10 @@ const Register = () => {
               </FormGroup>
               <div className="text-muted font-italic">
                 <small>
-                  password strength:{" "}
-                  <span className="text-success font-weight-700">strong</span>
+                  password strength:{' '}
+                  <span className="text-success font-weight-700">
+                    strong
+                  </span>
                 </small>
               </div>
               <Row className="my-4">
@@ -140,8 +142,11 @@ const Register = () => {
                       htmlFor="customCheckRegister"
                     >
                       <span className="text-muted">
-                        I agree with the{" "}
-                        <a href="#pablo" onClick={(e) => e.preventDefault()}>
+                        I agree with the{' '}
+                        <a
+                          href="#pablo"
+                          onClick={(e) => e.preventDefault()}
+                        >
                           Privacy Policy
                         </a>
                       </span>
@@ -150,7 +155,11 @@ const Register = () => {
                 </Col>
               </Row>
               <div className="text-center">
-                <Button className="mt-4" color="primary" type="button">
+                <Button
+                  className="mt-4"
+                  color="primary"
+                  type="button"
+                >
                   Create account
                 </Button>
               </div>

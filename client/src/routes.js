@@ -16,8 +16,8 @@
 
 */
 import Index from 'views/Index.js';
-import Register from 'views/examples/Register.js';
-import Login from 'views/examples/Login.js';
+import Register from 'views/Register.js';
+import Login from 'views/Login.js';
 import Starred from 'views/Starred.js';
 import Shared from 'views/Shared.js';
 import Recent from 'views/Recent.js';
