@@ -39,7 +39,7 @@ export const login = (credentials) => {
           lastName: res.data.lastName,
           token: res.data.token,
         });
-        window.location.href = '/admin/index';
+        // window.location.href = '/admin/index';
         return true;
       } else {
         return false;

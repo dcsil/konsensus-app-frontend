@@ -22,12 +22,12 @@ const history = createBrowserHistory();
 
 class App extends React.Component {
   componentDidMount() {
-    if (!window.location.href.includes('auth')) {
-      checkSession(this);
-    }
+    // if (!window.location.href.includes('auth')) {
+    //   checkSession(this);
+    // }
   }
 
-  state = { id: null };
+  state = { token: null };
 
   render() {
     const { id } = this.state;
@@ -37,14 +37,20 @@ class App extends React.Component {
         <Switch>
           {!id ? (
             <Route
-              path={['/', '/login']}
+              path={['/', '/auth']}
               render={(props) => <AuthLayout {...props} />}
             />
           ) : (
-            <Route
-              path="/admin"
-              render={(props) => <AdminLayout {...props} />}
-            />
+            <>
+              <Route
+                path={['/auth']}
+                render={(props) => <AuthLayout {...props} />}
+              />
+              <Route
+                path="/admin"
+                render={(props) => <AdminLayout {...props} />}
+              />
+            </>
           )}
         </Switch>
       </Router>
