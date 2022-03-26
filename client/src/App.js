@@ -1,8 +1,14 @@
-import axios from 'axios';
+import client from 'axios';
 import { checkSession } from 'components/Auth/authFunctions';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, Switch, Redirect } from 'react-router-dom';
+import {
+  Router,
+  Route,
+  Switch,
+  Redirect,
+  BrowserRouter,
+} from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 
 import 'assets/plugins/nucleo/css/nucleo.css';
@@ -12,16 +18,14 @@ import 'assets/scss/argon-dashboard-react.scss';
 import AdminLayout from 'layouts/Admin.js';
 import AuthLayout from 'layouts/Auth.js';
 
-axios.defaults.withCredentials = true;
-
 const history = createBrowserHistory();
 
 class App extends React.Component {
   componentDidMount() {
-    // checkSession(this);
+    checkSession(this);
   }
 
-  state = { id: null, role: null };
+  state = { id: null };
 
   render() {
     const { id } = this.state;
@@ -31,7 +35,7 @@ class App extends React.Component {
         <Switch>
           {!id ? (
             <Route
-              path="/auth"
+              path={['/', '/login']}
               render={(props) => <AuthLayout {...props} />}
             />
           ) : (

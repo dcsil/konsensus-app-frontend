@@ -1,4 +1,3 @@
-// Functions to help with user actions.
 import client from 'axios';
 
 // const API_HOST = 'https://konsensus-backend.herokuapp.com';
@@ -6,15 +5,17 @@ const API_HOST = 'http://localhost:8080';
 
 // Send a request to check if a user is logged in through the session cookie
 export const checkSession = (app) => {
-  const url = `${API_HOST}/user/check-session`;
+  const url = `${API_HOST}/user/current`;
 
   client
     .get(url)
     .then((res) => {
-      if (res.status === 200 && res.data.id) {
+      if (res.status === 200) {
         app.setState({
           id: res.data.id,
-          role: res.data.role,
+          firstName: res.data.firstName,
+          lastName: res.data.lastName,
+          email: res.data.email,
         });
       }
     })
@@ -38,13 +39,6 @@ export const login = (credentials) => {
           lastName: res.data.lastName,
           token: res.data.token,
         });
-        // app.setState({
-        //   id: res.data.id,
-        //   email: res.data.email,
-        //   firstName: res.data.firstName,
-        //   lastName: res.data.lastName,
-        //   token: res.data.token,
-        // });
         window.location.href = '/admin/index';
         return true;
       } else {
