@@ -31,14 +31,30 @@ import {
 } from 'reactstrap';
 // core components
 import UserHeader from 'components/Headers/UserHeader.js';
-import { useEffect, useContext } from 'react';
+import { useEffect, useState, useContext } from 'react';
+import {
+  GlobalStateContext,
+  GlobalDispatchContext,
+} from 'components/GlobalState';
 import { checkSession } from 'components/Auth/authFunctions';
 
-const Profile = (prop) => {
-  // const token = useContext(glo);
+const Profile = () => {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const globalState = useContext(GlobalStateContext);
+  const dispatch = useContext(GlobalDispatchContext);
+  useEffect(() => {
+    checkSession(
+      globalState.token,
+      setFirstName,
+      setLastName,
+      setEmail
+    );
+  }, []);
   return (
     <>
-      <UserHeader />
+      <UserHeader firstName={firstName} />
       {/* Page content */}
       <Container className="mt--7" fluid>
         <Row>
@@ -64,7 +80,7 @@ const Profile = (prop) => {
                 </Col>
               </Row>
               <CardHeader className="text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
-                <div className="d-flex justify-content-between">
+                {/* <div className="d-flex justify-content-between">
                   <Button
                     className="mr-4"
                     color="info"
@@ -83,7 +99,7 @@ const Profile = (prop) => {
                   >
                     Message
                   </Button>
-                </div>
+                </div> */}
               </CardHeader>
               <CardBody className="pt-0 pt-md-4">
                 <Row>
@@ -140,16 +156,6 @@ const Profile = (prop) => {
                   <Col xs="8">
                     <h3 className="mb-0">My account</h3>
                   </Col>
-                  <Col className="text-right" xs="4">
-                    <Button
-                      color="primary"
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
-                      size="sm"
-                    >
-                      Settings
-                    </Button>
-                  </Col>
                 </Row>
               </CardHeader>
               <CardBody>
@@ -163,23 +169,6 @@ const Profile = (prop) => {
                         <FormGroup>
                           <label
                             className="form-control-label"
-                            htmlFor="input-username"
-                          >
-                            Username
-                          </label>
-                          <Input
-                            className="form-control-alternative"
-                            defaultValue="JulianBulian"
-                            id="input-username"
-                            placeholder="Username"
-                            type="text"
-                          />
-                        </FormGroup>
-                      </Col>
-                      <Col lg="6">
-                        <FormGroup>
-                          <label
-                            className="form-control-label"
                             htmlFor="input-email"
                           >
                             Email address
@@ -187,7 +176,7 @@ const Profile = (prop) => {
                           <Input
                             className="form-control-alternative"
                             id="input-email"
-                            placeholder="julian@stripe.com"
+                            placeholder={email}
                             type="email"
                           />
                         </FormGroup>
@@ -204,9 +193,8 @@ const Profile = (prop) => {
                           </label>
                           <Input
                             className="form-control-alternative"
-                            defaultValue="Julian"
                             id="input-first-name"
-                            placeholder="First name"
+                            placeholder={firstName}
                             type="text"
                           />
                         </FormGroup>
@@ -221,18 +209,17 @@ const Profile = (prop) => {
                           </label>
                           <Input
                             className="form-control-alternative"
-                            defaultValue="Nadeau"
                             id="input-last-name"
-                            placeholder="Last name"
+                            placeholder={lastName}
                             type="text"
                           />
                         </FormGroup>
                       </Col>
                     </Row>
                   </div>
-                  <hr className="my-4" />
+                  {/* <hr className="my-4" /> */}
                   {/* Address */}
-                  <h6 className="heading-small text-muted mb-4">
+                  {/* <h6 className="heading-small text-muted mb-4">
                     Contact information
                   </h6>
                   <div className="pl-lg-4">
@@ -308,9 +295,9 @@ const Profile = (prop) => {
                       </Col>
                     </Row>
                   </div>
-                  <hr className="my-4" />
+                  <hr className="my-4" /> */}
                   {/* Description */}
-                  <h6 className="heading-small text-muted mb-4">
+                  {/* <h6 className="heading-small text-muted mb-4">
                     About me
                   </h6>
                   <div className="pl-lg-4">
@@ -324,7 +311,7 @@ const Profile = (prop) => {
                         type="textarea"
                       />
                     </FormGroup>
-                  </div>
+                  </div> */}
                 </Form>
               </CardBody>
             </Card>

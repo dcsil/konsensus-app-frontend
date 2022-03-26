@@ -1,4 +1,3 @@
-import { checkSession } from 'components/Auth/authFunctions';
 import React, { useEffect } from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
@@ -17,13 +16,12 @@ const initialState = {
   token: null,
 };
 
-const App = (props) => {
+const App = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
     if (!window.location.href.includes('auth')) {
-      const token = checkSession();
-      if (!token) {
+      if (!state.token) {
         window.location.href = '/auth/login';
       }
     }
