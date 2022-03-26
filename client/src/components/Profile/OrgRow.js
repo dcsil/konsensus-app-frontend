@@ -5,6 +5,7 @@ import {
   DropdownToggle,
   UncontrolledTooltip,
 } from 'reactstrap';
+import Avatar from './Avatar';
 // core components
 
 const OrgRow = ({ firstName, lastName, email, role }) => {
@@ -18,14 +19,7 @@ const OrgRow = ({ firstName, lastName, email, role }) => {
             id="tooltip742438047"
             onClick={(e) => e.preventDefault()}
           >
-            <img
-              alt="..."
-              className="rounded-circle"
-              src={
-                require('assets/img/theme/chibi_julian_profile.png')
-                  .default
-              }
-            />
+            <Avatar name={`${firstName} ${lastName}`} />
           </a>
           <UncontrolledTooltip delay={0} target="tooltip742438047">
             {email}
