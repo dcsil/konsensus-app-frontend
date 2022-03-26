@@ -1,18 +1,30 @@
 import client from 'axios';
-import Cookies from 'js-cookie';
+import { SET_TOKEN } from 'components/GlobalState';
 
 // const API_HOST = 'https://konsensus-backend.herokuapp.com';
 const API_HOST = 'http://localhost:8080';
 
 // Send a request to check if a user is logged in through the session cookie
-export const checkSession = () => {
+export const checkSession = async (
+  token,
+  setFirstName,
+  setLastName,
+  setEmail
+) => {
   const url = `${API_HOST}/user/current`;
 
-  client
-    .get(url)
+  await client
+    .get(url, {
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+    })
     .then((res) => {
       if (res.status === 200) {
-        return true;
+        console.log(res.data);
+        setFirstName(res.data.firstName);
+        setLastName(res.data.lastName);
+        setEmail(res.data.email);
       }
     })
     .catch((error) => {
@@ -21,32 +33,21 @@ export const checkSession = () => {
 };
 
 // A function to send a POST request with the user to be logged in
-export const login = (credentials) => {
+export const login = (credentials, dispatch) => {
   const url = `${API_HOST}/user/authenticate`;
 
   return client
     .post(url, credentials, { withCredentials: true })
     .then((res) => {
       if (res.status === 200 && res.data.id !== undefined) {
-        console.log({
-          id: res.data.id,
-          email: res.data.email,
-          firstName: res.data.firstName,
-          lastName: res.data.lastName,
-          token: res.data.token,
-        });
-        client.interceptors.request.use(
-          (config) => {
-            const token = Cookies.get('access');
-            if (token) {
-              config.headers['Authorization'] = 'Bearer ' + token;
-            }
-            return config;
-          },
-          (error) => {
-            Promise.reject(error);
-          }
-        );
+        // console.log({
+        //   id: res.data.id,
+        //   email: res.data.email,
+        //   firstName: res.data.firstName,
+        //   lastName: res.data.lastName,
+        //   token: res.data.token,
+        // });
+        dispatch({ type: SET_TOKEN, payload: res.data.token });
       } else {
         return false;
       }

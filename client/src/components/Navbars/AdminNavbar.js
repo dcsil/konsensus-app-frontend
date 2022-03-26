@@ -16,6 +16,13 @@
 
 */
 import { Link } from 'react-router-dom';
+import { useEffect, useState, useContext } from 'react';
+import {
+  GlobalStateContext,
+  GlobalDispatchContext,
+} from 'components/GlobalState';
+import { checkSession } from 'components/Auth/authFunctions';
+
 // reactstrap components
 import {
   DropdownMenu,
@@ -33,8 +40,22 @@ import {
   Container,
   Media,
 } from 'reactstrap';
+import Avatar from 'components/Profile/Avatar';
 
 const AdminNavbar = (props) => {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const globalState = useContext(GlobalStateContext);
+  useEffect(() => {
+    checkSession(
+      globalState.token,
+      setFirstName,
+      setLastName,
+      setEmail
+    );
+  }, []);
+
   return (
     <>
       <Navbar
@@ -66,17 +87,11 @@ const AdminNavbar = (props) => {
               <DropdownToggle className="pr-0" nav>
                 <Media className="align-items-center">
                   <span className="avatar avatar-sm rounded-circle">
-                    <img
-                      alt="..."
-                      src={
-                        require('../../assets/img/theme/chibi_julian_profile.png')
-                          .default
-                      }
-                    />
+                    <Avatar name={`${firstName} ${lastName}`} />
                   </span>
                   <Media className="ml-2 d-none d-lg-block">
                     <span className="mb-0 text-sm font-weight-bold">
-                      Julian Nadeau
+                      {`${firstName} ${lastName}`}
                     </span>
                   </Media>
                 </Media>
@@ -89,7 +104,7 @@ const AdminNavbar = (props) => {
                   <i className="ni ni-single-02" />
                   <span>My profile</span>
                 </DropdownItem>
-                <DropdownItem to="/admin/user-profile" tag={Link}>
+                {/* <DropdownItem to="/admin/user-profile" tag={Link}>
                   <i className="ni ni-settings-gear-65" />
                   <span>Settings</span>
                 </DropdownItem>
@@ -100,7 +115,7 @@ const AdminNavbar = (props) => {
                 <DropdownItem to="/admin/user-profile" tag={Link}>
                   <i className="ni ni-support-16" />
                   <span>Support</span>
-                </DropdownItem>
+                </DropdownItem> */}
                 <DropdownItem divider />
                 <DropdownItem
                   href="#pablo"

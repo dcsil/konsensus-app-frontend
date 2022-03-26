@@ -18,7 +18,6 @@
 
 // reactstrap components
 import {
-  Button,
   Card,
   CardHeader,
   CardBody,
@@ -31,11 +30,28 @@ import {
 } from 'reactstrap';
 // core components
 import UserHeader from 'components/Headers/UserHeader.js';
+import { useEffect, useState, useContext } from 'react';
+import { GlobalStateContext } from 'components/GlobalState';
+import { checkSession } from 'components/Auth/authFunctions';
+import OrgTable from 'components/Profile/OrgTable';
+import Avatar from 'components/Profile/Avatar';
 
 const Profile = () => {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const globalState = useContext(GlobalStateContext);
+  useEffect(() => {
+    checkSession(
+      globalState.token,
+      setFirstName,
+      setLastName,
+      setEmail
+    );
+  }, []);
   return (
     <>
-      <UserHeader />
+      <UserHeader firstName={firstName} />
       {/* Page content */}
       <Container className="mt--7" fluid>
         <Row>
@@ -48,20 +64,13 @@ const Profile = () => {
                       href="#pablo"
                       onClick={(e) => e.preventDefault()}
                     >
-                      <img
-                        alt="..."
-                        className="rounded-circle"
-                        src={
-                          require('../../assets/img/theme/chibi_julian_profile.png')
-                            .default
-                        }
-                      />
+                      <Avatar name={`${firstName} ${lastName}`} />
                     </a>
                   </div>
                 </Col>
               </Row>
               <CardHeader className="text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
-                <div className="d-flex justify-content-between">
+                {/* <div className="d-flex justify-content-between">
                   <Button
                     className="mr-4"
                     color="info"
@@ -80,54 +89,29 @@ const Profile = () => {
                   >
                     Message
                   </Button>
-                </div>
+                </div> */}
               </CardHeader>
               <CardBody className="pt-0 pt-md-4">
                 <Row>
                   <div className="col">
                     <div className="card-profile-stats d-flex justify-content-center mt-md-5">
                       <div>
-                        <span className="heading">22</span>
-                        <span className="description">Friends</span>
-                      </div>
-                      <div>
-                        <span className="heading">10</span>
-                        <span className="description">Photos</span>
-                      </div>
-                      <div>
-                        <span className="heading">89</span>
-                        <span className="description">Comments</span>
+                        <span className="heading">
+                          {firstName} {lastName}
+                        </span>
+                        <span className="description">
+                          Company Name
+                        </span>
                       </div>
                     </div>
                   </div>
                 </Row>
-                <div className="text-center">
-                  <h3>
-                    Julian Nadeau
-                    <span className="font-weight-light">, 29</span>
-                  </h3>
-                  <div className="h5 font-weight-300">
-                    <i className="ni location_pin mr-2" />
-                    Toronto, Canada
-                  </div>
-                  <div className="h5 mt-4">
-                    <i className="ni business_briefcase-24 mr-2" />
-                    Stripe Staff Engineer / Stella's Future Boss
-                  </div>
-                  <div>
-                    <i className="ni education_hat mr-2" />
-                    University of Toronto
-                  </div>
-                  <hr className="my-4" />
-                  <p>Windsor is my favourite student.</p>
-                  <a
-                    href="#pablo"
-                    onClick={(e) => e.preventDefault()}
-                  >
-                    Show more
-                  </a>
-                </div>
               </CardBody>
+              <OrgTable
+                firstName={firstName}
+                lastName={lastName}
+                email={email}
+              />
             </Card>
           </Col>
           <Col className="order-xl-1" xl="8">
@@ -136,16 +120,6 @@ const Profile = () => {
                 <Row className="align-items-center">
                   <Col xs="8">
                     <h3 className="mb-0">My account</h3>
-                  </Col>
-                  <Col className="text-right" xs="4">
-                    <Button
-                      color="primary"
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
-                      size="sm"
-                    >
-                      Settings
-                    </Button>
                   </Col>
                 </Row>
               </CardHeader>
@@ -160,23 +134,6 @@ const Profile = () => {
                         <FormGroup>
                           <label
                             className="form-control-label"
-                            htmlFor="input-username"
-                          >
-                            Username
-                          </label>
-                          <Input
-                            className="form-control-alternative"
-                            defaultValue="JulianBulian"
-                            id="input-username"
-                            placeholder="Username"
-                            type="text"
-                          />
-                        </FormGroup>
-                      </Col>
-                      <Col lg="6">
-                        <FormGroup>
-                          <label
-                            className="form-control-label"
                             htmlFor="input-email"
                           >
                             Email address
@@ -184,7 +141,7 @@ const Profile = () => {
                           <Input
                             className="form-control-alternative"
                             id="input-email"
-                            placeholder="julian@stripe.com"
+                            placeholder={email}
                             type="email"
                           />
                         </FormGroup>
@@ -201,9 +158,8 @@ const Profile = () => {
                           </label>
                           <Input
                             className="form-control-alternative"
-                            defaultValue="Julian"
                             id="input-first-name"
-                            placeholder="First name"
+                            placeholder={firstName}
                             type="text"
                           />
                         </FormGroup>
@@ -218,21 +174,39 @@ const Profile = () => {
                           </label>
                           <Input
                             className="form-control-alternative"
-                            defaultValue="Nadeau"
                             id="input-last-name"
-                            placeholder="Last name"
+                            placeholder={lastName}
                             type="text"
                           />
                         </FormGroup>
                       </Col>
                     </Row>
                   </div>
-                  <hr className="my-4" />
-                  {/* Address */}
-                  <h6 className="heading-small text-muted mb-4">
-                    Contact information
+                  {/* <hr className="my-4" /> */}
+                  {/* Billing */}
+                  {/* <h6 className="heading-small text-muted mb-4">
+                    Billing information
                   </h6>
                   <div className="pl-lg-4">
+                    <Row>
+                      <Col md="12">
+                        <FormGroup>
+                          <label
+                            className="form-control-label"
+                            htmlFor="input-address"
+                          >
+                            Card
+                          </label>
+                          <Input
+                            className="form-control-alternative"
+                            defaultValue="1234 1234 1234 1234"
+                            id="input-number"
+                            placeholder="Home Address"
+                            type="text"
+                          />
+                        </FormGroup>
+                      </Col>
+                    </Row>
                     <Row>
                       <Col md="12">
                         <FormGroup>
@@ -304,24 +278,7 @@ const Profile = () => {
                         </FormGroup>
                       </Col>
                     </Row>
-                  </div>
-                  <hr className="my-4" />
-                  {/* Description */}
-                  <h6 className="heading-small text-muted mb-4">
-                    About me
-                  </h6>
-                  <div className="pl-lg-4">
-                    <FormGroup>
-                      <label>About Me</label>
-                      <Input
-                        className="form-control-alternative"
-                        placeholder="A few words about you ..."
-                        rows="4"
-                        defaultValue="My secret talent is making memes of Windsor in CSC454."
-                        type="textarea"
-                      />
-                    </FormGroup>
-                  </div>
+                  </div> */}
                 </Form>
               </CardBody>
             </Card>
