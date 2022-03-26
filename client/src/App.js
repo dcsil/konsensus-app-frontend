@@ -1,14 +1,6 @@
-import client from 'axios';
 import { checkSession } from 'components/Auth/authFunctions';
 import React from 'react';
-import ReactDOM from 'react-dom';
-import {
-  Router,
-  Route,
-  Switch,
-  Redirect,
-  BrowserRouter,
-} from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 
 import 'assets/plugins/nucleo/css/nucleo.css';

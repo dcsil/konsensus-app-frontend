@@ -17,20 +17,7 @@
 */
 
 // reactstrap components
-import {
-  Button,
-  Card,
-  CardHeader,
-  CardBody,
-  FormGroup,
-  Form,
-  Input,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
-  Row,
-  Col,
-} from 'reactstrap';
+import { Row, Col } from 'reactstrap';
 import LoginForm from 'components/Auth/LoginForm';
 
 const Login = (prop) => {

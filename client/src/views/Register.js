@@ -17,20 +17,7 @@
 */
 
 // reactstrap components
-import {
-  Button,
-  Card,
-  CardHeader,
-  CardBody,
-  FormGroup,
-  Form,
-  Input,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
-  Row,
-  Col,
-} from 'reactstrap';
+import { Col } from 'reactstrap';
 import RegisterForm from 'components/Auth/RegisterForm';
 
 const Register = (prop) => {
