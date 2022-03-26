@@ -16,6 +16,7 @@ import {
   GlobalStateContext,
   GlobalDispatchContext,
 } from 'components/GlobalState';
+import PageSpinner from 'components/Modals/PageSpinner';
 
 const LoginForm = (prop) => {
   const [email, setEmail] = useState('');
