@@ -22,36 +22,26 @@ const history = createBrowserHistory();
 
 class App extends React.Component {
   componentDidMount() {
-    // if (!window.location.href.includes('auth')) {
-    //   checkSession(this);
-    // }
+    if (!window.location.href.includes('auth')) {
+      const token = checkSession();
+      if (!token) {
+        window.location.href = '/auth/login';
+      }
+    }
   }
 
-  state = { token: null };
-
   render() {
-    const { id } = this.state;
-
     return (
       <Router history={history}>
         <Switch>
-          {!id ? (
-            <Route
-              path={['/', '/auth']}
-              render={(props) => <AuthLayout {...props} />}
-            />
-          ) : (
-            <>
-              <Route
-                path={['/auth']}
-                render={(props) => <AuthLayout {...props} />}
-              />
-              <Route
-                path="/admin"
-                render={(props) => <AdminLayout {...props} />}
-              />
-            </>
-          )}
+          <Route
+            path={['/auth']}
+            render={(props) => <AuthLayout {...props} />}
+          />
+          <Route
+            path="/admin"
+            render={(props) => <AdminLayout {...props} />}
+          />
         </Switch>
       </Router>
     );

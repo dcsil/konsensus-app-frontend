@@ -33,11 +33,11 @@ import {
 } from 'reactstrap';
 import LoginForm from 'components/Auth/LoginForm';
 
-const Login = () => {
+const Login = (prop) => {
   return (
     <>
       <Col lg="5" md="7">
-        <LoginForm />
+        <LoginForm {...prop} />
         <Row className="mt-3">
           <Col xs="6">
             <a

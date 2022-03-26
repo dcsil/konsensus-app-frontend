@@ -1,22 +1,18 @@
 import client from 'axios';
+import Cookies from 'js-cookie';
 
 // const API_HOST = 'https://konsensus-backend.herokuapp.com';
 const API_HOST = 'http://localhost:8080';
 
 // Send a request to check if a user is logged in through the session cookie
-export const checkSession = (app) => {
+export const checkSession = () => {
   const url = `${API_HOST}/user/current`;
 
   client
     .get(url)
     .then((res) => {
       if (res.status === 200) {
-        app.setState({
-          id: res.data.id,
-          firstName: res.data.firstName,
-          lastName: res.data.lastName,
-          email: res.data.email,
-        });
+        return true;
       }
     })
     .catch((error) => {
@@ -39,8 +35,18 @@ export const login = (credentials) => {
           lastName: res.data.lastName,
           token: res.data.token,
         });
-        // window.location.href = '/admin/index';
-        return true;
+        client.interceptors.request.use(
+          (config) => {
+            const token = Cookies.get('access');
+            if (token) {
+              config.headers['Authorization'] = 'Bearer ' + token;
+            }
+            return config;
+          },
+          (error) => {
+            Promise.reject(error);
+          }
+        );
       } else {
         return false;
       }
