@@ -1,6 +1,7 @@
 import React from 'react';
 
 const Avatar = ({ name }) => {
+  console.log(name);
   return (
     <img
       className="rounded-circle"

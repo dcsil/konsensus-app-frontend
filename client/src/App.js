@@ -25,7 +25,7 @@ const App = () => {
         window.location.href = '/auth/login';
       }
     }
-  }, []);
+  }, [state.token]);
 
   return (
     <GlobalState initialState={state} dispatch={dispatch}>
