@@ -1,5 +1,5 @@
 import { checkSession } from 'components/Auth/authFunctions';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 
@@ -9,21 +9,28 @@ import 'assets/scss/argon-dashboard-react.scss';
 
 import AdminLayout from 'layouts/Admin.js';
 import AuthLayout from 'layouts/Auth.js';
+import GlobalState, { reducer } from 'components/GlobalState';
+import { useReducer } from 'react';
 
 const history = createBrowserHistory();
+const initialState = {
+  token: null,
+};
 
-class App extends React.Component {
-  componentDidMount() {
+const App = (props) => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  useEffect(() => {
     if (!window.location.href.includes('auth')) {
       const token = checkSession();
       if (!token) {
         window.location.href = '/auth/login';
       }
     }
-  }
+  }, []);
 
-  render() {
-    return (
+  return (
+    <GlobalState initialState={state} dispatch={dispatch}>
       <Router history={history}>
         <Switch>
           <Route
@@ -36,8 +43,8 @@ class App extends React.Component {
           />
         </Switch>
       </Router>
-    );
-  }
-}
+    </GlobalState>
+  );
+};
 
 export default App;

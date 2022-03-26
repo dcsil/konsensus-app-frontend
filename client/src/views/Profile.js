@@ -31,13 +31,11 @@ import {
 } from 'reactstrap';
 // core components
 import UserHeader from 'components/Headers/UserHeader.js';
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import { checkSession } from 'components/Auth/authFunctions';
 
 const Profile = (prop) => {
-  useEffect(() => {
-    checkSession();
-  }, []);
+  // const token = useContext(glo);
   return (
     <>
       <UserHeader />
