@@ -38,6 +38,7 @@ import {
 } from 'components/GlobalState';
 import { checkSession } from 'components/Auth/authFunctions';
 import OrgTable from 'components/Profile/OrgTable';
+import Avatar from 'components/Profile/Avatar';
 
 const Profile = () => {
   const [firstName, setFirstName] = useState('');
@@ -68,14 +69,7 @@ const Profile = () => {
                       href="#pablo"
                       onClick={(e) => e.preventDefault()}
                     >
-                      <img
-                        alt="..."
-                        className="rounded-circle"
-                        src={
-                          require('../assets/img/theme/chibi_julian_profile.png')
-                            .default
-                        }
-                      />
+                      <Avatar name={`${firstName} ${lastName}`} />
                     </a>
                   </div>
                 </Col>
