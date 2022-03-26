@@ -12,17 +12,12 @@ import {
   InputGroup,
 } from 'reactstrap';
 import { login } from './authFunctions';
-import {
-  GlobalStateContext,
-  GlobalDispatchContext,
-} from 'components/GlobalState';
-import PageSpinner from 'components/Modals/PageSpinner';
+import { GlobalDispatchContext } from 'components/GlobalState';
 
 const LoginForm = (prop) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
-  const globalState = useContext(GlobalStateContext);
   const dispatch = useContext(GlobalDispatchContext);
 
   const handleLogin = () => {
