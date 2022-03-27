@@ -34,13 +34,13 @@ jobs:
           name: Run tests and code coverage for client
           command: cd client && npm run test
       - run:
-          name: Upload to Code Climate
+          name: Format Code Coverage
+          command: cd client && ../cc-test-reporter format-coverage coverage/lcov.info -t lcov
+      - run:
+          name: Upload Code Coverage
           command: |
-            cd client
-            ../cc-test-reporter format-coverage coverage/lcov.info -t lcov
-            cd ..
-            ./cc-test-reporter sum-coverage ./client/coverage/codeclimate.json -o sum.json
-            ./cc-test-reporter upload-coverage -i sum.json --id $CC_TEST_REPORTER_ID -d
+            ./cc-test-reporter sum-coverage ./client/coverage/codeclimate.json -p 2 -o sum.json
+            ./cc-test-reporter upload-coverage -i sum.json
         working-directory: ./src/
       # smart contract commands
       - restore_cache:
