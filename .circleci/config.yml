@@ -36,11 +36,11 @@ jobs:
       - run:
           name: Upload to Code Climate
           command: |
-          cd client
-          ../cc-test-reporter format-coverage coverage/lcov.info -t lcov
-          cd ..
-          ./cc-test-reporter sum-coverage ./client/coverage/codeclimate.json -o sum.json
-          ./cc-test-reporter upload-coverage -i sum.json --id $CC_TEST_REPORTER_ID -d
+            cd client
+            ../cc-test-reporter format-coverage coverage/lcov.info -t lcov
+            cd ..
+            ./cc-test-reporter sum-coverage ./client/coverage/codeclimate.json -o sum.json
+            ./cc-test-reporter upload-coverage -i sum.json --id $CC_TEST_REPORTER_ID -d
         working-directory: ./src/
       # smart contract commands
       - restore_cache:
