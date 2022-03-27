@@ -8,6 +8,8 @@ general:
 
 jobs:
   build:
+    environment:
+      CC_TEST_REPORTER_ID: 091a4a1fada85b993a33e76d5656ce94a4ef7bbfac17302cf9be72e4e8a81e02
     docker:
       - image: circleci/node:10.16.3
       - image: trufflesuite/ganache-cli
@@ -25,7 +27,18 @@ jobs:
           command: cd client && npm install
       - run:
           name: Run tests and code coverage for client
-          command: cd client && npm run test -- --coverage --watchAll=false
+          command: cd client && npm run test
+      - run:
+          name: Upload to Code Climate
+          command: |
+          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+          chmod +x ./cc-test-reporter
+          cd client
+          ../cc-test-reporter format-coverage coverage/lcov.info -t lcov
+          cd ..
+          ./cc-test-reporter sum-coverage ./client/coverage/codeclimate.json -o sum.json
+          ./cc-test-reporter upload-coverage -i sum.json --id $CC_TEST_REPORTER_ID -d
+        working-directory: ./src/
       # smart contract commands
       - restore_cache:
           name: Restore npm Package Cache
