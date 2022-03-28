@@ -37,11 +37,11 @@ jobs:
           name: Format Code Coverage
           command: cd client && ../cc-test-reporter format-coverage coverage/lcov.info -t lcov
       - run:
+          name: Sum up Code Coverage
+          command: ./cc-test-reporter sum-coverage ./client/coverage/codeclimate.json -p 2 -o sum.json
+       - run:
           name: Upload Code Coverage
-          command: |
-            ./cc-test-reporter sum-coverage ./client/coverage/codeclimate.json -p 2 -o sum.json
-            ./cc-test-reporter upload-coverage -i sum.json
-        working-directory: ./src/
+          command: ./cc-test-reporter upload-coverage -i sum.json
       # smart contract commands
       - restore_cache:
           name: Restore npm Package Cache
