@@ -28,6 +28,7 @@ jobs:
           chmod +x ./cc-test-reporter
           cd client
           ../cc-test-reporter format-coverage ./coverage/lcov.info -t lcov
-          cd ..
+          cd coverage
           ls
+          cd ..
           ./cc-test-reporter upload-coverage -i coverage/codeclimate.json --id $CC_TEST_REPORTER_ID -d
