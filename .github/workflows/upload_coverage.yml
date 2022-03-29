@@ -1,0 +1,42 @@
+name: Run Tests and Upload Coverage
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  coverage:
+    name: coverage
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: npm-
+      - name: Install modules
+        run: npm run install-all
+        working-directory: ./client/
+      - name: Run tests
+        run: npm run test
+        working-directory: ./client/
+      - name: 'Upload to CodeClimate'
+        env:
+          CC_TEST_REPORTER_ID: 091a4a1fada85b993a33e76d5656ce94a4ef7bbfac17302cf9be72e4e8a81e02
+        run: |
+          export GIT_BRANCH="${GITHUB_REF##*/}"
+          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+          chmod +x ./cc-test-reporter
+          cd client
+          ../cc-test-reporter format-coverage coverage/lcov.info -t lcov
+          cd ..
+          ./cc-test-reporter sum-coverage ./app/coverage/codeclimate.json -p 2 -o sum.json
+          ./cc-test-reporter upload-coverage -i sum.json --id $CC_TEST_REPORTER_ID -d

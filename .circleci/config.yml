@@ -25,7 +25,7 @@ jobs:
           command: cd client && npm install
       - run:
           name: Run tests and code coverage for client
-          command: cd client && npm run test -- --coverage --watchAll=false
+          command: cd client && npm run test
       # smart contract commands
       - restore_cache:
           name: Restore npm Package Cache
@@ -53,11 +53,49 @@ jobs:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - node_modules
+  coverage:
+    docker:
+      - image: circleci/node:10.16.3
+    working_directory: ~/repo
+    environment:
+      CC_TEST_REPORTER_ID: 091a4a1fada85b993a33e76d5656ce94a4ef7bbfac17302cf9be72e4e8a81e02
+    steps:
+      - checkout
+      - run:
+          name: Setup Code Climate test-reporter
+          env:
+            CC_TEST_REPORTER_ID: 091a4a1fada85b993a33e76d5656ce94a4ef7bbfac17302cf9be72e4e8a81e02
+          command: |
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            chmod +x ./cc-test-reporter
+      - run:
+          name: Install Client Dependencies
+          command: cd client && npm install
+      - run:
+          name: Before Build
+          command: |
+            ./cc-test-reporter before-build
+      - run:
+          name: Run tests
+          command: cd client && npm run test
+      - run:
+          name: Format Coverage
+          env:
+            CC_TEST_REPORTER_ID: 091a4a1fada85b993a33e76d5656ce94a4ef7bbfac17302cf9be72e4e8a81e02
+          command: |
+            ls
+      - run:
+          name: Upload Coverage
+          env:
+            CC_TEST_REPORTER_ID: 091a4a1fada85b993a33e76d5656ce94a4ef7bbfac17302cf9be72e4e8a81e02
+          command: |
+            ./cc-test-reporter upload-coverage -i ./client/coverage/codeclimate.json --id $CC_TEST_REPORTER_ID -d
 
 workflows:
   heroku_deploy:
     jobs:
       - build
+      - coverage
       - heroku/deploy-via-git: # Use the pre-configured job, deploy-via-git
           requires:
             - build
