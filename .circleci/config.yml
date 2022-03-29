@@ -62,11 +62,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Setup dependencies
-          command: |
-            sudo composer self-update
-            composer install -n --prefer-dist
-      - run:
           name: Setup Code Climate test-reporter
           env:
             CC_TEST_REPORTER_ID: 091a4a1fada85b993a33e76d5656ce94a4ef7bbfac17302cf9be72e4e8a81e02
