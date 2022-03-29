@@ -30,4 +30,3 @@ jobs:
           ../cc-test-reporter format-coverage coverage/lcov.info -t lcov
           cd ..
           ./cc-test-reporter upload-coverage -i coverage/codeclimate.jsonn --id $CC_TEST_REPORTER_ID -d
-        working-directory: ./client/
