@@ -25,24 +25,24 @@ jobs:
       - run:
           name: Install Client Dependencies
           command: cd client && npm install
-      - run:
-          name: Setup Code Climate test-reporter
-          command: |
-            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter chmod +x ./cc-test-reporter
+      # - run:
+      #     name: Setup Code Climate test-reporter
+      #     command: |
+      #       curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter chmod +x ./cc-test-reporter
       - run:
           name: Run tests and code coverage for client
           command: cd client && npm run test
-      - run:
-          name: Format Code Coverage
-          command: cd client && ../cc-test-reporter format-coverage coverage/lcov.info -t lcov
-      - run:
-          name: Sum up Code Coverage
-          command: |
-            ./cc-test-reporter sum-coverage ./client/coverage/codeclimate.json -p 2 -o sum.json
-       - run:
-          name: Upload Code Coverage
-          command: |
-            ./cc-test-reporter upload-coverage -i sum.json
+      # - run:
+      #     name: Format Code Coverage
+      #     command: cd client && ../cc-test-reporter format-coverage coverage/lcov.info -t lcov
+      # - run:
+      #     name: Sum up Code Coverage
+      #     command: |
+      #       ./cc-test-reporter sum-coverage ./client/coverage/codeclimate.json -p 2 -o sum.json
+      #  - run:
+      #     name: Upload Code Coverage
+      #     command: |
+      #       ./cc-test-reporter upload-coverage -i sum.json
       # smart contract commands
       - restore_cache:
           name: Restore npm Package Cache
