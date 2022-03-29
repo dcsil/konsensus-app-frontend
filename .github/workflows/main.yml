@@ -15,18 +15,10 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '14.x'
-      - name: Cache dependencies
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: npm-${{ hashFiles('package-lock.json') }}
-          restore-keys: npm-
-      - name: Install backend modules
-        run: npm install
-        working-directory: ./client
+      - name: Install client modules
+        run: cd client && npm install
       - name: Run Client tests
-        run: npm run test
-        working-directory: ./client
+        run: cd client && npm run test
       - name: Upload to CodeClimate
         env:
           CC_TEST_REPORTER_ID: 091a4a1fada85b993a33e76d5656ce94a4ef7bbfac17302cf9be72e4e8a81e02
