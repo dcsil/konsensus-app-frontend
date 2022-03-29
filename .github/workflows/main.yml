@@ -1,0 +1,35 @@
+name: Run Tests and Upload Coverage
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  client_tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+      - name: Install client modules
+        run: cd client && npm install
+      - name: Run Client tests
+        run: cd client && npm run test
+      - name: Upload to CodeClimate
+        env:
+          CC_TEST_REPORTER_ID: 091a4a1fada85b993a33e76d5656ce94a4ef7bbfac17302cf9be72e4e8a81e02
+        run: |
+          export GIT_BRANCH="${GITHUB_REF##*/}"
+          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+          chmod +x ./cc-test-reporter
+          cd client
+          ../cc-test-reporter format-coverage ./coverage/lcov.info -t lcov
+          cd coverage
+          ls
+          cd ..
+          cd ..
+          ./cc-test-reporter upload-coverage -i ./client/coverage/codeclimate.json --id $CC_TEST_REPORTER_ID -d
