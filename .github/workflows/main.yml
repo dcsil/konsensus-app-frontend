@@ -31,4 +31,5 @@ jobs:
           cd coverage
           ls
           cd ..
-          ./cc-test-reporter upload-coverage -i coverage/codeclimate.json --id $CC_TEST_REPORTER_ID -d
+          cd ..
+          ./cc-test-reporter upload-coverage -i ./client/coverage/codeclimate.json --id $CC_TEST_REPORTER_ID -d
