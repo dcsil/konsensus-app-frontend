@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Cookies from 'js-cookie'
+
 // Set up global contexts
 export const GlobalStateContext = React.createContext();
 export const GlobalDispatchContext = React.createContext();
@@ -10,6 +12,7 @@ export const reducer = (state, action) => {
   const { type, payload } = action;
   switch (type) {
     case SET_TOKEN: {
+      Cookies.set('access', payload);
       return {
         ...state,
         token: payload,
