@@ -40,15 +40,9 @@ jobs:
       - run:
           name: Test Contracts
           command: ./node_modules/truffle/build/cli.bundled.js test --network development
-      # - run:
-      #     name: Codecheck
-      #     command: npx codechecks
       - run:
           name: Code Coverage
           command: npx truffle run coverage
-      # - run:
-      #     name: Coveralls
-      #     command: cat coverage/lcov.info | npx coveralls
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
@@ -71,6 +65,16 @@ jobs:
       - run:
           name: Install Client Dependencies
           command: cd client && npm install
+      - restore_cache:
+          name: Restore npm Package Cache
+          working_directory: ./
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: Install Smart Contract Dependencies
+          command: npm ci
+      - run:
+          name: Migrate Contracts
+          command: ./node_modules/truffle/build/cli.bundled.js migrate --network development
       - run:
           name: Before Build
           command: |
@@ -79,18 +83,31 @@ jobs:
           name: Run tests
           command: cd client && npm run test
       - run:
-          name: Format Coverage
+          name: Test Contracts
+          command: ./node_modules/truffle/build/cli.bundled.js test --network development
+      - run:
+          name: Code Coverage
+          command: npx truffle run coverage
+      - run:
+          name: Format Client Coverage
           env:
             CC_TEST_REPORTER_ID: 091a4a1fada85b993a33e76d5656ce94a4ef7bbfac17302cf9be72e4e8a81e02
           command: |
             cd client
             ../cc-test-reporter format-coverage ./coverage/lcov.info -t lcov
       - run:
+          name: Format Truffle Coverage
+          env:
+            CC_TEST_REPORTER_ID: 091a4a1fada85b993a33e76d5656ce94a4ef7bbfac17302cf9be72e4e8a81e02
+          command: |
+            ./cc-test-reporter format-coverage ./coverage/lcov.info -t lcov
+      - run:
           name: Upload Coverage
           env:
             CC_TEST_REPORTER_ID: 091a4a1fada85b993a33e76d5656ce94a4ef7bbfac17302cf9be72e4e8a81e02
           command: |
-            ./cc-test-reporter upload-coverage -i ./client/coverage/codeclimate.json --id $CC_TEST_REPORTER_ID -d
+            ./cc-test-reporter sum-coverage ./client/coverage/codeclimate.json ./coverage/codeclimate.json -o sum.json
+            ./cc-test-reporter upload-coverage -i sum.json --id $CC_TEST_REPORTER_ID -d
 
 workflows:
   heroku_deploy:
