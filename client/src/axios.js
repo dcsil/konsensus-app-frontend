@@ -1,7 +1,12 @@
 import axios from 'axios';
 import Cookies from 'js-cookie'
 
-const client = axios.create();
+// export const API_HOST = 'https://konsensus-backend.herokuapp.com';
+export const API_HOST = 'http://localhost:8080';
+
+const client = axios.create({
+  baseURL: API_HOST,
+});
 // Interceptors take 2 parameters:
 // Axios calls the first function if the request succeeds
 // Axios calls the second function if the request fails

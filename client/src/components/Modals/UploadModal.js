@@ -91,7 +91,7 @@ const StyledDropzone = (props) => {
         const formData = new FormData();
         formData.append('file', files[0]);
 
-        client.post('http://localhost:8080/file/', formData, {
+        client.post('file/', formData, {
             headers: {
               'Content-Type': 'multipart/form-data',
             },
