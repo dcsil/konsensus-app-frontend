@@ -10,6 +10,8 @@ import {
   InputGroupAddon,
   InputGroupText,
   InputGroup,
+  Row,
+  Col,
 } from 'reactstrap';
 import { register } from './authFunctions';
 
@@ -18,6 +20,8 @@ const RegisterForm = (prop) => {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [role, setRole] = useState('admin');
+  const [organizationId, setOrganizationId] = useState('');
   const [message, setMessage] = useState('');
 
   const handleRegister = () => {
@@ -26,6 +30,8 @@ const RegisterForm = (prop) => {
       lastName,
       email,
       password,
+      role,
+      organizationId,
     };
 
     const result = register(credentials, prop);
@@ -111,12 +117,67 @@ const RegisterForm = (prop) => {
               />
             </InputGroup>
           </FormGroup>
-          <div>
+          <FormGroup>
+            <InputGroup className="input-group-alternative">
+              <InputGroupAddon addonType="prepend">
+                <InputGroupText>
+                  <i className="ni ni-briefcase-24" />
+                </InputGroupText>
+              </InputGroupAddon>
+              <Input
+                placeholder="Organization"
+                type="text"
+                onChange={(e) => {
+                  setOrganizationId(e.target.value);
+                }}
+              />
+            </InputGroup>
+          </FormGroup>
+          <FormGroup>
+            <Row className="float-left ">
+              <Col>
+                <div className="custom-control custom-radio mb-3">
+                  <input
+                    className="custom-control-input"
+                    id="customRadio5"
+                    name="custom-radio-2"
+                    type="radio"
+                    defaultChecked
+                    onClick={() => setRole('admin')}
+                  />
+                  <label
+                    className="custom-control-label"
+                    htmlFor="customRadio5"
+                  >
+                    Admin
+                  </label>
+                </div>
+              </Col>
+              <Col>
+                <div className="custom-control custom-radio mb-3">
+                  <input
+                    className="custom-control-input"
+                    id="customRadio6"
+                    name="custom-radio-2"
+                    type="radio"
+                    onClick={() => setRole('user')}
+                  />
+                  <label
+                    className="custom-control-label"
+                    htmlFor="customRadio6"
+                  >
+                    User
+                  </label>
+                </div>
+              </Col>
+            </Row>
+          </FormGroup>
+          <div className="pt-5">
             {message ? (
               <span className="text-warning">{message}</span>
             ) : null}
           </div>
-          <div className="text-center">
+          <div className="text-cente pt-5">
             <Button
               className="my-4"
               color="primary"
