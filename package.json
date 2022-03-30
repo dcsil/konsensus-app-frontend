@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "eth-gas-reporter": "^0.2.24",
+    "ganache-core": "^2.13.2",
     "solc": "^0.8.13",
     "web3": "^0.18.2"
   },
