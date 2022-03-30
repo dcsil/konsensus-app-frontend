@@ -74,26 +74,8 @@ const Sidebar = (props) => {
   // creates the links that appear in the left menu / Sidebar
   const createLinks = (routes) => {
     return routes.map((prop, key) => {
-      if (prop.name === 'Login') {
-        return (
-          <div>
-            <h1 className="navbar-heading text-light pt-5 pl-4">
-              Other
-            </h1>
-            <NavItem key={key}>
-              <NavLink
-                to={prop.layout + prop.path}
-                tag={NavLinkRRD}
-                onClick={closeCollapse}
-                className="text-muted"
-                activeClassName="active text-light"
-              >
-                <i className={prop.icon} />
-                {prop.name}
-              </NavLink>
-            </NavItem>
-          </div>
-        );
+      if (prop.name === 'Login' || prop.name === 'Register') {
+        return null;
       }
 
       return (
