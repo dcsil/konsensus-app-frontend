@@ -50,6 +50,8 @@ jobs:
   coverage:
     docker:
       - image: circleci/node:10.16.3
+      - image: trufflesuite/ganache-cli
+        command: ganache-cli -i 5777 -p 7545 -e 100000000000 -l 4700038
     working_directory: ~/repo
     environment:
       CC_TEST_REPORTER_ID: 091a4a1fada85b993a33e76d5656ce94a4ef7bbfac17302cf9be72e4e8a81e02
