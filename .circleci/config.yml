@@ -83,7 +83,8 @@ jobs:
           env:
             CC_TEST_REPORTER_ID: 091a4a1fada85b993a33e76d5656ce94a4ef7bbfac17302cf9be72e4e8a81e02
           command: |
-            ls
+            cd client
+            ../cc-test-reporter format-coverage ./coverage/lcov.info -t lcov
       - run:
           name: Upload Coverage
           env:
