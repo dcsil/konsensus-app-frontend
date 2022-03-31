@@ -27,6 +27,7 @@ import {
   Container,
   Row,
   Col,
+  Button,
 } from 'reactstrap';
 // core components
 import UserHeader from 'components/Headers/UserHeader.js';
@@ -35,20 +36,45 @@ import { GlobalStateContext } from 'components/GlobalState';
 import { checkSession } from 'components/Auth/authFunctions';
 import OrgTable from 'components/Profile/OrgTable';
 import Avatar from 'components/Profile/Avatar';
+import { updateUser } from 'components/Auth/authFunctions';
 
 const Profile = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
+  const [id, setId] = useState('');
+  const [role, setRole] = useState('admin');
+  const [organizationId, setOrganizationId] = useState('');
+  const [message, setMessage] = useState('');
+
   const globalState = useContext(GlobalStateContext);
   useEffect(() => {
     checkSession(
       globalState.token,
       setFirstName,
       setLastName,
-      setEmail
+      setEmail,
+      setId,
+      setRole,
+      setOrganizationId
     );
   }, []);
+
+  const handleUpdate = () => {
+    const credentials = {
+      firstName,
+      lastName,
+      email,
+    };
+
+    const result = updateUser(credentials, id);
+    if (!result) {
+      setMessage('Invalid email/password combination.');
+    } else {
+      setMessage('Profile has been updated');
+    }
+  };
+
   return (
     <>
       <UserHeader firstName={firstName} />
@@ -69,28 +95,7 @@ const Profile = () => {
                   </div>
                 </Col>
               </Row>
-              <CardHeader className="text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
-                {/* <div className="d-flex justify-content-between">
-                  <Button
-                    className="mr-4"
-                    color="info"
-                    href="#pablo"
-                    onClick={(e) => e.preventDefault()}
-                    size="sm"
-                  >
-                    Connect
-                  </Button>
-                  <Button
-                    className="float-right"
-                    color="default"
-                    href="#pablo"
-                    onClick={(e) => e.preventDefault()}
-                    size="sm"
-                  >
-                    Message
-                  </Button>
-                </div> */}
-              </CardHeader>
+              <CardHeader className="text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4"></CardHeader>
               <CardBody className="pt-0 pt-md-4">
                 <Row>
                   <div className="col">
@@ -111,6 +116,7 @@ const Profile = () => {
                 firstName={firstName}
                 lastName={lastName}
                 email={email}
+                role={role}
               />
             </Card>
           </Col>
@@ -185,100 +191,62 @@ const Profile = () => {
                   {/* <hr className="my-4" /> */}
                   {/* Billing */}
                   {/* <h6 className="heading-small text-muted mb-4">
-                    Billing information
+                    Password
                   </h6>
                   <div className="pl-lg-4">
                     <Row>
-                      <Col md="12">
+                      <Col lg="6">
                         <FormGroup>
                           <label
                             className="form-control-label"
-                            htmlFor="input-address"
+                            htmlFor="input-text"
                           >
-                            Card
+                            New Password
                           </label>
                           <Input
                             className="form-control-alternative"
-                            defaultValue="1234 1234 1234 1234"
-                            id="input-number"
-                            placeholder="Home Address"
+                            id="input-text"
+                            placeholder={password}
                             type="text"
                           />
                         </FormGroup>
                       </Col>
-                    </Row>
-                    <Row>
-                      <Col md="12">
+                    </Row> */}
+                  {/* <Row>
+                      <Col lg="6">
                         <FormGroup>
                           <label
                             className="form-control-label"
-                            htmlFor="input-address"
+                            htmlFor="input-email"
                           >
-                            Address
+                            Re-type Password
                           </label>
                           <Input
                             className="form-control-alternative"
-                            defaultValue="I dunno, somewhere in Toronto"
-                            id="input-address"
-                            placeholder="Home Address"
-                            type="text"
+                            id="input-email"
+                            placeholder={email}
+                            type="email"
                           />
                         </FormGroup>
                       </Col>
-                    </Row>
-                    <Row>
-                      <Col lg="4">
-                        <FormGroup>
-                          <label
-                            className="form-control-label"
-                            htmlFor="input-city"
-                          >
-                            City
-                          </label>
-                          <Input
-                            className="form-control-alternative"
-                            defaultValue="Toronto"
-                            id="input-city"
-                            placeholder="City"
-                            type="text"
-                          />
-                        </FormGroup>
-                      </Col>
-                      <Col lg="4">
-                        <FormGroup>
-                          <label
-                            className="form-control-label"
-                            htmlFor="input-country"
-                          >
-                            Country
-                          </label>
-                          <Input
-                            className="form-control-alternative"
-                            defaultValue="Canada"
-                            id="input-country"
-                            placeholder="Country"
-                            type="text"
-                          />
-                        </FormGroup>
-                      </Col>
-                      <Col lg="4">
-                        <FormGroup>
-                          <label
-                            className="form-control-label"
-                            htmlFor="input-country"
-                          >
-                            Postal code
-                          </label>
-                          <Input
-                            className="form-control-alternative"
-                            id="input-postal-code"
-                            placeholder="Postal code"
-                            type="number"
-                          />
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                  </div> */}
+                    </Row> */}
+                  {/* </div> */}
+                  <div>
+                    {message ? (
+                      <span className="text-warning">{message}</span>
+                    ) : null}
+                  </div>
+                  <div className="pl-4">
+                    <Button
+                      className="my-4"
+                      color="primary"
+                      size="sm"
+                      type="button"
+                      onClick={() => handleUpdate()}
+                    >
+                      Update
+                    </Button>
+                  </div>
                 </Form>
               </CardBody>
             </Card>
