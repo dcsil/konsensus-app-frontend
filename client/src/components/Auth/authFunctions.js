@@ -32,22 +32,63 @@ export const checkSession = async (
 };
 
 // Send a request to get fileIds
-export const getFiles = async (
-  token,
-  setOwnedFiles,
-  setRecentFiles,
-  setStarredFiles
-) => {
-  const url = `/user/current`; // gets the current user 
+export const getAllFiles = async (setAllFiles) => {
+  const url = `/file/all`;
 
   await client
     .get(url)
     .then((res) => {
       if (res.status === 200) {
         console.log(res.data);
-        setOwnedFiles(res.data.ownedFiles);
-        setRecentFiles(res.data.recentFiles); // returns just the IDs
-        setStarredFiles(res.data.starredFiles);
+        setAllFiles(res.data);
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+export const getSharedFiles = async (setFiles) => {
+  const url = `/file/owned`;
+
+  await client
+    .get(url)
+    .then((res) => {
+      if (res.status === 200) {
+        console.log(res.data);
+        setFiles(res.data);
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+export const getRecentFiles = async (setFiles) => {
+  const url = `/file/recent`;
+
+  await client
+    .get(url)
+    .then((res) => {
+      if (res.status === 200) {
+        console.log(res.data);
+        setFiles(res.data);
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+export const getStarredFiles = async (setFiles) => {
+  const url = `/file/starred`;
+
+  await client
+    .get(url)
+    .then((res) => {
+      if (res.status === 200) {
+        console.log(res.data);
+        setFiles(res.data);
       }
     })
     .catch((error) => {

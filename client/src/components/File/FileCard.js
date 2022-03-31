@@ -5,19 +5,19 @@ import { FileIcon, defaultStyles } from 'react-file-icon';
 import { Card, CardBody, CardTitle, Row, Col } from 'reactstrap';
 
 import { useEffect, useState, useContext } from 'react';
-import { GlobalStateContext } from 'components/GlobalState';
 import { getFileById } from 'components/Auth/authFunctions';
 import Moment from 'react-moment';
+import { useHistory } from 'react-router-dom';
 
 const FileCard = ({ fileId }) => {
   const [file, setFile] = useState(null);
+  let history = useHistory();
 
   console.log(fileId);
 
-  const globalState = useContext(GlobalStateContext);
   useEffect(() => {
-    getFileById(globalState.token, fileId, setFile);
-  }, []);
+    getFileById(fileId, setFile);
+  }, [fileId]);
 
   const fileTypeHelper = (fileName) => {
     const split = fileName.split('.');
@@ -26,6 +26,13 @@ const FileCard = ({ fileId }) => {
 
   const truncate = (text) => {
     return text.length > 35 ? text.substring(0, 32) + '...' : text;
+  };
+
+  const handleClick = () => {
+    history.push({
+      pathname: '/admin/file',
+      state: { fileId: file.id, url: file.url },
+    });
   };
 
   return (
@@ -37,18 +44,11 @@ const FileCard = ({ fileId }) => {
             height: '8rem',
             cursor: 'pointer',
           }}
-          // onClick={() => {
-          //   window.open(file.url);
-          // }}
+          onClick={() => {
+            handleClick();
+          }}
         >
           <CardBody>
-            {/* <FilePreviewerThumbnail
-              style={{ objectFit: 'cover' }}
-              hideControls={true}
-              file={{
-                url: file.url,
-              }}
-            /> */}
             <Row>
               <Col lg={{ size: 'auto' }}>
                 <div style={{ width: '2.5rem' }}>

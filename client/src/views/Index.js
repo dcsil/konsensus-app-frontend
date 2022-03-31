@@ -1,5 +1,7 @@
-import { GlobalStateContext } from 'components/GlobalState';
-import { getFiles } from 'components/Auth/authFunctions';
+import {
+  getAllFiles,
+  getRecentFiles,
+} from 'components/Auth/authFunctions';
 // reactstrap components
 import { Container, Row, Col } from 'reactstrap';
 
@@ -10,18 +12,12 @@ import Header from 'components/Headers/Header.js';
 import FileCard from 'components/File/FileCard';
 
 const Index = (props) => {
-  const [ownedFiles, setOwnedFiles] = useState([]);
+  const [allFiles, setAllFiles] = useState([]);
   const [recentFiles, setRecentFiles] = useState([]);
-  const [starredFiles, setStarredFiles] = useState([]);
 
-  const globalState = useContext(GlobalStateContext);
-  useEffect(() => {
-    getFiles(
-      globalState.token,
-      setOwnedFiles,
-      setRecentFiles,
-      setStarredFiles
-    );
+    useEffect(() => {
+    getAllFiles(setAllFiles);
+    getRecentFiles(setRecentFiles);
   }, []);
   return (
     <>
@@ -36,10 +32,10 @@ const Index = (props) => {
           </Col>
         </Row>
         <Row>
-          {ownedFiles.map((fileId) => {
+          {recentFiles.map((file) => {
             return (
               <Col lg={{ size: 'auto' }}>
-                <FileCard fileId={fileId} />
+                <FileCard fileId={file.id} />
               </Col>
             );
           })}
@@ -50,10 +46,10 @@ const Index = (props) => {
           </Col>
         </Row>
         <Row>
-          {ownedFiles.map((fileId) => {
+          {allFiles.map((file) => {
             return (
               <Col lg={{ size: 'auto' }}>
-                <FileCard fileId={fileId} />
+                <FileCard fileId={file.id} />
               </Col>
             );
           })}
