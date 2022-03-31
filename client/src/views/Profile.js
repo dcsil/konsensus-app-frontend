@@ -44,7 +44,7 @@ const Profile = () => {
   const [email, setEmail] = useState('');
   const [id, setId] = useState('');
   const [role, setRole] = useState('admin');
-  const [organizationId, setOrganizationId] = useState('');
+  const [organization, setOrganization] = useState('');
   const [message, setMessage] = useState('');
 
   const globalState = useContext(GlobalStateContext);
@@ -56,7 +56,7 @@ const Profile = () => {
       setEmail,
       setId,
       setRole,
-      setOrganizationId
+      setOrganization
     );
   }, []);
 
@@ -102,10 +102,10 @@ const Profile = () => {
                     <div className="card-profile-stats d-flex justify-content-center mt-md-5">
                       <div>
                         <span className="heading">
-                          {firstName} {lastName}
+                          {organization.name}
                         </span>
                         <span className="description">
-                          Company Name
+                          {firstName} {lastName}
                         </span>
                       </div>
                     </div>
