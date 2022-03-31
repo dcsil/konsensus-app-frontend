@@ -74,7 +74,7 @@ const Sidebar = (props) => {
   // creates the links that appear in the left menu / Sidebar
   const createLinks = (routes) => {
     return routes.map((prop, key) => {
-      if (prop.name === 'Login' || prop.name === 'Register') {
+      if (!prop.showOnSidebar) {
         return null;
       }
 

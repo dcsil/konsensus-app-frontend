@@ -22,6 +22,7 @@ import Starred from 'views/Starred.js';
 import MyFiles from 'views/MyFiles.js';
 import Recent from 'views/Recent.js';
 import Profile from 'views/Profile.js';
+import File from 'views/File.js';
 
 var routes = [
   {
@@ -42,6 +43,7 @@ var routes = [
     path: '/recent',
     name: 'Recent',
     icon: 'fa fa-clock text-blue',
+    showOnSidebar: true,
     component: Recent,
     layout: '/admin',
   },
@@ -49,19 +51,30 @@ var routes = [
     path: '/starred',
     name: 'Starred',
     icon: 'fa fa-star text-blue',
+    showOnSidebar: true,
     component: Starred,
     layout: '/admin',
   },
   {
     path: '/user-profile',
     name: 'User Profile',
+    showOnSidebar: false,
     icon: 'ni ni-single-02 text-yellow',
     component: Profile,
     layout: '/admin',
   },
   {
+    path: '/file',
+    name: 'File View',
+    showOnSidebar: false,
+    icon: 'ni ni-collection text-yellow',
+    component: File,
+    layout: '/admin',
+  },
+  {
     path: '/login',
     name: 'Login',
+    showOnSidebar: false,
     icon: 'ni ni-key-25 text-info',
     component: Login,
     layout: '/auth',
@@ -69,6 +82,7 @@ var routes = [
   {
     path: '/register',
     name: 'Register',
+    showOnSidebar: false,
     icon: 'ni ni-circle-08 text-pink',
     component: Register,
     layout: '/auth',
