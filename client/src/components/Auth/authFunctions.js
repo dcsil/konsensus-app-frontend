@@ -14,11 +14,7 @@ export const checkSession = async (
   const url = `/user/current`;
 
   await client
-    .get(url, {
-      headers: {
-        Authorization: 'Bearer ' + token,
-      },
-    })
+    .get(url)
     .then((res) => {
       if (res.status === 200) {
         console.log(res.data);
@@ -45,11 +41,7 @@ export const getFiles = async (
   const url = `/user/current`;
 
   await client
-    .get(url, {
-      headers: {
-        Authorization: 'Bearer ' + token,
-      },
-    })
+    .get(url)
     .then((res) => {
       if (res.status === 200) {
         console.log(res.data);
@@ -68,11 +60,7 @@ export const getFileById = async (token, fileId, setFile) => {
   const url = `/file/access/${fileId}`;
 
   await client
-    .get(url, {
-      headers: {
-        Authorization: 'Bearer ' + token,
-      },
-    })
+    .get(url)
     .then((res) => {
       if (res.status === 200) {
         console.log(res.data);
