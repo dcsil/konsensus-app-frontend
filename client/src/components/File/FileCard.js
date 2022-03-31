@@ -24,6 +24,10 @@ const FileCard = ({ fileId }) => {
     return split[1];
   };
 
+  const truncate = (text) => {
+    return text.length > 35 ? text.substring(0, 32) + '...' : text;
+  };
+
   return (
     <>
       {file !== null && (
@@ -55,8 +59,8 @@ const FileCard = ({ fileId }) => {
                 </div>
               </Col>
               <Col>
-                <CardTitle className="font-weight-bold mb-0">
-                  {file.name}
+                <CardTitle className="h4 font-weight-bold mb-0">
+                  {truncate(file.name)}
                 </CardTitle>
               </Col>
             </Row>
