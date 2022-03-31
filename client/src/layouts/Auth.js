@@ -30,6 +30,7 @@ import AuthNavbar from 'components/Navbars/AuthNavbar.js';
 import AuthFooter from 'components/Footers/AuthFooter.js';
 
 import routes from 'routes.js';
+import Anime from 'react-anime';
 
 const Auth = (props) => {
   const mainContent = React.useRef(null);
@@ -69,23 +70,29 @@ const Auth = (props) => {
         <AuthNavbar />
         <div className="header bg-gradient-default py-7 py-lg-8">
           <Container>
-            <div className="header-body text-center mb-7">
-              <Row className="justify-content-center">
-                <Col lg="5" md="6">
-                  <h1 className="text-white">Konsensus</h1>
-                  <p className="text-lead text-light">
-                    Protecting your files with blockchain has never
-                    been easier!
-                  </p>
-                </Col>
-              </Row>
-              <Row className="justify-content-center">
-                <Switch>
-                  {getRoutes(routes)}
-                  <Redirect from="*" to="/auth/login" />
-                </Switch>
-              </Row>
-            </div>
+            <Anime
+              opacity={[0, 1]}
+              translateY={'1em'}
+              delay={(e, i) => i * 2000}
+            >
+              <div className="header-body text-center mb-7">
+                <Row className="justify-content-center">
+                  <Col lg="5" md="6">
+                    <h1 className="text-white">Konsensus</h1>
+                    <p className="text-lead text-light">
+                      Protecting your files with blockchain has never
+                      been easier!
+                    </p>
+                  </Col>
+                </Row>
+                <Row className="justify-content-center">
+                  <Switch>
+                    {getRoutes(routes)}
+                    <Redirect from="*" to="/auth/login" />
+                  </Switch>
+                </Row>
+              </div>
+            </Anime>
           </Container>
         </div>
       </div>
