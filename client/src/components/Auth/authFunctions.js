@@ -6,7 +6,10 @@ export const checkSession = async (
   token,
   setFirstName,
   setLastName,
-  setEmail
+  setEmail,
+  setId,
+  setRole,
+  setOrganizationId
 ) => {
   const url = `/user/current`;
 
@@ -22,6 +25,9 @@ export const checkSession = async (
         setFirstName(res.data.firstName);
         setLastName(res.data.lastName);
         setEmail(res.data.email);
+        setId(res.data.id);
+        setRole(res.data.role);
+        setOrganizationId(res.data.organizationId);
       }
     })
     .catch((error) => {
@@ -61,6 +67,25 @@ export const register = (credentials) => {
 
   return client
     .post(url, credentials, { withCredentials: true })
+    .then((res) => {
+      if (res.status === 200 && res.data.id !== undefined) {
+        return true;
+      } else {
+        return false;
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+      return false;
+    });
+};
+
+// A function to send a PUT request to update a user
+export const updateUser = (credentials, id) => {
+  const url = `user/${id}`;
+
+  return client
+    .put(url, credentials, { withCredentials: true })
     .then((res) => {
       if (res.status === 200 && res.data.id !== undefined) {
         return true;
