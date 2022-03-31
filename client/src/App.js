@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
+import Cookies from 'js-cookie';
 
 import 'assets/plugins/nucleo/css/nucleo.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -21,11 +22,11 @@ const App = () => {
 
   useEffect(() => {
     if (!window.location.href.includes('auth')) {
-      if (!state.token) {
+      if (!Cookies.get('access')) {
         window.location.href = '/auth/login';
       }
     }
-  }, [state.token]);
+  }, []);
 
   return (
     <GlobalState initialState={state} dispatch={dispatch}>
