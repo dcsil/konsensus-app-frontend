@@ -43,13 +43,6 @@ export const login = (credentials, dispatch) => {
     .post(url, credentials, { withCredentials: true })
     .then((res) => {
       if (res.status === 200 && res.data.id !== undefined) {
-        // console.log({
-        //   id: res.data.id,
-        //   email: res.data.email,
-        //   firstName: res.data.firstName,
-        //   lastName: res.data.lastName,
-        //   token: res.data.token,
-        // });
         dispatch({ type: SET_TOKEN, payload: res.data.token });
       } else {
         return false;
