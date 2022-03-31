@@ -9,7 +9,7 @@ export const checkSession = async (
   setEmail,
   setId,
   setRole,
-  setOrganizationId
+  setOrganization
 ) => {
   const url = `/user/current`;
 
@@ -27,7 +27,7 @@ export const checkSession = async (
         setEmail(res.data.email);
         setId(res.data.id);
         setRole(res.data.role);
-        setOrganizationId(res.data.organizationId);
+        setOrganization(res.data.organization);
       }
     })
     .catch((error) => {
