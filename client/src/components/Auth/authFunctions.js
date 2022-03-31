@@ -35,6 +35,55 @@ export const checkSession = async (
     });
 };
 
+// Send a request to get fileIds
+export const getFiles = async (
+  token,
+  setOwnedFiles,
+  setRecentFiles,
+  setStarredFiles
+) => {
+  const url = `/user/current`;
+
+  await client
+    .get(url, {
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+    })
+    .then((res) => {
+      if (res.status === 200) {
+        console.log(res.data);
+        setOwnedFiles(res.data.ownedFiles);
+        setRecentFiles(res.data.recentFiles);
+        setStarredFiles(res.data.starredFiles);
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+// Send a request to get a file by it's id
+export const getFileById = async (token, fileId, setFile) => {
+  const url = `/file/${fileId}`;
+
+  await client
+    .get(url, {
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+    })
+    .then((res) => {
+      if (res.status === 200) {
+        console.log(res.data);
+        setFile(res.data);
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
 // A function to send a POST request with the user to be logged in
 export const login = (credentials, dispatch) => {
   const url = `user/authenticate`;
