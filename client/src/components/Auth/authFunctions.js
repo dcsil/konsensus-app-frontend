@@ -1,9 +1,8 @@
 import client from '../../axios';
-import { SET_TOKEN } from 'components/GlobalState';
+import Cookies from 'js-cookie';
 
 // Send a request to check if a user is logged in through the session cookie
 export const checkSession = async (
-  token,
   setFirstName,
   setLastName,
   setEmail,
@@ -33,7 +32,6 @@ export const checkSession = async (
 
 // Send a request to get fileIds
 export const getFiles = async (
-  token,
   setOwnedFiles,
   setRecentFiles,
   setStarredFiles
@@ -56,7 +54,7 @@ export const getFiles = async (
 };
 
 // Send a request to get a file by it's id
-export const getFileById = async (token, fileId, setFile) => {
+export const getFileById = async (fileId, setFile) => {
   const url = `/file/access/${fileId}`;
 
   await client
@@ -73,14 +71,14 @@ export const getFileById = async (token, fileId, setFile) => {
 };
 
 // A function to send a POST request with the user to be logged in
-export const login = (credentials, dispatch) => {
+export const login = (credentials) => {
   const url = `user/authenticate`;
 
   return client
     .post(url, credentials, { withCredentials: true })
     .then((res) => {
       if (res.status === 200 && res.data.id !== undefined) {
-        dispatch({ type: SET_TOKEN, payload: res.data.token });
+        Cookies.set('access', res.data.token);
       } else {
         return false;
       }

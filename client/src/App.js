@@ -9,17 +9,10 @@ import 'assets/scss/argon-dashboard-react.scss';
 
 import AdminLayout from 'layouts/Admin.js';
 import AuthLayout from 'layouts/Auth.js';
-import GlobalState, { reducer } from 'components/GlobalState';
-import { useReducer } from 'react';
 
 const history = createBrowserHistory();
-const initialState = {
-  token: null,
-};
 
 const App = () => {
-  const [state, dispatch] = useReducer(reducer, initialState);
-
   useEffect(() => {
     if (!window.location.href.includes('auth')) {
       if (!Cookies.get('access')) {
@@ -29,20 +22,18 @@ const App = () => {
   }, []);
 
   return (
-    <GlobalState initialState={state} dispatch={dispatch}>
-      <Router history={history}>
-        <Switch>
-          <Route
-            path={['/auth']}
-            render={(props) => <AuthLayout {...props} />}
-          />
-          <Route
-            path="/admin"
-            render={(props) => <AdminLayout {...props} />}
-          />
-        </Switch>
-      </Router>
-    </GlobalState>
+    <Router history={history}>
+      <Switch>
+        <Route
+          path={['/auth']}
+          render={(props) => <AuthLayout {...props} />}
+        />
+        <Route
+          path="/admin"
+          render={(props) => <AdminLayout {...props} />}
+        />
+      </Switch>
+    </Router>
   );
 };
 

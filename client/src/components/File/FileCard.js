@@ -4,8 +4,7 @@ import { FileIcon, defaultStyles } from 'react-file-icon';
 // reactstrap components
 import { Card, CardBody, CardTitle, Row, Col } from 'reactstrap';
 
-import { useEffect, useState, useContext } from 'react';
-import { GlobalStateContext } from 'components/GlobalState';
+import { useEffect, useState } from 'react';
 import { getFileById } from 'components/Auth/authFunctions';
 import Moment from 'react-moment';
 
@@ -14,9 +13,8 @@ const FileCard = ({ fileId }) => {
 
   console.log(fileId);
 
-  const globalState = useContext(GlobalStateContext);
   useEffect(() => {
-    getFileById(globalState.token, fileId, setFile);
+    getFileById(fileId, setFile);
   }, []);
 
   const fileTypeHelper = (fileName) => {

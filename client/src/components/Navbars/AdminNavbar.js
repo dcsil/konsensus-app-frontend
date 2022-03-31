@@ -16,11 +16,8 @@
 
 */
 import { Link } from 'react-router-dom';
-import { useEffect, useState, useContext } from 'react';
-import {
-  GlobalStateContext,
-  GlobalDispatchContext,
-} from 'components/GlobalState';
+import { useEffect, useState } from 'react';
+
 import { checkSession } from 'components/Auth/authFunctions';
 import Cookies from 'js-cookie';
 
@@ -47,14 +44,8 @@ const AdminNavbar = (props) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
-  const globalState = useContext(GlobalStateContext);
   useEffect(() => {
-    checkSession(
-      globalState.token,
-      setFirstName,
-      setLastName,
-      setEmail
-    );
+    checkSession(setFirstName, setLastName, setEmail);
   }, []);
 
   const handleLogout = () => {
