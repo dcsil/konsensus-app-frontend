@@ -1,36 +1,35 @@
 import { getFiles } from 'components/Auth/authFunctions';
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
+import FilePreviewer from 'react-file-previewer';
 
 // reactstrap components
 import { Container, Row, Col } from 'reactstrap';
 
 import Header from 'components/Headers/Header.js';
-import { useHistory } from 'react-router-dom';
-import ImageViewer from 'components/File/ImageViewer';
-import { getFileById } from 'components/Auth/authFunctions';
-import { getUserById } from 'components/Auth/authFunctions';
+import FileCard from 'components/File/FileCard';
+import { useHistory, useParams } from 'react-router-dom';
 
 const File = () => {
   let history = useHistory();
-  const fileId = history.location.state.fileId;
-  const fileUrl = history.location.state.url;
-  const fileName = history.location.state.name;
-  const lastUpdater = history.location.state.lastUpdater;
+  const { fileId, url } = history.location.state;
+  console.log(fileId);
+  // const [ownedFiles, setOwnedFiles] = useState([]);
+  // const [recentFiles, setRecentFiles] = useState([]);
+  // const [starredFiles, setStarredFiles] = useState([]);
 
-  const [actions, setActions] = useState([]);
-  const [user, setUser] = useState(null);
-  console.log(lastUpdater);
-  useEffect(() => {
-    getFileById(fileId, setActions);
-    getUserById(lastUpdater, setUser);
-  }, [fileId, lastUpdater]);
+  // useEffect(() => {
+  //   getFiles(setOwnedFiles, setRecentFiles, setStarredFiles);
+  // }, []);
 
   return (
     <>
       <Header />
       <Container className="mt--7 pb-7" fluid>
-        <ImageViewer actions={actions} user={user} />
+        <FilePreviewer
+          file={{
+            url: url,
+          }}
+        />
       </Container>
     </>
   );

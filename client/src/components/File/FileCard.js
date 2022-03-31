@@ -13,14 +13,16 @@ import {
 } from 'reactstrap';
 
 import { useEffect, useState, useContext } from 'react';
-import { getFileById } from 'components/Auth/authFunctions';
+import { getFileById, starFile} from 'components/Auth/authFunctions';
 import Moment from 'react-moment';
 import { useHistory } from 'react-router-dom';
-import { starFile } from 'components/Auth/authFunctions';
 
 const FileCard = ({ fileId, isStarred }) => {
   const [file, setFile] = useState(null);
   let history = useHistory();
+
+  console.log(fileId);
+
   useEffect(() => {
     getFileById(fileId, setFile);
   }, [fileId]);
@@ -53,6 +55,13 @@ const FileCard = ({ fileId, isStarred }) => {
     window.location.reload();
   };
 
+  // const handleClick = () => {
+  //   history.push({
+  //     pathname: '/admin/file',
+  //     state: { fileId: file.id, url: file.url },
+  //   });
+  // };
+
   return (
     <>
       {file !== null && (
@@ -61,6 +70,9 @@ const FileCard = ({ fileId, isStarred }) => {
             width: '17rem',
             height: '8rem',
             margin: '2px',
+          }}
+          onClick={() => {
+            handleClick();
           }}
         >
           <CardBody>
