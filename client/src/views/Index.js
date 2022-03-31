@@ -1,20 +1,7 @@
 import { GlobalStateContext } from 'components/GlobalState';
 import { getFiles } from 'components/Auth/authFunctions';
 // reactstrap components
-import {
-  Button,
-  Card,
-  CardHeader,
-  CardBody,
-  NavItem,
-  NavLink,
-  Nav,
-  Progress,
-  Table,
-  Container,
-  Row,
-  Col,
-} from 'reactstrap';
+import { Container, Row, Col } from 'reactstrap';
 
 // core components
 import { useEffect, useState, useContext } from 'react';
