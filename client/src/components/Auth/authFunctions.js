@@ -65,7 +65,7 @@ export const getFiles = async (
 
 // Send a request to get a file by it's id
 export const getFileById = async (token, fileId, setFile) => {
-  const url = `/file/${fileId}`;
+  const url = `/file/access/${fileId}`;
 
   await client
     .get(url, {
