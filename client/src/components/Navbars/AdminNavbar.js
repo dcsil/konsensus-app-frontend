@@ -22,6 +22,7 @@ import {
   GlobalDispatchContext,
 } from 'components/GlobalState';
 import { checkSession } from 'components/Auth/authFunctions';
+import Cookies from 'js-cookie';
 
 // reactstrap components
 import {
@@ -55,6 +56,11 @@ const AdminNavbar = (props) => {
       setEmail
     );
   }, []);
+
+  const handleLogout = () => {
+    Cookies.remove('access');
+    props.history.push('/auth/login');
+  };
 
   return (
     <>
@@ -104,22 +110,10 @@ const AdminNavbar = (props) => {
                   <i className="ni ni-single-02" />
                   <span>My profile</span>
                 </DropdownItem>
-                {/* <DropdownItem to="/admin/user-profile" tag={Link}>
-                  <i className="ni ni-settings-gear-65" />
-                  <span>Settings</span>
-                </DropdownItem>
-                <DropdownItem to="/admin/user-profile" tag={Link}>
-                  <i className="ni ni-calendar-grid-58" />
-                  <span>Activity</span>
-                </DropdownItem>
-                <DropdownItem to="/admin/user-profile" tag={Link}>
-                  <i className="ni ni-support-16" />
-                  <span>Support</span>
-                </DropdownItem> */}
                 <DropdownItem divider />
                 <DropdownItem
                   href="#pablo"
-                  onClick={(e) => e.preventDefault()}
+                  onClick={() => handleLogout()}
                 >
                   <i className="ni ni-user-run" />
                   <span>Logout</span>
