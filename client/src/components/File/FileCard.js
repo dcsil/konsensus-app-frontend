@@ -2,22 +2,12 @@ import React from 'react';
 import { FileIcon, defaultStyles } from 'react-file-icon';
 
 // reactstrap components
-import {
-  Button,
-  Card,
-  CardBody,
-  CardImg,
-  CardTitle,
-  Row,
-  Col,
-  Container,
-} from 'reactstrap';
+import { Card, CardBody, CardTitle, Row, Col } from 'reactstrap';
 
 import { useEffect, useState, useContext } from 'react';
 import { GlobalStateContext } from 'components/GlobalState';
 import { getFileById } from 'components/Auth/authFunctions';
 import Moment from 'react-moment';
-import FilePreviewerThumbnail from 'react-file-previewer';
 
 const FileCard = ({ fileId }) => {
   const [file, setFile] = useState(null);
