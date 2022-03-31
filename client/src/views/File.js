@@ -1,12 +1,9 @@
 import { getFiles } from 'components/Auth/authFunctions';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 // reactstrap components
 import { Container, Row, Col } from 'reactstrap';
-
-// core components
-import { useState } from 'react';
 
 import Header from 'components/Headers/Header.js';
 import { useHistory } from 'react-router-dom';
@@ -27,7 +24,7 @@ const File = () => {
   useEffect(() => {
     getFileById(fileId, setActions);
     getUserById(lastUpdater, setUser);
-  }, []);
+  }, [fileId, lastUpdater]);
 
   return (
     <>
