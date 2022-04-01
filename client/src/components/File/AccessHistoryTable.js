@@ -2,8 +2,7 @@ import { Table, Card, CardHeader } from 'reactstrap';
 // core components
 import ActionRow from './ActionRow';
 
-const AccessHistoryTable = ({ actions, user }) => {
-  console.log(user);
+const AccessHistoryTable = ({ actions }) => {
   return (
     <Card className="bg-default shadow">
       <CardHeader className="bg-transparent border-0">
@@ -26,16 +25,12 @@ const AccessHistoryTable = ({ actions, user }) => {
         </thead>
         <tbody>
           <ActionRow
-            firstName={user ? user.firstName : ''}
-            lastName={user ? user.lastName : ''}
-            role={user ? user.role : ''}
+            lastUpdater={actions[0].lastUpdater}
             action={'updated'}
             time={actions[0].updatedAt}
           />
           <ActionRow
-            firstName={user ? user.firstName : ''}
-            lastName={user ? user.lastName : ''}
-            role={user ? user.role : ''}
+            lastUpdater={actions[0].lastUpdater}
             action={'created'}
             time={actions[0].createdAt}
           />
