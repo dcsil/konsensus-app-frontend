@@ -2,7 +2,14 @@ import React from 'react';
 import { FileIcon, defaultStyles } from 'react-file-icon';
 
 // reactstrap components
-import { Card, CardBody, CardTitle, Row, Col } from 'reactstrap';
+import {
+  Card,
+  CardBody,
+  CardTitle,
+  Row,
+  Col,
+  Badge,
+} from 'reactstrap';
 
 import { useEffect, useState, useContext } from 'react';
 import { getFileById } from 'components/Auth/authFunctions';
@@ -12,9 +19,6 @@ import { useHistory } from 'react-router-dom';
 const FileCard = ({ fileId }) => {
   const [file, setFile] = useState(null);
   let history = useHistory();
-
-  console.log(fileId);
-
   useEffect(() => {
     getFileById(fileId, setFile);
   }, [fileId]);
@@ -25,13 +29,13 @@ const FileCard = ({ fileId }) => {
   };
 
   const truncate = (text) => {
-    return text.length > 35 ? text.substring(0, 32) + '...' : text;
+    return text.length > 33 ? text.substring(0, 30) + '...' : text;
   };
 
   const handleClick = () => {
     history.push({
       pathname: '/admin/file',
-      state: { fileId: file.id, url: file.url },
+      state: { fileId: file.id, url: file.url, name: file.name },
     });
   };
 
@@ -40,9 +44,10 @@ const FileCard = ({ fileId }) => {
       {file !== null && (
         <Card
           style={{
-            width: '18rem',
+            width: '16rem',
             height: '8rem',
             cursor: 'pointer',
+            margin: '2px',
           }}
           onClick={() => {
             handleClick();
@@ -59,13 +64,16 @@ const FileCard = ({ fileId }) => {
                 </div>
               </Col>
               <Col>
-                <CardTitle className="h4 font-weight-bold mb-0">
+                <CardTitle className="h5 font-weight-bold mb-0">
                   {truncate(file.name)}
                 </CardTitle>
               </Col>
             </Row>
             <Row className="pt-2">
               <Col>
+                <Badge color="" className="badge-dot ">
+                  <i className="bg-success" />
+                </Badge>
                 <span className="h6 text-muted mb-0">
                   Last updated on{' '}
                   <Moment
