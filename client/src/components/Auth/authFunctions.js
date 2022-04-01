@@ -96,6 +96,22 @@ export const getUserById = async (userId, setUser) => {
     });
 };
 
+export const getUserById = async (userId, setUser) => {
+  const url = `user/${userId}`;
+  console.log(userId);
+  await client
+    .get(url)
+    .then((res) => {
+      if (res.status === 200) {
+        console.log(res.data);
+        setUser(res.data);
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
 // A function to send a POST request with the user to be logged in
 export const login = (credentials, dispatch) => {
   const url = `user/authenticate`;
