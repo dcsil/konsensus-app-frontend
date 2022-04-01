@@ -20,9 +20,6 @@ import { useHistory } from 'react-router-dom';
 const FileCard = ({ fileId, isStarred }) => {
   const [file, setFile] = useState(null);
   let history = useHistory();
-
-  console.log(fileId);
-
   useEffect(() => {
     getFileById(fileId, setFile);
   }, [fileId]);
@@ -37,17 +34,10 @@ const FileCard = ({ fileId, isStarred }) => {
   };
 
   const handleClick = () => {
-    if (file.type.includes('image')) {
-      history.push({
-        pathname: '/admin/file',
-        state: {
-          lastUpdater: file.lastUpdater,
-          fileId: file.id,
-          url: file.url,
-          name: file.name,
-        },
-      });
-    }
+    history.push({
+      pathname: '/admin/file',
+      state: { fileId: file.id, url: file.url, name: file.name },
+    });
   };
 
   const handleStar = () => {
@@ -67,8 +57,9 @@ const FileCard = ({ fileId, isStarred }) => {
       {file !== null && (
         <Card
           style={{
-            width: '17rem',
+            width: '16rem',
             height: '8rem',
+            cursor: 'pointer',
             margin: '2px',
           }}
           onClick={() => {
@@ -91,7 +82,7 @@ const FileCard = ({ fileId, isStarred }) => {
                   />
                 </div>
               </Col>
-              <Col className="ml--3">
+              <Col>
                 <CardTitle className="h5 font-weight-bold mb-0">
                   {truncate(file.name)}
                 </CardTitle>
