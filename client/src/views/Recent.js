@@ -35,11 +35,11 @@ import FileRow from 'components/Files/FileRow.js';
 
 const Recent = () => {
   const dummyfiledata = [
-    {filename: 'FileName.pdf', filesize: '123.45 Gb', status: 'Warning'}, 
-    {filename: 'file2', filesize: '700'}, 
-    {filename: 'file3', filesize: '900'},
-    {filename: 'file4', filesize: '800'},
-    {filename: 'file5', filesize: '400'}]; 
+    {filename: 'FileName.pdf', filesize: '123.45 Gb', status: 'Warning', collaborators: ['Ryan Tompson', 'Romina Hadid', 'Alexander Smith', 'Jessica Doe']}, 
+    {filename: 'file2.docx', filesize: '43.45 Gb', status: 'Completed', collaborators: ['Ryan Tompson', 'Romina Hadid', 'Alexander Smith', 'Jessica Doe']}, 
+    {filename: 'file3.ppt', filesize: '2.45 Gb', status: 'On Schedule'},
+    {filename: 'file4.xls', filesize: '3.45 Gb', status: 'Completed'},
+    {filename: 'file5.txt', filesize: '123.45 Mb'}]; 
   
   return (
     <>
