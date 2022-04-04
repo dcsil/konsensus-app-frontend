@@ -34,10 +34,12 @@ const FileCard = ({ fileId, isStarred }) => {
   };
 
   const handleClick = () => {
-    history.push({
-      pathname: '/admin/file',
-      state: { fileId: file.id, url: file.url, name: file.name },
-    });
+    if (file.type.includes('image')) {
+      history.push({
+        pathname: '/admin/file',
+        state: { fileId: file.id, url: file.url, name: file.name },
+      });
+    }
   };
 
   const handleStar = () => {
