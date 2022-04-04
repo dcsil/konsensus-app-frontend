@@ -31,7 +31,8 @@ import {
 } from 'reactstrap';
 // core components
 import UserHeader from 'components/Headers/UserHeader.js';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
+import { GlobalStateContext } from 'components/GlobalState';
 import { checkSession } from 'components/Auth/authFunctions';
 import OrgTable from 'components/Profile/OrgTable';
 import Avatar from 'components/Profile/Avatar';
@@ -46,8 +47,10 @@ const Profile = () => {
   const [organization, setOrganization] = useState('');
   const [message, setMessage] = useState('');
 
+  const globalState = useContext(GlobalStateContext);
   useEffect(() => {
     checkSession(
+      globalState.token,
       setFirstName,
       setLastName,
       setEmail,

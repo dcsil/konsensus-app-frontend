@@ -1,3 +1,4 @@
+import { GlobalStateContext } from 'components/GlobalState';
 import { getFiles } from 'components/Auth/authFunctions';
 // reactstrap components
 
@@ -14,7 +15,7 @@ import {
 } from 'reactstrap';
 
 // core components
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 
 import Header from 'components/Headers/Header.js';
 import FileCard from 'components/File/FileCard';
@@ -33,8 +34,14 @@ const Recent = (props) => {
     {filename: 'file5.txt', filesize: '123.45 Mb', status: 'Completed', collaborators: ['Bob Flenderson'], progress: '100%', timestamp: 'Feb 04 2022 08:42:45'}] 
   
 
+  const globalState = useContext(GlobalStateContext);
   useEffect(() => {
-    getFiles(setOwnedFiles, setRecentFiles, setStarredFiles);
+    getFiles(
+      globalState.token,
+      setOwnedFiles,
+      setRecentFiles,
+      setStarredFiles
+    );
   }, []);
 
   return (

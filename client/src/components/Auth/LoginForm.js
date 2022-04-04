@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   Button,
   Card,
@@ -12,11 +12,13 @@ import {
   InputGroup,
 } from 'reactstrap';
 import { login } from './authFunctions';
+import { GlobalDispatchContext } from 'components/GlobalState';
 
 const LoginForm = (prop) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+  const dispatch = useContext(GlobalDispatchContext);
 
   const handleLogin = () => {
     const credentials = {
@@ -24,7 +26,7 @@ const LoginForm = (prop) => {
       password,
     };
 
-    const result = login(credentials);
+    const result = login(credentials, dispatch);
     if (!result) {
       setMessage('Invalid email/password combination.');
     } else {
