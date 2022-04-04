@@ -141,7 +141,7 @@ class FileRow extends React.Component{
         </div>
       </div>
     </td>
-    <td> {this.props.fileInfo.timestamp} </td> 
+    <td>{this.props.fileInfo.timestamp}</td> 
     <td className="text-right">
       <UncontrolledDropdown>
         <DropdownToggle
@@ -179,8 +179,8 @@ class FileRow extends React.Component{
         </DropdownMenu>
       </UncontrolledDropdown>
     </td>
-  </tr>)
-  }
+  </tr>
+  )}
 }
 export default FileRow;
 
