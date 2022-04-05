@@ -22,7 +22,6 @@ import FileRow from 'components/Files/FileRow.js';
 const Starred = (props) => {
   const [starredFiles, setStarredFiles] = useState([]);
   
-  const globalState = useContext(GlobalStateContext);
   useEffect(() => {
     getStarredFiles(setStarredFiles);
   }, []);
