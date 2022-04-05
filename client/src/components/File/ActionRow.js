@@ -6,17 +6,7 @@ import { getUserById } from 'components/Auth/authFunctions';
 
 // core components
 
-const ActionRow = ({ lastUpdater, action, time }) => {
-  const [user, setUser] = useState({
-    firstName: '',
-    lastName: '',
-    role: '',
-  });
-  console.log(lastUpdater);
-  useEffect(() => {
-    getUserById(lastUpdater, setUser);
-  }, []);
-
+const ActionRow = ({ firstName, lastName, role, action, time }) => {
   return (
     <tr>
       <td>
@@ -27,14 +17,14 @@ const ActionRow = ({ lastUpdater, action, time }) => {
             id="tooltip742438047"
             onClick={(e) => e.preventDefault()}
           >
-            <Avatar name={`${user.firstName} ${user.lastName}`} />
+            <Avatar name={`${firstName} ${lastName}`} />
           </a>
         </div>
       </td>
       <td>
-        <span className="mb-0 text-sm">{`${user.firstName} ${user.lastName}`}</span>
+        <span className="mb-0 text-sm">{`${firstName} ${lastName}`}</span>
       </td>
-      <td>{user.role}</td>
+      <td>{role}</td>
       <td>{action}</td>
       <td>
         <Badge color="" className="badge-dot mr-4">
