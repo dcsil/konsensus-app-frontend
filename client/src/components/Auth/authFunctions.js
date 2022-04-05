@@ -115,6 +115,21 @@ export const getSomeFiles = async (
     });
 };
 
+export const starFile = async (fileId) => {
+  const url = `/file/star/${fileId}`;
+
+  await client
+    .put(url)
+    .then((res) => {
+      if (res.status === 200) {
+        console.log(res.data);
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
 // Send a request to get a file by it's id
 export const getFileById = async (token, fileId, setFile) => {
   const url = `/file/access/${fileId}`;
