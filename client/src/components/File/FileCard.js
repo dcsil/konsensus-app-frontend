@@ -37,7 +37,12 @@ const FileCard = ({ fileId, isStarred }) => {
     if (file.type.includes('image')) {
       history.push({
         pathname: '/admin/file',
-        state: { fileId: file.id, url: file.url, name: file.name },
+        state: {
+          lastUpdater: file.lastUpdater,
+          fileId: file.id,
+          url: file.url,
+          name: file.name,
+        },
       });
     }
   };
