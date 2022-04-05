@@ -1,5 +1,6 @@
 import React from 'react';
 import { FileIcon, defaultStyles } from 'react-file-icon';
+import { BsStar, BsStarFill } from 'react-icons/bs';
 
 // reactstrap components
 import {
@@ -15,8 +16,9 @@ import { useEffect, useState, useContext } from 'react';
 import { getFileById } from 'components/Auth/authFunctions';
 import Moment from 'react-moment';
 import { useHistory } from 'react-router-dom';
+import { starFile } from 'components/Auth/authFunctions';
 
-const FileCard = ({ fileId }) => {
+const FileCard = ({ fileId, isStarred }) => {
   const [file, setFile] = useState(null);
   let history = useHistory();
   useEffect(() => {
@@ -46,23 +48,30 @@ const FileCard = ({ fileId }) => {
     }
   };
 
+  const handleStar = () => {
+    starFile(file.id);
+    window.location.reload();
+  };
+
   return (
     <>
       {file !== null && (
         <Card
           style={{
-            width: '16rem',
+            width: '17rem',
             height: '8rem',
-            cursor: 'pointer',
             margin: '2px',
-          }}
-          onClick={() => {
-            handleClick();
           }}
         >
           <CardBody>
             <Row>
-              <Col lg={{ size: 'auto' }}>
+              <Col
+                lg={{ size: 'auto' }}
+                onClick={() => {
+                  handleClick();
+                }}
+                style={{ cursor: 'pointer' }}
+              >
                 <div style={{ width: '2.5rem' }}>
                   <FileIcon
                     extension={fileTypeHelper(file.name)}
@@ -70,10 +79,23 @@ const FileCard = ({ fileId }) => {
                   />
                 </div>
               </Col>
-              <Col>
+              <Col className="ml--3">
                 <CardTitle className="h5 font-weight-bold mb-0">
                   {truncate(file.name)}
                 </CardTitle>
+              </Col>
+              <Col className="mr--3 mt--3" lg={{ size: 'auto' }}>
+                {isStarred ? (
+                  <BsStarFill
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => handleStar()}
+                  />
+                ) : (
+                  <BsStar
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => handleStar()}
+                  />
+                )}
               </Col>
             </Row>
             <Row className="pt-2">
