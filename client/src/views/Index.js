@@ -10,14 +10,17 @@ import { useEffect, useState, useContext } from 'react';
 
 import Header from 'components/Headers/Header.js';
 import FileCard from 'components/File/FileCard';
+import { getStarredFiles } from 'components/Auth/authFunctions';
 
 const Index = (props) => {
   const [allFiles, setAllFiles] = useState([]);
   const [recentFiles, setRecentFiles] = useState([]);
+  const [starredFiles, setStarredFiles] = useState([]);
 
     useEffect(() => {
     getAllFiles(setAllFiles);
     getRecentFiles(setRecentFiles);
+    getStarredFiles(setStarredFiles);
   }, []);
   return (
     <>
@@ -33,9 +36,15 @@ const Index = (props) => {
         </Row>
         <Row>
           {recentFiles.map((file) => {
+            let isStarred = false;
+            starredFiles.forEach((f) => {
+              if (file.id === f.id) {
+                isStarred = true;
+              }
+            });
             return (
               <Col lg={{ size: 'auto' }}>
-                <FileCard fileId={file.id} />
+                <FileCard fileId={file.id} isStarred={isStarred} />
               </Col>
             );
           })}
@@ -47,9 +56,15 @@ const Index = (props) => {
         </Row>
         <Row>
           {allFiles.map((file) => {
+            let isStarred = false;
+            starredFiles.forEach((f) => {
+              if (file.id === f.id) {
+                isStarred = true;
+              }
+            });
             return (
               <Col lg={{ size: 'auto' }}>
-                <FileCard fileId={file.id} />
+                <FileCard fileId={file.id} isStarred={isStarred} />
               </Col>
             );
           })}
