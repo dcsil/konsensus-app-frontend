@@ -45,7 +45,7 @@ const Starred = (props) => {
           {starredFiles.map((file) => {
             return (
               <Col lg={{ size: 'auto' }}>
-                <FileCard fileId={file.id} />
+                <FileCard fileId={file.id} isStarred={true} />
               </Col>
             );
           })}
