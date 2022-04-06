@@ -38,7 +38,7 @@ export const getFiles = async (
   setRecentFiles,
   setStarredFiles
 ) => {
-  const url = `/user/current`;
+  const url = `/user/current`; // gets the current user 
 
   await client
     .get(url)
@@ -46,7 +46,7 @@ export const getFiles = async (
       if (res.status === 200) {
         console.log(res.data);
         setOwnedFiles(res.data.ownedFiles);
-        setRecentFiles(res.data.recentFiles);
+        setRecentFiles(res.data.recentFiles); // returns just the IDs
         setStarredFiles(res.data.starredFiles);
       }
     })
@@ -59,7 +59,6 @@ export const getRecentFiles = async (
   setRecentFiles
 ) => {
   const url = `/file/recent`;
-  // gets the current user
 
   await client
     .get(url)

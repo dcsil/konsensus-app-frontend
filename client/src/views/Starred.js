@@ -21,8 +21,6 @@ import FileCard from 'components/File/FileCard';
 import FileRow from 'components/Files/FileRow.js';
 
 const Starred = (props) => {
-  const [ownedFiles, setOwnedFiles] = useState([]);
-  const [recentFiles, setRecentFiles] = useState([]);
   const [starredFiles, setStarredFiles] = useState([]);
   
   const dummyfiledata = [
@@ -35,9 +33,6 @@ const Starred = (props) => {
   const globalState = useContext(GlobalStateContext);
   useEffect(() => {
     getFiles(
-      globalState.token,
-      setOwnedFiles,
-      setRecentFiles,
       setStarredFiles
     );
   }, []);
@@ -79,7 +74,7 @@ const Starred = (props) => {
                   </tr>
                 </thead>
                 <tbody>
-                  { dummyfiledata.map(filerow => (
+                  {  starredFiles.map(filerow => (
                   <FileRow fileInfo={ filerow }>
                   </FileRow>
                   )) } 

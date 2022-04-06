@@ -29,7 +29,7 @@ class FileRow extends React.Component{
     <td>
       {/* {FileRow.size} */}
       <span className="mb-0 text-sm">
-      {this.props.fileInfo.filesize}
+      {this.props.fileInfo.size / 1000 + 'MB'}
       </span>
     </td>
     <td>
