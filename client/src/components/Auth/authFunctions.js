@@ -55,17 +55,18 @@ export const getFiles = async (
     });
 };
 
-export const getRecentFiles = async (
-  setRecentFiles
+// TODO: rename to getFiles
+export const getSomeFiles = async (
+  url,
+  setFiles
 ) => {
-  const url = `/file/recent`;
 
   await client
     .get(url)
     .then((res) => {
       if (res.status === 200) {
-        console.log(res.data); // res = response 
-        setRecentFiles(res.data); // return the entire array for the ID
+        console.log("Getting " + url + ":>> " + res.data); // res = response 
+        setFiles(res.data);
       }
     })
     .catch((error) => {
