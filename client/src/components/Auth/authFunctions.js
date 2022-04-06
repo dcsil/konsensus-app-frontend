@@ -55,6 +55,25 @@ export const getFiles = async (
     });
 };
 
+export const getRecentFiles = async (
+  setRecentFiles
+) => {
+  const url = `/file/recent`;
+  // gets the current user
+
+  await client
+    .get(url)
+    .then((res) => {
+      if (res.status === 200) {
+        console.log(res.data); // res = response 
+        setRecentFiles(res.data); // return the entire array for the ID
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
 // Send a request to get a file by it's id
 export const getFileById = async (token, fileId, setFile) => {
   const url = `/file/access/${fileId}`;
