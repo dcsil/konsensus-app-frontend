@@ -5,11 +5,11 @@ import {
     UncontrolledDropdown,
     DropdownToggle,
     Media,
-    Progress,
     UncontrolledTooltip,
   } from 'reactstrap';
 import React from "react";
 // import { FileIcon } from 'react-file-icon';
+import Moment from 'react-moment';
 
 class FileRow extends React.Component{
 
@@ -22,7 +22,7 @@ class FileRow extends React.Component{
         {/* <FileIcon extension="docx"/> */}
         <Media>
           <span className="mb-0 text-sm">
-            {this.props.fileInfo.filename}
+            {this.props.fileInfo.name}
           </span>
         </Media>
       </Media>
@@ -30,15 +30,8 @@ class FileRow extends React.Component{
     <td>
       {/* {FileRow.size} */}
       <span className="mb-0 text-sm">
-      {this.props.fileInfo.filesize}
+      {this.props.fileInfo.size  / 1000 + ' MB'}
       </span>
-    </td>
-    <td>
-      <Badge color="" className="badge-dot mr-4">
-        <i className="bg-warning" />
-        {/* {FileRow.status} */}
-        {this.props.fileInfo.status}
-      </Badge>
     </td>
     <td>
       <div className="avatar-group">
@@ -129,7 +122,7 @@ class FileRow extends React.Component{
         </UncontrolledTooltip>
       </div>
     </td>
-    <td>
+    {/* <td>
       <div className="d-flex align-items-center">
         <span className="mr-2">{this.props.fileInfo.progress}</span>
         <div>
@@ -140,8 +133,13 @@ class FileRow extends React.Component{
           />
         </div>
       </div>
-    </td>
-    <td>{this.props.fileInfo.timestamp}</td> 
+    </td> */}
+    <td>
+      <Moment
+      format="MMM DD/YYYY hh:mm"
+      date={this.props.fileInfo.updatedAt}/>
+      </td> 
+    {/* TODO: need to format time */}
     <td className="text-right">
       <UncontrolledDropdown>
         <DropdownToggle

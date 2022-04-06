@@ -39,6 +39,7 @@ export const getFiles = async (
   setStarredFiles
 ) => {
   const url = `/user/current`;
+  // gets the current user
 
   await client
     .get(url)
@@ -46,8 +47,27 @@ export const getFiles = async (
       if (res.status === 200) {
         console.log(res.data);
         setOwnedFiles(res.data.ownedFiles);
-        setRecentFiles(res.data.recentFiles);
+        setRecentFiles(res.data.recentFiles); // returns just the IDs
         setStarredFiles(res.data.starredFiles);
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+export const getRecentFiles = async (
+  setRecentFiles,
+) => {
+  const url = `/file/recent`;
+  // gets the current user
+
+  await client
+    .get(url)
+    .then((res) => {
+      if (res.status === 200) {
+        console.log(res.data); // res = response
+        setRecentFiles(res.data); // return the entire array for the ID
       }
     })
     .catch((error) => {
