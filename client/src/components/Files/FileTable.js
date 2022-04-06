@@ -1,6 +1,4 @@
-import { getRecentFiles } from 'components/Auth/authFunctions';
 // reactstrap components
-
 import {
   Card,
   CardHeader,

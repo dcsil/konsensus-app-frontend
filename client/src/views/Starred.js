@@ -1,56 +1,26 @@
-import { getStarredFiles } from 'components/Auth/authFunctions';
-// reactstrap components
-import {
-  Card,
-  CardHeader,
-  CardFooter,
-  Pagination,
-  PaginationItem,
-  PaginationLink,
-  Table,
-  Container,
-  Row,
-} from 'reactstrap';
+import { useEffect, useState } from 'react';
 
-// core components
-import { useEffect, useState, useContext } from 'react';
-
+import { getFiles } from 'components/Auth/authFunctions';
 import Header from 'components/Headers/Header.js';
-import FileCard from 'components/File/FileCard';
-import FileRow from 'components/Files/FileRow.js';
+import FileTable from 'components/Files/FileTable.js';
 
-const Starred = (props) => {
+const Starred = () => {
+  // only re-renders when a state variable changes
   const [starredFiles, setStarredFiles] = useState([]);
-  
+  // useState() is to create state variables
+  // parameter for useState is optional, here it's set to an empty list for when we wait for a request
+
   useEffect(() => {
-    getStarredFiles(setStarredFiles);
+    getFiles(
+      '/file/starred',
+      setStarredFiles
+    );
   }, []);
 
   return (
-
-    // {starredFiles.map((fileId) => {
-    //   return (
-    //     <Col lg={{ size: 'auto' }}>
-    //       <FileCard fileId={fileId} />
-    //     </Col>
-    //   );
-    // })}
-
-    
     <>
       <Header />
-      {/* Page content */}
-      <Container className="mt--7 pb-7" fluid>
-        <Row>
-          {starredFiles.map((file) => {
-            return (
-              <Col lg={{ size: 'auto' }}>
-                <FileCard fileId={file.id} isStarred={true} />
-              </Col>
-            );
-          })}
-        </Row>
-      </Container>
+      <FileTable files={starredFiles} />
     </>
   );
 };

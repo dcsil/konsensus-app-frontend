@@ -28,6 +28,7 @@ var routes = [
   {
     path: '/index',
     name: 'All Files',
+    showOnSidebar: true,
     icon: 'fa fa-home text-primary',
     component: Index,
     layout: '/admin',
@@ -35,6 +36,7 @@ var routes = [
   {
     path: '/my_files',
     name: 'My Files',
+    showOnSidebar: true,
     icon: 'ni ni-books text-blue',
     component: MyFiles,
     layout: '/admin',

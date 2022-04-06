@@ -31,73 +31,8 @@ export const checkSession = async (
     });
 };
 
-// Send a request to get fileIds
-export const getAllFiles = async (setAllFiles) => {
-  const url = `/file/all`;
-
-  await client
-    .get(url)
-    .then((res) => {
-      if (res.status === 200) {
-        console.log(res.data);
-        setAllFiles(res.data);
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-};
-
-export const getSharedFiles = async (setFiles) => {
-  const url = `/file/owned`;
-
-  await client
-    .get(url)
-    .then((res) => {
-      if (res.status === 200) {
-        console.log(res.data);
-        setFiles(res.data);
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-};
-
-export const getRecentFiles = async (setFiles) => {
-  const url = `/file/recent`;
-
-  await client
-    .get(url)
-    .then((res) => {
-      if (res.status === 200) {
-        console.log(res.data);
-        setFiles(res.data);
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-};
-
-export const getStarredFiles = async (setFiles) => {
-  const url = `/file/starred`;
-
-  await client
-    .get(url)
-    .then((res) => {
-      if (res.status === 200) {
-        console.log(res.data);
-        setFiles(res.data);
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-};
-
 // TODO: rename to getFiles
-export const getSomeFiles = async (
+export const getFiles = async (
   url,
   setFiles
 ) => {
@@ -106,7 +41,6 @@ export const getSomeFiles = async (
     .get(url)
     .then((res) => {
       if (res.status === 200) {
-        console.log("Getting " + url + ":>> " + res.data); // res = response 
         setFiles(res.data);
       }
     })
@@ -131,14 +65,13 @@ export const starFile = async (fileId) => {
 };
 
 // Send a request to get a file by it's id
-export const getFileById = async (token, fileId, setFile) => {
+export const getFileById = async (fileId, setFile) => {
   const url = `/file/access/${fileId}`;
 
   await client
     .get(url)
     .then((res) => {
       if (res.status === 200) {
-        console.log(res.data);
         setFile(res.data);
       }
     })

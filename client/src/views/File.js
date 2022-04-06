@@ -32,7 +32,6 @@ const File = () => {
   return (
     <>
       <Header />
-      {/* Page content */}
       <Container className="mt--7 pb-7" fluid>
         <ImageViewer actions={actions} user={user} />
       </Container>
