@@ -1,23 +1,29 @@
 import React from 'react';
 import { FileIcon, defaultStyles } from 'react-file-icon';
+import { BsStar, BsStarFill } from 'react-icons/bs';
 
 // reactstrap components
-import { Card, CardBody, CardTitle, Row, Col } from 'reactstrap';
+import {
+  Card,
+  CardBody,
+  CardTitle,
+  Row,
+  Col,
+  Badge,
+} from 'reactstrap';
 
 import { useEffect, useState, useContext } from 'react';
-import { GlobalStateContext } from 'components/GlobalState';
 import { getFileById } from 'components/Auth/authFunctions';
 import Moment from 'react-moment';
+import { useHistory } from 'react-router-dom';
+import { starFile } from 'components/Auth/authFunctions';
 
-const FileCard = ({ fileId }) => {
+const FileCard = ({ fileId, isStarred }) => {
   const [file, setFile] = useState(null);
-
-  console.log(fileId);
-
-  const globalState = useContext(GlobalStateContext);
+  let history = useHistory();
   useEffect(() => {
-    getFileById(globalState.token, fileId, setFile);
-  }, []);
+    getFileById(fileId, setFile);
+  }, [fileId]);
 
   const fileTypeHelper = (fileName) => {
     const split = fileName.split('.');
@@ -25,7 +31,26 @@ const FileCard = ({ fileId }) => {
   };
 
   const truncate = (text) => {
-    return text.length > 35 ? text.substring(0, 32) + '...' : text;
+    return text.length > 33 ? text.substring(0, 30) + '...' : text;
+  };
+
+  const handleClick = () => {
+    if (file.type.includes('image')) {
+      history.push({
+        pathname: '/admin/file',
+        state: {
+          lastUpdater: file.lastUpdater,
+          fileId: file.id,
+          url: file.url,
+          name: file.name,
+        },
+      });
+    }
+  };
+
+  const handleStar = () => {
+    starFile(file.id);
+    window.location.reload();
   };
 
   return (
@@ -33,24 +58,20 @@ const FileCard = ({ fileId }) => {
       {file !== null && (
         <Card
           style={{
-            width: '18rem',
+            width: '17rem',
             height: '8rem',
-            cursor: 'pointer',
+            margin: '2px',
           }}
-          // onClick={() => {
-          //   window.open(file.url);
-          // }}
         >
           <CardBody>
-            {/* <FilePreviewerThumbnail
-              style={{ objectFit: 'cover' }}
-              hideControls={true}
-              file={{
-                url: file.url,
-              }}
-            /> */}
             <Row>
-              <Col lg={{ size: 'auto' }}>
+              <Col
+                lg={{ size: 'auto' }}
+                onClick={() => {
+                  handleClick();
+                }}
+                style={{ cursor: 'pointer' }}
+              >
                 <div style={{ width: '2.5rem' }}>
                   <FileIcon
                     extension={fileTypeHelper(file.name)}
@@ -58,14 +79,30 @@ const FileCard = ({ fileId }) => {
                   />
                 </div>
               </Col>
-              <Col>
-                <CardTitle className="h4 font-weight-bold mb-0">
+              <Col className="ml--3">
+                <CardTitle className="h5 font-weight-bold mb-0">
                   {truncate(file.name)}
                 </CardTitle>
+              </Col>
+              <Col className="mr--3 mt--3" lg={{ size: 'auto' }}>
+                {isStarred ? (
+                  <BsStarFill
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => handleStar()}
+                  />
+                ) : (
+                  <BsStar
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => handleStar()}
+                  />
+                )}
               </Col>
             </Row>
             <Row className="pt-2">
               <Col>
+                <Badge color="" className="badge-dot ">
+                  <i className="bg-success" />
+                </Badge>
                 <span className="h6 text-muted mb-0">
                   Last updated on{' '}
                   <Moment

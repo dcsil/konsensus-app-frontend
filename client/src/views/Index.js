@@ -1,32 +1,28 @@
-import { GlobalStateContext } from 'components/GlobalState';
-import { getFiles } from 'components/Auth/authFunctions';
+import {
+  getFiles,
+} from 'components/Auth/authFunctions';
 // reactstrap components
 import { Container, Row, Col } from 'reactstrap';
 
 // core components
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState } from 'react';
 
 import Header from 'components/Headers/Header.js';
 import FileCard from 'components/File/FileCard';
 
 const Index = (props) => {
-  const [ownedFiles, setOwnedFiles] = useState([]);
+  const [allFiles, setAllFiles] = useState([]);
   const [recentFiles, setRecentFiles] = useState([]);
   const [starredFiles, setStarredFiles] = useState([]);
 
-  const globalState = useContext(GlobalStateContext);
   useEffect(() => {
-    getFiles(
-      globalState.token,
-      setOwnedFiles,
-      setRecentFiles,
-      setStarredFiles
-    );
+    getFiles('/file/all', setAllFiles);
+    getFiles('/file/recent', setRecentFiles);
+    getFiles('/file/starred', setStarredFiles);
   }, []);
   return (
     <>
       <Header />
-      {/* Page content */}
       <Container className="mt--8 pb-7" fluid>
         <Row>
           <Col className="mb-5 mb-xl-0" xl="8">
@@ -36,10 +32,16 @@ const Index = (props) => {
           </Col>
         </Row>
         <Row>
-          {ownedFiles.map((fileId) => {
+          {recentFiles.map((file) => {
+            let isStarred = false;
+            starredFiles.forEach((f) => {
+              if (file.id === f.id) {
+                isStarred = true;
+              }
+            });
             return (
               <Col lg={{ size: 'auto' }}>
-                <FileCard fileId={fileId} />
+                <FileCard fileId={file.id} isStarred={isStarred} />
               </Col>
             );
           })}
@@ -50,10 +52,16 @@ const Index = (props) => {
           </Col>
         </Row>
         <Row>
-          {ownedFiles.map((fileId) => {
+          {allFiles.map((file) => {
+            let isStarred = false;
+            starredFiles.forEach((f) => {
+              if (file.id === f.id) {
+                isStarred = true;
+              }
+            });
             return (
               <Col lg={{ size: 'auto' }}>
-                <FileCard fileId={fileId} />
+                <FileCard fileId={file.id} isStarred={isStarred} />
               </Col>
             );
           })}

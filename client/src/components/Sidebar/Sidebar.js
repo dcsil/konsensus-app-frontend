@@ -17,7 +17,11 @@
 */
 /*eslint-disable*/
 import { useState } from 'react';
-import { NavLink as NavLinkRRD, Link } from 'react-router-dom';
+import {
+  NavLink as NavLinkRRD,
+  Link,
+  useHistory,
+} from 'react-router-dom';
 // nodejs library to set properties for components
 import { PropTypes } from 'prop-types';
 
@@ -56,6 +60,9 @@ var ps;
 
 const Sidebar = (props) => {
   const [collapseOpen, setCollapseOpen] = useState();
+  const history = useHistory();
+  console.log(history);
+  const isFileView = history.location.pathname.includes('file');
   // verifies if routeName is the one active (in browser input)
   const activeRoute = (routeName) => {
     return props.location.pathname.indexOf(routeName) > -1
@@ -74,7 +81,7 @@ const Sidebar = (props) => {
   // creates the links that appear in the left menu / Sidebar
   const createLinks = (routes) => {
     return routes.map((prop, key) => {
-      if (prop.name === 'Login' || prop.name === 'Register') {
+      if (!prop.showOnSidebar) {
         return null;
       }
 
@@ -95,7 +102,13 @@ const Sidebar = (props) => {
     });
   };
 
-  const { bgColor, routes, logo, toggleUploadModal } = props;
+  const {
+    bgColor,
+    routes,
+    logo,
+    toggleUploadModal,
+    toggleReUploadModal,
+  } = props;
   let navbarBrandProps;
   if (logo && logo.innerLink) {
     navbarBrandProps = {
@@ -255,17 +268,31 @@ const Sidebar = (props) => {
             </InputGroup>
           </Form>
           {/* File Upload Button */}
-          <Button
-            className="btn-icon btn-3"
-            color="secondary"
-            type="button"
-            onClick={toggleUploadModal}
-          >
-            <span className="btn-inner--icon">
-              <i className="ni ni-fat-add" />
-            </span>
-            <span className="btn-inner--text">Upload</span>
-          </Button>
+          {isFileView ? (
+            <Button
+              className="btn-icon btn-3"
+              color="secondary"
+              type="button"
+              onClick={toggleReUploadModal}
+            >
+              <span className="btn-inner--icon">
+                <i className="ni ni-archive-2" />
+              </span>
+              <span className="btn-inner--text">Replace</span>
+            </Button>
+          ) : (
+            <Button
+              className="btn-icon btn-3"
+              color="secondary"
+              type="button"
+              onClick={toggleUploadModal}
+            >
+              <span className="btn-inner--icon">
+                <i className="ni ni-fat-add" />
+              </span>
+              <span className="btn-inner--text">Upload</span>
+            </Button>
+          )}
           {/* Navigation */}
           <h1 className="navbar-heading text-light pt-5">Files</h1>
           <Nav navbar>{createLinks(routes)}</Nav>

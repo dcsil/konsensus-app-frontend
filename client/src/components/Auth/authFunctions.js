@@ -31,32 +31,8 @@ export const checkSession = async (
     });
 };
 
-// Send a request to get fileIds
-export const getFiles = async (
-  token,
-  setOwnedFiles,
-  setRecentFiles,
-  setStarredFiles
-) => {
-  const url = `/user/current`; // gets the current user 
-
-  await client
-    .get(url)
-    .then((res) => {
-      if (res.status === 200) {
-        console.log(res.data);
-        setOwnedFiles(res.data.ownedFiles);
-        setRecentFiles(res.data.recentFiles); // returns just the IDs
-        setStarredFiles(res.data.starredFiles);
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-};
-
 // TODO: rename to getFiles
-export const getSomeFiles = async (
+export const getFiles = async (
   url,
   setFiles
 ) => {
@@ -65,7 +41,6 @@ export const getSomeFiles = async (
     .get(url)
     .then((res) => {
       if (res.status === 200) {
-        console.log("Getting " + url + ":>> " + res.data); // res = response 
         setFiles(res.data);
       }
     })
@@ -74,16 +49,46 @@ export const getSomeFiles = async (
     });
 };
 
+export const starFile = async (fileId) => {
+  const url = `/file/star/${fileId}`;
+
+  await client
+    .put(url)
+    .then((res) => {
+      if (res.status === 200) {
+        console.log(res.data);
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
 // Send a request to get a file by it's id
-export const getFileById = async (token, fileId, setFile) => {
+export const getFileById = async (fileId, setFile) => {
   const url = `/file/access/${fileId}`;
 
   await client
     .get(url)
     .then((res) => {
       if (res.status === 200) {
-        console.log(res.data);
         setFile(res.data);
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+export const getUserById = async (userId, setUser) => {
+  const url = `user/${userId}`;
+  console.log(userId);
+  await client
+    .get(url)
+    .then((res) => {
+      if (res.status === 200) {
+        console.log(res.data);
+        setUser(res.data);
       }
     })
     .catch((error) => {

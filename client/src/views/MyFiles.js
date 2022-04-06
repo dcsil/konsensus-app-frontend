@@ -17,16 +17,16 @@
 */
 import { useEffect, useState } from 'react';
 
-import { getSomeFiles } from 'components/Auth/authFunctions';
+import { getFiles } from 'components/Auth/authFunctions';
 import Header from 'components/Headers/Header.js';
 import FileTable from 'components/Files/FileTable.js';
 
 
-const MyFiles = (props) => {
+const MyFiles = () => {
   const [ownedFiles, setOwnedFiles] = useState([]);
 
   useEffect(() => {
-    getSomeFiles(
+    getFiles(
       '/file/owned',
       setOwnedFiles
     );
@@ -35,7 +35,6 @@ const MyFiles = (props) => {
   return (
     <>
       <Header />
-      {/* Page content */}
       <FileTable files={ownedFiles} />
     </>
   );
