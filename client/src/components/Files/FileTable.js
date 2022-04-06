@@ -1,6 +1,6 @@
-import { GlobalStateContext } from 'components/GlobalState';
-import { getFiles } from 'components/Auth/authFunctions';
+import { getRecentFiles } from 'components/Auth/authFunctions';
 // reactstrap components
+
 import {
   Card,
   CardHeader,
@@ -13,64 +13,40 @@ import {
   Row,
 } from 'reactstrap';
 
-// core components
-import { useEffect, useState, useContext } from 'react';
-
-import Header from 'components/Headers/Header.js';
-import FileCard from 'components/File/FileCard';
 import FileRow from 'components/Files/FileRow.js';
 
-const Starred = (props) => {
-  const [starredFiles, setStarredFiles] = useState([]);
-  
-  const globalState = useContext(GlobalStateContext);
-  useEffect(() => {
-    getFiles(
-      setStarredFiles
-    );
-  }, []);
-
-  return (
-
-    // {starredFiles.map((fileId) => {
-    //   return (
-    //     <Col lg={{ size: 'auto' }}>
-    //       <FileCard fileId={fileId} />
-    //     </Col>
-    //   );
-    // })}
-
-    
-    <>
-      <Header />
-      {/* Page content */}
-      <Container className="mt--7 pb-7" fluid>
+const FileTable = (props) => {
+    return (
+        <Container className="mt--7 pb-7" fluid>
         <Row>
           <div className="col">
             <Card className="shadow">
               <CardHeader className="border-0">
                 <h3 className="mb-0">Files</h3>
               </CardHeader>
+
               <Table
                 className="align-items-center table-flush"
                 responsive
               >
+                {/* </File> */}
                 <thead className="thead-light">
                   <tr>
                     <th scope="col">Name</th>
                     <th scope="col">Size</th>
                     <th scope="col">Collaborators</th>
-                    <th scope="col">Last Access</th>
+                    <th scope="col">Last Updated</th>
                     <th scope="col" />
                   </tr>
                 </thead>
                 <tbody>
-                  {  starredFiles.map(filerow => (
-                  <FileRow fileInfo={ filerow }>
-                  </FileRow>
-                  )) } 
+                  {props.files.map(file => (
+                    <FileRow fileInfo={file} key={file.id}>
+                    </FileRow>
+                  ))}
                 </tbody>
               </Table>
+
               <CardFooter className="py-4">
                 <nav aria-label="...">
                   <Pagination
@@ -95,23 +71,7 @@ const Starred = (props) => {
                         1
                       </PaginationLink>
                     </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        2 <span className="sr-only">(current)</span>
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        3
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
+                    <PaginationItem className="disabled">
                       <PaginationLink
                         href="#pablo"
                         onClick={(e) => e.preventDefault()}
@@ -127,8 +87,7 @@ const Starred = (props) => {
           </div>
         </Row>
       </Container>
-    </>
-  );
-};
+    )
+}
 
-export default Starred;
+export default FileTable

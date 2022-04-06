@@ -19,7 +19,7 @@ import Index from 'views/Index.js';
 import Register from 'views/Register.js';
 import Login from 'views/Login.js';
 import Starred from 'views/Starred.js';
-import Shared from 'views/Shared.js';
+import MyFiles from 'views/MyFiles.js';
 import Recent from 'views/Recent.js';
 import Profile from 'views/Profile.js';
 
@@ -27,15 +27,15 @@ var routes = [
   {
     path: '/index',
     name: 'All Files',
-    icon: 'ni ni-books text-primary',
+    icon: 'fa fa-home text-primary',
     component: Index,
     layout: '/admin',
   },
   {
-    path: '/shared_with_me',
-    name: 'Shared',
-    icon: 'fa fa-share text-blue',
-    component: Shared,
+    path: '/my_files',
+    name: 'My Files',
+    icon: 'ni ni-books text-blue',
+    component: MyFiles,
     layout: '/admin',
   },
   {
