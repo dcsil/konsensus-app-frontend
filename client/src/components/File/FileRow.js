@@ -30,7 +30,7 @@ const FileRow = (props) => {
   };
 
   return (
-    <tr onClick={handleClick}>
+    <tr onClick={handleClick} style={{cursor:'pointer'}}>
       <th scope="row">
         <Media className="align-items-center">
           <i className="ni ni-single-copy-04 text-primary pr-3" />

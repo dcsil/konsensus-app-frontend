@@ -1,8 +1,6 @@
 import React from 'react';
 import { FileIcon, defaultStyles } from 'react-file-icon';
 import { BsStar, BsStarFill } from 'react-icons/bs';
-
-// reactstrap components
 import {
   Card,
   CardBody,
@@ -11,18 +9,12 @@ import {
   Col,
   Badge,
 } from 'reactstrap';
-
-import { useEffect, useState, useContext } from 'react';
-import { getFileById, starFile} from 'components/Auth/authFunctions';
+import { starFile} from 'components/Auth/authFunctions';
 import Moment from 'react-moment';
 import { useHistory } from 'react-router-dom';
 
 const FileCard = ({ file, isStarred }) => {
-  // const [file, setFile] = useState(null);
   let history = useHistory();
-  // useEffect(() => {
-  //   getFileById(fileId, setFile);
-  // }, [fileId]);
 
   const fileTypeHelper = (fileName) => {
     const split = fileName.split('.');
@@ -40,7 +32,6 @@ const FileCard = ({ file, isStarred }) => {
         state: {
           lastUpdater: file.lastUpdater,
           fileId: file.id,
-          // url: file.url,
           name: file.name,
         },
       });

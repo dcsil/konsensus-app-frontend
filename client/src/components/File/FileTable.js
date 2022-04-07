@@ -11,7 +11,7 @@ import {
   Row,
 } from 'reactstrap';
 
-import FileRow from 'components/Files/FileRow.js';
+import FileRow from 'components/File/FileRow.js';
 
 const FileTable = (props) => {
     return (
