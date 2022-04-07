@@ -29,12 +29,11 @@ const FileRow = (props) => {
   };
 
   return (
-    <tr onClick={handleClick} style={{ cursor: 'pointer' }}>
+    <tr>
       <th scope="row">
         <Media className="align-items-center">
           <i className="ni ni-single-copy-04 text-primary pr-3" />
-          {/* <FileIcon extension="docx"/> */}
-          <Media>
+          <Media onClick={handleClick} style={{ cursor: 'pointer' }}>
             <span className="mb-0 text-sm">
               {name}
             </span>
@@ -55,41 +54,7 @@ const FileRow = (props) => {
         date={updatedAt} />
       </td>
       <td className="text-right">
-        <UncontrolledDropdown>
-          <DropdownToggle
-            className="btn-icon-only text-light"
-            href="#pablo"
-            role="button"
-            size="sm"
-            color=""
-            onClick={(e) => e.preventDefault()}
-          >
-            <i className="fas fa-ellipsis-v" />
-          </DropdownToggle>
-          <DropdownMenu
-            className="dropdown-menu-arrow"
-            right
-          >
-            <DropdownItem
-              href="#pablo"
-              onClick={(e) => e.preventDefault()}
-            >
-              Action
-            </DropdownItem>
-            <DropdownItem
-              href="#pablo"
-              onClick={(e) => e.preventDefault()}
-            >
-              Another action
-            </DropdownItem>
-            <DropdownItem
-              href="#pablo"
-              onClick={(e) => e.preventDefault()}
-            >
-              Something else here
-            </DropdownItem>
-          </DropdownMenu>
-        </UncontrolledDropdown>
+        <ActionsDropdown />
       </td>
     </tr>
   )
@@ -126,6 +91,66 @@ const Collaborators = ({ collaborators }) => {
     <div className="avatar-group">
       {collaborators.map(collaborator => renderAvatar(collaborator))}
     </div>
+  )
+}
+
+const ActionsDropdown = () => {
+  const actions = [
+    {
+      name: 'Reupload',
+      icon: 'fa fa-cloud-upload',
+      color: '#000000',
+      action: null,
+    },
+    {
+      name: 'Check History',
+      icon: 'fa fa-history',
+      color: '#000000',
+      action: null,
+    },
+    {
+      name: 'Share',
+      icon: 'fa fa-share',
+      color: '#327C00',
+      action: null,
+    },
+    {
+      name: 'Delete',
+      icon: 'fa fa-trash',
+      color: '#9A0000',
+      action: null,
+    }
+  ];
+
+  const renderDropdownItem = (item) => {
+    return (
+      <>
+        <DropdownItem key={item.name} style={{ color: item.color }} >
+          <i className={item.icon} style={{ color: item.color }} />
+          {item.name}
+        </DropdownItem>
+      </>
+    )
+  }
+
+  return (
+    <UncontrolledDropdown>
+      <DropdownToggle
+        className="btn-icon-only text-light"
+        role="button"
+        size="sm"
+        color=""
+        onClick={(e) => e.preventDefault()}
+      >
+        <i className="fas fa-ellipsis-v" />
+      </DropdownToggle>
+      <DropdownMenu
+        className="dropdown-menu-arrow"
+        right
+      >
+        {actions.map(item => renderDropdownItem(item))}
+      </DropdownMenu>
+    </UncontrolledDropdown>
   )
 }
 
