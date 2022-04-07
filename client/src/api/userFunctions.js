@@ -100,4 +100,10 @@ export const uploadProfilePicture = async (formData) => {
               'Content-Type': 'multipart/form-data',
           },
       })
+      .then((res) => {
+        console.log('res :>> ', res);
+      })
+      .catch((error) => {
+        console.log("Error trying to upload Profile Picture :>> ", error);
+      });
 }
