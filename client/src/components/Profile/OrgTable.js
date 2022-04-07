@@ -2,7 +2,7 @@ import { Table } from 'reactstrap';
 // core components
 import OrgRow from './OrgRow';
 
-const OrgTable = ({ firstName, lastName, email, role }) => {
+const OrgTable = ({ user }) => {
   return (
     <Table className="align-items-center table-flush" responsive>
       <thead className="thead-light">
@@ -15,10 +15,7 @@ const OrgTable = ({ firstName, lastName, email, role }) => {
       </thead>
       <tbody>
         <OrgRow
-          firstName={firstName}
-          lastName={lastName}
-          email={email}
-          role={role}
+          user={user}
         />
       </tbody>
     </Table>

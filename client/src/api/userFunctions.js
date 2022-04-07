@@ -1,15 +1,9 @@
-import client from '../../axios';
+import client from 'api/axios';
 import { SET_TOKEN } from 'components/GlobalState';
 
 // Send a request to check if a user is logged in through the session cookie
 export const checkSession = async (
-  token,
-  setFirstName,
-  setLastName,
-  setEmail,
-  setId,
-  setRole,
-  setOrganization
+  setUser
 ) => {
   const url = `/user/current`;
 
@@ -18,61 +12,7 @@ export const checkSession = async (
     .then((res) => {
       if (res.status === 200) {
         console.log(res.data);
-        setFirstName(res.data.firstName);
-        setLastName(res.data.lastName);
-        setEmail(res.data.email);
-        setId(res.data.id);
-        setRole(res.data.role);
-        setOrganization(res.data.organization);
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-};
-
-// TODO: rename to getFiles
-export const getFiles = async (
-  url,
-  setFiles
-) => {
-
-  await client
-    .get(url)
-    .then((res) => {
-      if (res.status === 200) {
-        setFiles(res.data);
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-};
-
-export const starFile = async (fileId) => {
-  const url = `/file/star/${fileId}`;
-
-  await client
-    .put(url)
-    .then((res) => {
-      if (res.status === 200) {
-        console.log(res.data);
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-};
-
-// Send a request to get a file by it's id
-export const getFileById = async (fileId, setFile) => {
-  const url = `/file/access/${fileId}`;
-
-  await client
-    .get(url)
-    .then((res) => {
-      if (res.status === 200) {
-        setFile(res.data);
+        setUser(res.data);
       }
     })
     .catch((error) => {
@@ -152,3 +92,12 @@ export const updateUser = (credentials, id) => {
       return false;
     });
 };
+
+export const uploadProfilePicture = async (formData) => {
+  await client
+      .put(`user/image`, formData, {
+          headers: {
+              'Content-Type': 'multipart/form-data',
+          },
+      })
+}

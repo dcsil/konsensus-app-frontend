@@ -1,5 +1,4 @@
 import React, { useState, useMemo } from 'react';
-import client from '../../axios';
 import { Button, Modal } from 'reactstrap';
 import { useDropzone } from 'react-dropzone';
 
@@ -32,7 +31,7 @@ const rejectStyle = {
 };
 
 const UploadModal = (props) => {
-  const { isOpen, toggleOpen } = props;
+  const { isOpen, toggleOpen, title, uploadMethod } = props;
 
   return (
     <Modal
@@ -42,7 +41,7 @@ const UploadModal = (props) => {
     >
       <div className="modal-header">
         <h3 className="modal-title" id="exampleModalLabel">
-          Upload Files
+          {title}
         </h3>
         <button
           aria-label="Close"
@@ -55,7 +54,7 @@ const UploadModal = (props) => {
         </button>
       </div>
 
-      <StyledDropzone toggleOpen={toggleOpen} />
+      <StyledDropzone toggleOpen={toggleOpen} uploadMethod={uploadMethod}/>
     </Modal>
   );
 };
@@ -63,7 +62,7 @@ const UploadModal = (props) => {
 // This needs to be a separate component so we can use the useDropzone hook
 const StyledDropzone = (props) => {
   const [files, setFiles] = useState([]);
-  const { toggleOpen } = props;
+  const { toggleOpen, uploadMethod } = props;
 
   const {
     getRootProps,
@@ -85,18 +84,7 @@ const StyledDropzone = (props) => {
     const formData = new FormData();
     formData.append('file', files[0]);
 
-    client
-      .post('file/upload', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    uploadMethod(formData);
     toggleOpen();
   };
 

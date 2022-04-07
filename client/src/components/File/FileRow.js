@@ -15,8 +15,6 @@ const FileRow = (props) => {
   const history = useHistory();
 
   const handleClick = () => {
-    console.log('handling click');
-    console.log('props.fileInfo :>> ', props.fileInfo);
     if (type.includes('image')) {
       history.push({
         pathname: '/admin/file',
