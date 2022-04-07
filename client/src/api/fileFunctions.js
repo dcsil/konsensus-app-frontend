@@ -50,7 +50,7 @@ export const getFiles = async (
       });
   };
   
-  // Send a request to get a file by it's id
+  // Send a request to get a file by its id
   export const getFileById = async (fileId, setFile) => {
     const url = `/file/access/${fileId}`;
   

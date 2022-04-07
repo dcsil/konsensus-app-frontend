@@ -89,7 +89,7 @@ const FileRow = (props) => {
       <td className="text-right">
         <ActionsDropdown actions={actions}/>
       </td>
-      <ShareModal isOpen={shareModalOpen} toggleOpen={toggleShareModal} title={"Add collaborators"}/>
+      <ShareModal isOpen={shareModalOpen} toggleOpen={toggleShareModal} title={"Add collaborators"} fileId={id}/>
     </tr>
   )
 }
