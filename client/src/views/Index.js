@@ -21,7 +21,6 @@ const Index = (props) => {
     getFiles('/file/starred', setStarredFiles);
   }, []);
 
-  console.log('allFiles :>> ', allFiles);
   return (
     <>
       <Header />
