@@ -6,14 +6,16 @@ import {
   Media,
   UncontrolledTooltip,
 } from 'reactstrap';
-import React, { createRef } from "react";
+import React, { createRef, useState } from "react";
 import Moment from 'react-moment';
 import { useHistory } from 'react-router-dom';
 import Avatar from 'components/Profile/Avatar';
+import ShareModal from 'components/Modals/ShareModal';
 
 const FileRow = (props) => {
   const { id, name, size, updatedAt, lastUpdater, type, collaborators } = props.file;
   const history = useHistory();
+  const [shareModalOpen, setShareModalOpen] = useState(false);
 
   const handleClick = () => {
     if (type.includes('image')) {
@@ -27,6 +29,37 @@ const FileRow = (props) => {
       });
     }
   };
+
+  const toggleShareModal = () => {
+    setShareModalOpen((data) => !data);
+  };
+
+  const actions = [
+    {
+      name: 'Reupload',
+      icon: 'fa fa-cloud-upload',
+      color: '#000000',
+      action: null,
+    },
+    {
+      name: 'Check History',
+      icon: 'fa fa-history',
+      color: '#000000',
+      action: null,
+    },
+    {
+      name: 'Share',
+      icon: 'fa fa-share',
+      color: '#327C00',
+      action: toggleShareModal,
+    },
+    {
+      name: 'Delete',
+      icon: 'fa fa-trash',
+      color: '#9A0000',
+      action: null,
+    }
+  ];
 
   return (
     <tr>
@@ -54,8 +87,9 @@ const FileRow = (props) => {
         date={updatedAt} />
       </td>
       <td className="text-right">
-        <ActionsDropdown />
+        <ActionsDropdown actions={actions}/>
       </td>
+      <ShareModal isOpen={shareModalOpen} toggleOpen={toggleShareModal} title={"Add collaborators"}/>
     </tr>
   )
 }
@@ -94,42 +128,14 @@ const Collaborators = ({ collaborators }) => {
   )
 }
 
-const ActionsDropdown = () => {
-  const actions = [
-    {
-      name: 'Reupload',
-      icon: 'fa fa-cloud-upload',
-      color: '#000000',
-      action: null,
-    },
-    {
-      name: 'Check History',
-      icon: 'fa fa-history',
-      color: '#000000',
-      action: null,
-    },
-    {
-      name: 'Share',
-      icon: 'fa fa-share',
-      color: '#327C00',
-      action: null,
-    },
-    {
-      name: 'Delete',
-      icon: 'fa fa-trash',
-      color: '#9A0000',
-      action: null,
-    }
-  ];
+const ActionsDropdown = ({actions}) => {
 
   const renderDropdownItem = (item) => {
     return (
-      <>
-        <DropdownItem key={item.name} style={{ color: item.color }} >
-          <i className={item.icon} style={{ color: item.color }} />
-          {item.name}
-        </DropdownItem>
-      </>
+      <DropdownItem key={item.name} style={{ color: item.color }} onClick={item.action}>
+        <i className={item.icon} style={{ color: item.color }} />
+        {item.name}
+      </DropdownItem>
     )
   }
 
