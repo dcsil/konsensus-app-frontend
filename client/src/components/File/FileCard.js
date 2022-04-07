@@ -1,8 +1,6 @@
 import React from 'react';
 import { FileIcon, defaultStyles } from 'react-file-icon';
 import { BsStar, BsStarFill } from 'react-icons/bs';
-
-// reactstrap components
 import {
   Card,
   CardBody,
@@ -11,19 +9,12 @@ import {
   Col,
   Badge,
 } from 'reactstrap';
-
-import { useEffect, useState, useContext } from 'react';
-import { getFileById } from 'components/Auth/authFunctions';
+import { starFile} from 'components/Auth/authFunctions';
 import Moment from 'react-moment';
 import { useHistory } from 'react-router-dom';
-import { starFile } from 'components/Auth/authFunctions';
 
-const FileCard = ({ fileId, isStarred }) => {
-  const [file, setFile] = useState(null);
+const FileCard = ({ file, isStarred }) => {
   let history = useHistory();
-  useEffect(() => {
-    getFileById(fileId, setFile);
-  }, [fileId]);
 
   const fileTypeHelper = (fileName) => {
     const split = fileName.split('.');
@@ -41,7 +32,6 @@ const FileCard = ({ fileId, isStarred }) => {
         state: {
           lastUpdater: file.lastUpdater,
           fileId: file.id,
-          url: file.url,
           name: file.name,
         },
       });
@@ -58,9 +48,13 @@ const FileCard = ({ fileId, isStarred }) => {
       {file !== null && (
         <Card
           style={{
-            width: '17rem',
+            width: '16rem',
             height: '8rem',
+            cursor: 'pointer',
             margin: '2px',
+          }}
+          onClick={() => {
+            handleClick();
           }}
         >
           <CardBody>
@@ -79,7 +73,7 @@ const FileCard = ({ fileId, isStarred }) => {
                   />
                 </div>
               </Col>
-              <Col className="ml--3">
+              <Col>
                 <CardTitle className="h5 font-weight-bold mb-0">
                   {truncate(file.name)}
                 </CardTitle>

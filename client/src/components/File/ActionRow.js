@@ -1,10 +1,6 @@
 import { Badge } from 'reactstrap';
 import Avatar from 'components/Profile/Avatar';
-import { useEffect, useState } from 'react';
 import Moment from 'react-moment';
-import { getUserById } from 'components/Auth/authFunctions';
-
-// core components
 
 const ActionRow = ({ firstName, lastName, role, action, time }) => {
   return (

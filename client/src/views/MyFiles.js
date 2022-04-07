@@ -19,7 +19,7 @@ import { useEffect, useState } from 'react';
 
 import { getFiles } from 'components/Auth/authFunctions';
 import Header from 'components/Headers/Header.js';
-import FileTable from 'components/Files/FileTable.js';
+import FileTable from 'components/File/FileTable.js';
 
 
 const MyFiles = () => {

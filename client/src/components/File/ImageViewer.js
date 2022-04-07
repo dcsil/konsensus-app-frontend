@@ -1,17 +1,12 @@
 import FilePreviewer from 'react-file-previewer';
-import React, { useEffect, useState } from 'react';
-import { Container, Col, Row, Button } from 'reactstrap';
-import OrgTable from 'components/Profile/OrgTable';
+import React, { useState } from 'react';
+import { Col, Row, Button } from 'reactstrap';
 import AccessHistoryTable from './AccessHistoryTable';
-import { getFileById } from 'components/Auth/authFunctions';
-import { getUserById } from 'components/Auth/authFunctions';
-import { useHistory } from 'react-router-dom';
 
 const ImageViewer = ({ actions, user }) => {
-  const history = useHistory();
   const [tab, setTab] = useState('file');
-  const fileName = history.location.state.name;
-  const fileUrl = history.location.state.url;
+  const fileName = actions.name;
+  const fileUrl = actions.url;
 
   return (
     <div>
