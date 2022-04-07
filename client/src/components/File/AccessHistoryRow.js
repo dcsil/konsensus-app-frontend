@@ -2,7 +2,7 @@ import { Badge } from 'reactstrap';
 import Avatar from 'components/Profile/Avatar';
 import Moment from 'react-moment';
 
-const ActionRow = ({ firstName, lastName, role, action, time }) => {
+const AccessHistoryRow = ({ user, action, time }) => {
   return (
     <tr>
       <td>
@@ -13,14 +13,14 @@ const ActionRow = ({ firstName, lastName, role, action, time }) => {
             id="tooltip742438047"
             onClick={(e) => e.preventDefault()}
           >
-            <Avatar name={`${firstName} ${lastName}`} />
+            <Avatar name={`${user.firstName} ${user.lastName}`} url={user.image}/>
           </a>
         </div>
       </td>
       <td>
-        <span className="mb-0 text-sm">{`${firstName} ${lastName}`}</span>
+        <span className="mb-0 text-sm">{`${user.firstName} ${user.lastName}`}</span>
       </td>
-      <td>{role}</td>
+      <td>{user.role}</td>
       <td>{action}</td>
       <td>
         <Badge color="" className="badge-dot mr-4">
@@ -36,4 +36,4 @@ const ActionRow = ({ firstName, lastName, role, action, time }) => {
   );
 };
 
-export default ActionRow;
+export default AccessHistoryRow;

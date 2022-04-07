@@ -77,7 +77,6 @@ const Admin = (props) => {
     return 'Brand';
   };
 
-  // toggles  file modal between opened and closed (true/false)
   const toggleUploadModal = () => {
     setUploadModalOpen((data) => !data);
   };

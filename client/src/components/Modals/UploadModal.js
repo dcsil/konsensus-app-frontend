@@ -1,5 +1,4 @@
 import React, { useState, useMemo } from 'react';
-import client from 'api/axios';
 import { Button, Modal } from 'reactstrap';
 import { useDropzone } from 'react-dropzone';
 

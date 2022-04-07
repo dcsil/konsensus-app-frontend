@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 // reactstrap components
-import { Container, Row, Col } from 'reactstrap';
+import { Container } from 'reactstrap';
 
 // core components
 import { useState } from 'react';
@@ -15,7 +15,6 @@ import { getUserById, getFileById } from 'api/authFunctions';
 const File = () => {
   let history = useHistory();
   const fileId = history.location.state.fileId;
-  const fileName = history.location.state.name;
   const lastUpdater = history.location.state.lastUpdater;
   const [actions, setActions] = useState([]);
   const [user, setUser] = useState(null);

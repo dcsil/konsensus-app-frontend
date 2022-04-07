@@ -3,12 +3,7 @@ import { SET_TOKEN } from 'components/GlobalState';
 
 // Send a request to check if a user is logged in through the session cookie
 export const checkSession = async (
-  setFirstName,
-  setLastName,
-  setEmail,
-  setId,
-  setRole,
-  setOrganization
+  setUser
 ) => {
   const url = `/user/current`;
 
@@ -17,12 +12,7 @@ export const checkSession = async (
     .then((res) => {
       if (res.status === 200) {
         console.log(res.data);
-        setFirstName(res.data.firstName);
-        setLastName(res.data.lastName);
-        setEmail(res.data.email);
-        setId(res.data.id);
-        setRole(res.data.role);
-        setOrganization(res.data.organization);
+        setUser(res.data);
       }
     })
     .catch((error) => {
@@ -150,3 +140,12 @@ export const updateUser = (credentials, id) => {
       return false;
     });
 };
+
+export const uploadProfilePicture = async (formData) => {
+  await client
+      .put(`user/image`, formData, {
+          headers: {
+              'Content-Type': 'multipart/form-data',
+          },
+      })
+}

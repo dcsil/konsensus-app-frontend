@@ -8,30 +8,30 @@ import {
 import Avatar from './Avatar';
 // core components
 
-const OrgRow = ({ firstName, lastName, email, role }) => {
+const OrgRow = ({ user }) => {
   return (
     <tr>
       <td>
         <div className="avatar-group">
           <a
             className="avatar avatar-sm"
-            href="#pablo"
+            href="#org-row"
             id="tooltip742438047"
             onClick={(e) => e.preventDefault()}
           >
-            <Avatar name={`${firstName} ${lastName}`} />
+            <Avatar name={`${user.firstName} ${user.lastName}`} url={user.image}/>
           </a>
           <UncontrolledTooltip delay={0} target="tooltip742438047">
-            {email}
+            {user.email}
           </UncontrolledTooltip>
         </div>
       </td>
       <td>
         <span className="mb-0 text-sm">
-          {firstName} {lastName}
+          {user.firstName} {user.lastName}
         </span>
       </td>
-      <td>{role}</td>
+      <td>{user.role}</td>
 
       <td className="text-right">
         <UncontrolledDropdown>

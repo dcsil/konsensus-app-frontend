@@ -31,41 +31,38 @@ import {
 } from 'reactstrap';
 // core components
 import UserHeader from 'components/Headers/UserHeader.js';
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState } from 'react';
 import OrgTable from 'components/Profile/OrgTable';
 import Avatar from 'components/Profile/Avatar';
-import { updateUser, checkSession } from 'api/authFunctions';
+import { updateUser, checkSession, uploadProfilePicture } from 'api/authFunctions';
+
+import UploadModal from 'components/Modals/UploadModal.js';
 
 const Profile = () => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [id, setId] = useState('');
-  const [role, setRole] = useState('admin');
-  const [organization, setOrganization] = useState('');
+  const [user, setUser] = useState({firstName: "", lastName: "", email: "", organization: {}});
   const [message, setMessage] = useState('');
+  const [profilePictureModalOpen, setProfilePictureModalOpen] = useState(false);
 
   const [newFields, setNewFields] = useState({firstName: "", lastName: "", email: ""});
 
   useEffect(() => {
     checkSession(
-      setFirstName,
-      setLastName,
-      setEmail,
-      setId,
-      setRole,
-      setOrganization
+      setUser
     );
   }, []);
 
   const handleUpdate = () => {
 
-    updateUser(newFields, id)
+    updateUser(newFields, user.id)
       .then(isSuccess => {
         if (isSuccess) {
-          if (newFields.firstName) setFirstName(newFields.firstName);
-          if (newFields.lastName) setLastName(newFields.lastName);
-          if (newFields.email) setEmail(newFields.email);
+          setUser({
+            ...user,
+            firstName: newFields.firstName ? newFields.firstName : user.firstName,
+            lastName: newFields.lastName ? newFields.lastName : user.lastName,
+            email: newFields.email ? newFields.email : user.email,
+          }
+          );
 
           setMessage("Profile has been updated");
           setNewFields({firstName: "", lastName: "", email: ""});
@@ -77,11 +74,12 @@ const Profile = () => {
   };
 
   const toggleProfilePictureModal = () => {
-  }
+    setProfilePictureModalOpen((data) => !data);
+  };
 
   return (
     <>
-      <UserHeader firstName={firstName} />
+      <UserHeader firstName={user.firstName} />
       <Container className="mt--7" fluid>
         <Row>
           <Col className="order-xl-2 mb-5 mb-xl-0" xl="4">
@@ -90,10 +88,10 @@ const Profile = () => {
                 <Col className="order-lg-2" lg="3">
                   <div className="card-profile-image">
                     <a
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
+                      href="#upload-profile-picture"
+                      onClick={toggleProfilePictureModal}
                     >
-                      <Avatar name={`${firstName} ${lastName}`} />
+                      <Avatar name={`${user.firstName} ${user.lastName}`} url={user.image}/>
                     </a>
                   </div>
                 </Col>
@@ -105,10 +103,10 @@ const Profile = () => {
                     <div className="card-profile-stats d-flex justify-content-center mt-md-5">
                       <div>
                         <span className="heading">
-                          {organization.name}
+                          {user.organization.name}
                         </span>
                         <span className="description">
-                          {firstName} {lastName}
+                          {user.firstName} {user.lastName}
                         </span>
                       </div>
                     </div>
@@ -116,10 +114,7 @@ const Profile = () => {
                 </Row>
               </CardBody>
               <OrgTable
-                firstName={firstName}
-                lastName={lastName}
-                email={email}
-                role={role}
+                user={user}
               />
             </Card>
           </Col>
@@ -150,7 +145,7 @@ const Profile = () => {
                           <Input
                             className="form-control-alternative"
                             id="input-email"
-                            placeholder={email}
+                            placeholder={user.email}
                             type="email"
                             value={newFields.email}
                             onChange={(e) => setNewFields({...newFields, email: e.target.value})}
@@ -170,7 +165,7 @@ const Profile = () => {
                           <Input
                             className="form-control-alternative"
                             id="input-first-name"
-                            placeholder={firstName}
+                            placeholder={user.firstName}
                             type="text"
                             value={newFields.firstName}
                             onChange={(e) => setNewFields({...newFields, firstName: e.target.value})}
@@ -188,7 +183,7 @@ const Profile = () => {
                           <Input
                             className="form-control-alternative"
                             id="input-last-name"
-                            placeholder={lastName}
+                            placeholder={user.lastName}
                             type="text"
                             value={newFields.lastName}
                             onChange={(e) => setNewFields({...newFields, lastName: e.target.value})}
@@ -218,6 +213,12 @@ const Profile = () => {
             </Card>
           </Col>
         </Row>
+        <UploadModal
+          isOpen={profilePictureModalOpen}
+          toggleOpen={toggleProfilePictureModal}
+          title={"Upload a New Profile Picture"}
+          uploadMethod={uploadProfilePicture}
+        />
       </Container>
     </>
   );

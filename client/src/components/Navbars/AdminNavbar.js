@@ -40,15 +40,11 @@ import {
 import Avatar from 'components/Profile/Avatar';
 
 const AdminNavbar = (props) => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
+  const [user, setUser] = useState();
 
   useEffect(() => {
     checkSession(
-      setFirstName,
-      setLastName,
-      setEmail
+      setUser
     );
   }, []);
 
@@ -86,16 +82,16 @@ const AdminNavbar = (props) => {
           <Nav className="align-items-center d-none d-md-flex" navbar>
             <UncontrolledDropdown nav>
               <DropdownToggle className="pr-0" nav>
-                <Media className="align-items-center">
+                {user && <Media className="align-items-center">
                   <span className="avatar avatar-sm rounded-circle">
-                    <Avatar name={`${firstName} ${lastName}`} />
+                    <Avatar name={`${user.firstName} ${user.lastName}`} url={user.image}/>
                   </span>
                   <Media className="ml-2 d-none d-lg-block">
                     <span className="mb-0 text-sm font-weight-bold">
-                      {`${firstName} ${lastName}`}
+                      {`${user.firstName} ${user.lastName}`}
                     </span>
-                  </Media>
-                </Media>
+                  </Media> 
+                </Media> }
               </DropdownToggle>
               <DropdownMenu className="dropdown-menu-arrow" right>
                 <DropdownItem className="noti-title" header tag="div">
