@@ -17,23 +17,21 @@ import { getUserById } from 'components/Auth/authFunctions';
 const File = () => {
   let history = useHistory();
   const fileId = history.location.state.fileId;
-  const fileUrl = history.location.state.url;
   const fileName = history.location.state.name;
   const lastUpdater = history.location.state.lastUpdater;
-
   const [actions, setActions] = useState([]);
   const [user, setUser] = useState(null);
-  console.log(lastUpdater);
+
   useEffect(() => {
     getFileById(fileId, setActions);
     getUserById(lastUpdater, setUser);
-  }, []);
+  }, [fileId, lastUpdater]);
 
   return (
     <>
       <Header />
       <Container className="mt--7 pb-7" fluid>
-        <ImageViewer actions={actions} user={user} />
+        {actions && <ImageViewer actions={actions} user={user} /> }
       </Container>
     </>
   );

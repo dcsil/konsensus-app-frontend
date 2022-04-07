@@ -20,6 +20,8 @@ const Index = (props) => {
     getFiles('/file/recent', setRecentFiles);
     getFiles('/file/starred', setStarredFiles);
   }, []);
+
+  console.log('allFiles :>> ', allFiles);
   return (
     <>
       <Header />
@@ -40,8 +42,8 @@ const Index = (props) => {
               }
             });
             return (
-              <Col lg={{ size: 'auto' }}>
-                <FileCard fileId={file.id} isStarred={isStarred} />
+              <Col key={file.id} lg={{ size: 'auto' }}>
+                <FileCard file={file} isStarred={isStarred} />
               </Col>
             );
           })}
@@ -60,8 +62,8 @@ const Index = (props) => {
               }
             });
             return (
-              <Col lg={{ size: 'auto' }}>
-                <FileCard fileId={file.id} isStarred={isStarred} />
+              <Col key={file.id} lg={{ size: 'auto' }}>
+                <FileCard file={file} isStarred={isStarred} />
               </Col>
             );
           })}

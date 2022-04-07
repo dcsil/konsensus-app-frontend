@@ -17,12 +17,12 @@ import { getFileById, starFile} from 'components/Auth/authFunctions';
 import Moment from 'react-moment';
 import { useHistory } from 'react-router-dom';
 
-const FileCard = ({ fileId, isStarred }) => {
-  const [file, setFile] = useState(null);
+const FileCard = ({ file, isStarred }) => {
+  // const [file, setFile] = useState(null);
   let history = useHistory();
-  useEffect(() => {
-    getFileById(fileId, setFile);
-  }, [fileId]);
+  // useEffect(() => {
+  //   getFileById(fileId, setFile);
+  // }, [fileId]);
 
   const fileTypeHelper = (fileName) => {
     const split = fileName.split('.');
@@ -40,7 +40,7 @@ const FileCard = ({ fileId, isStarred }) => {
         state: {
           lastUpdater: file.lastUpdater,
           fileId: file.id,
-          url: file.url,
+          // url: file.url,
           name: file.name,
         },
       });
@@ -51,13 +51,6 @@ const FileCard = ({ fileId, isStarred }) => {
     starFile(file.id);
     window.location.reload();
   };
-
-  // const handleClick = () => {
-  //   history.push({
-  //     pathname: '/admin/file',
-  //     state: { fileId: file.id, url: file.url },
-  //   });
-  // };
 
   return (
     <>
