@@ -21,10 +21,9 @@ import {
   Route,
   Switch,
   Redirect,
-  useHistory,
 } from 'react-router-dom';
 
-import { uploadFile, reuploadFile } from 'api/fileFunctions';
+import { uploadFile } from 'api/fileFunctions';
 // reactstrap components
 import { Container } from 'reactstrap';
 // core components
@@ -37,10 +36,8 @@ import routes from 'routes.js';
 const Admin = (props) => {
   const mainContent = React.useRef(null);
   const location = useLocation();
-  const history = useHistory();
 
   const [uploadModalOpen, setUploadModalOpen] = useState(false);
-  const [reUploadModalOpen, setReUploadModalOpen] = useState(false);
 
   useEffect(() => {
     document.documentElement.scrollTop = 0;
@@ -81,10 +78,6 @@ const Admin = (props) => {
     setUploadModalOpen((data) => !data);
   };
 
-  const toggleReUploadModal = () => {
-    setReUploadModalOpen((data) => !data);
-  };
-
   return (
     <>
       <Sidebar
@@ -98,7 +91,6 @@ const Admin = (props) => {
           imgAlt: '...',
         }}
         toggleUploadModal={toggleUploadModal}
-        toggleReUploadModal={toggleReUploadModal}
       />
       <div className="main-content" ref={mainContent}>
         <AdminNavbar
@@ -118,12 +110,6 @@ const Admin = (props) => {
         toggleOpen={toggleUploadModal}
         title={"Upload a New File"}
         uploadMethod={uploadFile}
-      />
-      <UploadModal
-        isOpen={reUploadModalOpen}
-        toggleOpen={toggleReUploadModal}
-        title={"Reupload a File"}
-        uploadMethod={(formData) => reuploadFile(formData, history.location.state.fileId)}
       />
     </>
   );

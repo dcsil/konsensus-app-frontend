@@ -11,27 +11,20 @@ import Moment from 'react-moment';
 import { useHistory } from 'react-router-dom';
 import Avatar from 'components/Profile/Avatar';
 import ShareModal from 'components/Modals/ShareModal';
+import UploadModal from 'components/Modals/UploadModal';
+import { reuploadFile } from 'api/fileFunctions';
 
 const FileRow = (props) => {
   const { id, name, size, updatedAt, lastUpdater, type, collaborators } = props.file;
-  const history = useHistory();
   const [shareModalOpen, setShareModalOpen] = useState(false);
-
-  const handleClick = () => {
-    if (type.includes('image')) {
-      history.push({
-        pathname: '/admin/file',
-        state: {
-          lastUpdater: lastUpdater,
-          fileId: id,
-          name: name,
-        },
-      });
-    }
-  };
+  const [reuploadModalOpen, setReploadModalOpen] = useState(false);
 
   const toggleShareModal = () => {
     setShareModalOpen((data) => !data);
+  };
+
+  const toggleReuploadModal = () => {
+    setReploadModalOpen((data) => !data);
   };
 
   const actions = [
@@ -39,7 +32,7 @@ const FileRow = (props) => {
       name: 'Reupload',
       icon: 'fa fa-cloud-upload',
       color: '#000000',
-      action: null,
+      action: toggleReuploadModal,
     },
     {
       name: 'Check History',
@@ -64,33 +57,58 @@ const FileRow = (props) => {
   return (
     <tr>
       <th scope="row">
-        <Media className="align-items-center">
-          <i className="ni ni-single-copy-04 text-primary pr-3" />
-          <Media onClick={handleClick} style={{ cursor: 'pointer' }}>
-            <span className="mb-0 text-sm">
-              {name}
-            </span>
-          </Media>
-        </Media>
+        <FileName {...props.file} />
       </th>
+
       <td>
-        {/* {FileRow.size} */}
+        <Collaborators collaborators={collaborators} />
+      </td>
+
+      <td>
         <span className="mb-0 text-sm">
           {size / 1000 + ' MB'}
         </span>
       </td>
+
       <td>
-        <Collaborators collaborators={collaborators} />
+        <Moment format="MMM DD/YYYY hh:mm" date={updatedAt} />
       </td>
-      <td> <Moment
-        format="MMM DD/YYYY hh:mm"
-        date={updatedAt} />
-      </td>
+
       <td className="text-right">
-        <ActionsDropdown actions={actions}/>
+        <ActionsDropdown actions={actions} />
       </td>
-      <ShareModal isOpen={shareModalOpen} toggleOpen={toggleShareModal} title={"Add collaborators"} fileId={id}/>
+
+      <ShareModal isOpen={shareModalOpen} toggleOpen={toggleShareModal} title={"Add collaborators"} fileId={id} />
+      <UploadModal isOpen={reuploadModalOpen} toggleOpen={toggleReuploadModal} title={"Reupload a File"} uploadMethod={(formData) => reuploadFile(formData, id)} />
     </tr>
+  )
+}
+
+const FileName = ({ id, name, type, lastUpdater }) => {
+  const history = useHistory();
+
+  const handleClick = () => {
+    if (type.includes('image')) {
+      history.push({
+        pathname: '/admin/file',
+        state: {
+          lastUpdater: lastUpdater,
+          fileId: id,
+          name: name,
+        },
+      });
+    }
+  };
+
+  return (
+    <Media className="align-items-center">
+      <i className="ni ni-single-copy-04 text-primary pr-3" />
+      <Media onClick={handleClick} style={{ cursor: 'pointer' }}>
+        <span className="mb-0 text-sm">
+          {name}
+        </span>
+      </Media>
+    </Media>
   )
 }
 
@@ -128,7 +146,7 @@ const Collaborators = ({ collaborators }) => {
   )
 }
 
-const ActionsDropdown = ({actions}) => {
+const ActionsDropdown = ({ actions }) => {
 
   const renderDropdownItem = (item) => {
     return (
