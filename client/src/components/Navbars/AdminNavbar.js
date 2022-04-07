@@ -47,10 +47,9 @@ const AdminNavbar = (props) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
-  const globalState = useContext(GlobalStateContext);
+
   useEffect(() => {
     checkSession(
-      globalState.token,
       setFirstName,
       setLastName,
       setEmail

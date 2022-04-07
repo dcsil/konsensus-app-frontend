@@ -32,11 +32,9 @@ import {
 // core components
 import UserHeader from 'components/Headers/UserHeader.js';
 import { useEffect, useState, useContext } from 'react';
-import { GlobalStateContext } from 'components/GlobalState';
-import { checkSession } from 'components/Auth/authFunctions';
 import OrgTable from 'components/Profile/OrgTable';
 import Avatar from 'components/Profile/Avatar';
-import { updateUser } from 'components/Auth/authFunctions';
+import { updateUser, checkSession } from 'components/Auth/authFunctions';
 
 const Profile = () => {
   const [firstName, setFirstName] = useState('');
@@ -47,10 +45,10 @@ const Profile = () => {
   const [organization, setOrganization] = useState('');
   const [message, setMessage] = useState('');
 
-  const globalState = useContext(GlobalStateContext);
+  const [newFields, setNewFields] = useState({firstName: "", lastName: "", email: ""});
+
   useEffect(() => {
     checkSession(
-      globalState.token,
       setFirstName,
       setLastName,
       setEmail,
@@ -61,18 +59,21 @@ const Profile = () => {
   }, []);
 
   const handleUpdate = () => {
-    const credentials = {
-      firstName,
-      lastName,
-      email,
-    };
 
-    const result = updateUser(credentials, id);
-    if (!result) {
-      setMessage('Invalid email/password combination.');
-    } else {
-      setMessage('Profile has been updated');
-    }
+    updateUser(newFields, id)
+      .then(isSuccess => {
+        if (isSuccess) {
+          if (newFields.firstName) setFirstName(newFields.firstName);
+          if (newFields.lastName) setLastName(newFields.lastName);
+          if (newFields.email) setEmail(newFields.email);
+
+          setMessage("Profile has been updated");
+          setNewFields({firstName: "", lastName: "", email: ""});
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   return (
@@ -148,6 +149,8 @@ const Profile = () => {
                             id="input-email"
                             placeholder={email}
                             type="email"
+                            value={newFields.email}
+                            onChange={(e) => setNewFields({...newFields, email: e.target.value})}
                           />
                         </FormGroup>
                       </Col>
@@ -166,6 +169,8 @@ const Profile = () => {
                             id="input-first-name"
                             placeholder={firstName}
                             type="text"
+                            value={newFields.firstName}
+                            onChange={(e) => setNewFields({...newFields, firstName: e.target.value})}
                           />
                         </FormGroup>
                       </Col>
@@ -182,6 +187,8 @@ const Profile = () => {
                             id="input-last-name"
                             placeholder={lastName}
                             type="text"
+                            value={newFields.lastName}
+                            onChange={(e) => setNewFields({...newFields, lastName: e.target.value})}
                           />
                         </FormGroup>
                       </Col>

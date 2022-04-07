@@ -3,7 +3,6 @@ import { SET_TOKEN } from 'components/GlobalState';
 
 // Send a request to check if a user is logged in through the session cookie
 export const checkSession = async (
-  token,
   setFirstName,
   setLastName,
   setEmail,
@@ -31,7 +30,6 @@ export const checkSession = async (
     });
 };
 
-// TODO: rename to getFiles
 export const getFiles = async (
   url,
   setFiles
