@@ -1,4 +1,4 @@
-import { getFiles } from 'api/authFunctions';
+import { getFiles } from 'api/fileFunctions';
 
 import { useEffect, useState } from 'react';
 

@@ -34,7 +34,7 @@ import UserHeader from 'components/Headers/UserHeader.js';
 import { useEffect, useState } from 'react';
 import OrgTable from 'components/Profile/OrgTable';
 import Avatar from 'components/Profile/Avatar';
-import { updateUser, checkSession, uploadProfilePicture } from 'api/authFunctions';
+import { updateUser, checkSession, uploadProfilePicture } from 'api/userFunctions';
 
 import UploadModal from 'components/Modals/UploadModal.js';
 

@@ -1,6 +1,6 @@
 import {
   getFiles,
-} from 'api/authFunctions';
+} from 'api/fileFunctions';
 // reactstrap components
 import { Container, Row, Col } from 'reactstrap';
 

@@ -10,7 +10,8 @@ import Header from 'components/Headers/Header.js';
 import { useHistory } from 'react-router-dom';
 import ImageViewer from 'components/File/ImageViewer';
 
-import { getUserById, getFileById } from 'api/authFunctions';
+import { getUserById } from 'api/userFunctions';
+import { getFileById } from 'api/fileFunctions';
 
 const File = () => {
   let history = useHistory();

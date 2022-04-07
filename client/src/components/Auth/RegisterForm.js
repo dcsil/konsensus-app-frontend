@@ -13,7 +13,7 @@ import {
   Row,
   Col,
 } from 'reactstrap';
-import { register } from 'api/authFunctions';
+import { register } from 'api/userFunctions';
 
 const RegisterForm = (prop) => {
   const [firstName, setFirstName] = useState('');

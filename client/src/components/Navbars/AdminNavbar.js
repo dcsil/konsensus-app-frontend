@@ -17,7 +17,7 @@
 */
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { checkSession } from 'api/authFunctions';
+import { checkSession } from 'api/userFunctions';
 import Cookies from 'js-cookie';
 
 // reactstrap components
