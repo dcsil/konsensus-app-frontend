@@ -16,12 +16,8 @@
 
 */
 import { Link } from 'react-router-dom';
-import { useEffect, useState, useContext } from 'react';
-import {
-  GlobalStateContext,
-  GlobalDispatchContext,
-} from 'components/GlobalState';
-import { checkSession } from 'components/Auth/authFunctions';
+import { useEffect, useState } from 'react';
+import { checkSession } from 'api/authFunctions';
 import Cookies from 'js-cookie';
 
 // reactstrap components

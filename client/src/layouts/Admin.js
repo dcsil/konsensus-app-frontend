@@ -21,7 +21,10 @@ import {
   Route,
   Switch,
   Redirect,
+  useHistory,
 } from 'react-router-dom';
+
+import { uploadFile, reuploadFile } from 'api/fileFunctions';
 // reactstrap components
 import { Container } from 'reactstrap';
 // core components
@@ -30,11 +33,11 @@ import AdminFooter from 'components/Footers/AdminFooter.js';
 import Sidebar from 'components/Sidebar/Sidebar.js';
 import UploadModal from 'components/Modals/UploadModal.js';
 import routes from 'routes.js';
-import ReUploadModal from 'components/Modals/ReUploadModal';
 
 const Admin = (props) => {
   const mainContent = React.useRef(null);
   const location = useLocation();
+  const history = useHistory();
 
   const [uploadModalOpen, setUploadModalOpen] = useState(false);
   const [reUploadModalOpen, setReUploadModalOpen] = useState(false);
@@ -114,10 +117,14 @@ const Admin = (props) => {
       <UploadModal
         isOpen={uploadModalOpen}
         toggleOpen={toggleUploadModal}
+        title={"Upload a New File"}
+        uploadMethod={uploadFile}
       />
-      <ReUploadModal
+      <UploadModal
         isOpen={reUploadModalOpen}
         toggleOpen={toggleReUploadModal}
+        title={"Reupload a File"}
+        uploadMethod={(formData) => reuploadFile(formData, history.location.state.fileId)}
       />
     </>
   );

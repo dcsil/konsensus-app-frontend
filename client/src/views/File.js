@@ -1,6 +1,4 @@
-import { getFiles } from 'components/Auth/authFunctions';
 import React, { useEffect } from 'react';
-import axios from 'axios';
 
 // reactstrap components
 import { Container, Row, Col } from 'reactstrap';
@@ -11,8 +9,8 @@ import { useState } from 'react';
 import Header from 'components/Headers/Header.js';
 import { useHistory } from 'react-router-dom';
 import ImageViewer from 'components/File/ImageViewer';
-import { getFileById } from 'components/Auth/authFunctions';
-import { getUserById } from 'components/Auth/authFunctions';
+
+import { getUserById, getFileById } from 'api/authFunctions';
 
 const File = () => {
   let history = useHistory();

@@ -9,7 +9,7 @@ import {
   Col,
   Badge,
 } from 'reactstrap';
-import { starFile} from 'components/Auth/authFunctions';
+import { starFile} from 'api/authFunctions';
 import Moment from 'react-moment';
 import { useHistory } from 'react-router-dom';
 

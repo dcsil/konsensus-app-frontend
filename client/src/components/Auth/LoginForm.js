@@ -11,7 +11,7 @@ import {
   InputGroupText,
   InputGroup,
 } from 'reactstrap';
-import { login } from './authFunctions';
+import { login } from 'api/authFunctions';
 import { GlobalDispatchContext } from 'components/GlobalState';
 
 const LoginForm = (prop) => {

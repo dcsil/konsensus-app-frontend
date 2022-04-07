@@ -1,4 +1,4 @@
-import client from '../../axios';
+import client from 'api/axios';
 import { SET_TOKEN } from 'components/GlobalState';
 
 // Send a request to check if a user is logged in through the session cookie

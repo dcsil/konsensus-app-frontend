@@ -34,7 +34,7 @@ import UserHeader from 'components/Headers/UserHeader.js';
 import { useEffect, useState, useContext } from 'react';
 import OrgTable from 'components/Profile/OrgTable';
 import Avatar from 'components/Profile/Avatar';
-import { updateUser, checkSession } from 'components/Auth/authFunctions';
+import { updateUser, checkSession } from 'api/authFunctions';
 
 const Profile = () => {
   const [firstName, setFirstName] = useState('');
@@ -75,6 +75,9 @@ const Profile = () => {
         console.log(error);
       });
   };
+
+  const toggleProfilePictureModal = () => {
+  }
 
   return (
     <>
@@ -194,49 +197,6 @@ const Profile = () => {
                       </Col>
                     </Row>
                   </div>
-                  {/* <hr className="my-4" /> */}
-                  {/* Billing */}
-                  {/* <h6 className="heading-small text-muted mb-4">
-                    Password
-                  </h6>
-                  <div className="pl-lg-4">
-                    <Row>
-                      <Col lg="6">
-                        <FormGroup>
-                          <label
-                            className="form-control-label"
-                            htmlFor="input-text"
-                          >
-                            New Password
-                          </label>
-                          <Input
-                            className="form-control-alternative"
-                            id="input-text"
-                            placeholder={password}
-                            type="text"
-                          />
-                        </FormGroup>
-                      </Col>
-                    </Row> */}
-                  {/* <Row>
-                      <Col lg="6">
-                        <FormGroup>
-                          <label
-                            className="form-control-label"
-                            htmlFor="input-email"
-                          >
-                            Re-type Password
-                          </label>
-                          <Input
-                            className="form-control-alternative"
-                            id="input-email"
-                            placeholder={email}
-                            type="email"
-                          />
-                        </FormGroup>
-                      </Col>
-                    </Row> */}
-                  {/* </div> */}
                   <div>
                     {message ? (
                       <span className="text-warning">{message}</span>
