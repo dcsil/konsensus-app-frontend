@@ -56,6 +56,12 @@ const FileRow = (props) => {
 
   return (
     <tr>
+      <th>
+        <span className="fa fa-star text-blue">
+
+        </span>
+
+      </th>
       <th scope="row">
         <FileName {...props.file} />
       </th>

@@ -53,6 +53,7 @@ const Shared = () => {
               >
                 <thead className="thead-light">
                   <tr>
+                    <th scope="col"></th>
                     <th scope="col">Name</th>
                     <th scope="col">Size</th>
                     <th scope="col">Status</th>
