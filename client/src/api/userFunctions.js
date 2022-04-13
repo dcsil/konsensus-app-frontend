@@ -1,10 +1,8 @@
 import client from 'api/axios';
-import { SET_TOKEN } from 'components/GlobalState';
+import { SET_TOKEN, SET_USER } from 'components/GlobalState';
 
 // Send a request to check if a user is logged in through the session cookie
-export const checkSession = async (
-  setUser
-) => {
+export const checkSession = async (setUser) => {
   const url = `/user/current`;
 
   await client
@@ -45,6 +43,7 @@ export const login = (credentials, dispatch) => {
     .then((res) => {
       if (res.status === 200 && res.data.id !== undefined) {
         dispatch({ type: SET_TOKEN, payload: res.data.token });
+        dispatch({ type: SET_USER, payload: res.data });
       } else {
         return false;
       }
@@ -95,15 +94,18 @@ export const updateUser = (credentials, id) => {
 
 export const uploadProfilePicture = async (formData) => {
   await client
-      .put(`user/image`, formData, {
-          headers: {
-              'Content-Type': 'multipart/form-data',
-          },
-      })
-      .then((res) => {
-        console.log('res :>> ', res);
-      })
-      .catch((error) => {
-        console.log("Error trying to upload Profile Picture :>> ", error);
-      });
-}
+    .put(`user/image`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+    .then((res) => {
+      console.log('res :>> ', res);
+    })
+    .catch((error) => {
+      console.log(
+        'Error trying to upload Profile Picture :>> ',
+        error
+      );
+    });
+};
