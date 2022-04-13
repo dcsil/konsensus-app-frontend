@@ -9,7 +9,7 @@ import {
   Col,
   Badge,
 } from 'reactstrap';
-import { starFile} from 'api/fileFunctions';
+import { starFile } from 'api/fileFunctions';
 import Moment from 'react-moment';
 import { useHistory } from 'react-router-dom';
 
@@ -73,7 +73,7 @@ const FileCard = ({ file, isStarred }) => {
                   />
                 </div>
               </Col>
-              <Col>
+              <Col style={{ width: '3.5rem' }}>
                 <CardTitle className="h5 font-weight-bold mb-0">
                   {truncate(file.name)}
                 </CardTitle>
