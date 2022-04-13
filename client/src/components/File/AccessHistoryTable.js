@@ -3,7 +3,7 @@ import { Table, Card, CardHeader } from 'reactstrap';
 import AccessHistoryRow from './AccessHistoryRow';
 
 const AccessHistoryTable = ({ actions, user }) => {
-  console.log(user);
+  console.log(actions);
   return (
     <Card className="bg-default shadow">
       <CardHeader className="bg-transparent border-0">
@@ -25,16 +25,16 @@ const AccessHistoryTable = ({ actions, user }) => {
           </tr>
         </thead>
         <tbody>
-          <AccessHistoryRow
-            user={user}
-            action={'updated'}
-            time={actions[0].updatedAt}
-          />
-          <AccessHistoryRow
-            user={user}
-            action={'created'}
-            time={actions[0].createdAt}
-          />
+          {actions.map((a) => {
+            return (
+              <AccessHistoryRow
+                userName={a.userName}
+                action={a.action}
+                time={a.date}
+                role={a.role}
+              />
+            );
+          })}
         </tbody>
       </Table>
     </Card>
