@@ -1,6 +1,8 @@
 import { Table, Card, CardHeader } from 'reactstrap';
 // core components
 import AccessHistoryRow from './AccessHistoryRow';
+import Moment from 'react-moment';
+import moment from 'moment';
 
 // For some reason reversing in place gives me an error
 function reverseArr(input) {
@@ -11,7 +13,7 @@ function reverseArr(input) {
   return ret;
 }
 
-const AccessHistoryTable = ({ actions, user }) => {
+const AccessHistoryTable = ({ file, actions, user }) => {
   const orderedActions = reverseArr(actions);
   return (
     <Card className="bg-default shadow">
@@ -44,6 +46,18 @@ const AccessHistoryTable = ({ actions, user }) => {
               />
             );
           })}
+          <AccessHistoryRow
+            userName={`${user.firstName} ${user.lastName}`}
+            action={'updated'}
+            time={moment(file.updatedAt).format('MMM DD/YYYY hh:mmA')}
+            role={user.role}
+          />
+          <AccessHistoryRow
+            userName={`${user.firstName} ${user.lastName}`}
+            action={'created'}
+            time={moment(file.createdAt).format('MMM DD/YYYY hh:mmA')}
+            role={user.role}
+          />
         </tbody>
       </Table>
     </Card>
