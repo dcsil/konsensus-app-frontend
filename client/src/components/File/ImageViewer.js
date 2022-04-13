@@ -3,10 +3,10 @@ import React, { useState } from 'react';
 import { Col, Row, Button } from 'reactstrap';
 import AccessHistoryTable from './AccessHistoryTable';
 
-const ImageViewer = ({ actions, user }) => {
+const ImageViewer = ({ file, actions, user }) => {
   const [tab, setTab] = useState('file');
-  const fileName = actions.name;
-  const fileUrl = actions.url;
+  const fileName = file.name;
+  const fileUrl = file.url;
 
   return (
     <div>
@@ -44,7 +44,7 @@ const ImageViewer = ({ actions, user }) => {
                 }}
               />
             ) : (
-              <AccessHistoryTable actions={[actions]} user={user} />
+              <AccessHistoryTable actions={actions} user={user} />
             )}
           </Col>
         </Row>
