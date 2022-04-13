@@ -39,7 +39,7 @@ const FileTable = (props) => {
                 </thead>
                 <tbody>
                   {props.files.map(file => (
-                    <FileRow fileInfo={file} key={file.id}>
+                    <FileRow file={file} key={file.id}>
                     </FileRow>
                   ))}
                 </tbody>

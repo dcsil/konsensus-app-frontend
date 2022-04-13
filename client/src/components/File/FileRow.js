@@ -6,12 +6,85 @@ import {
   Media,
   UncontrolledTooltip,
 } from 'reactstrap';
-import React from "react";
+import React, { createRef, useState } from "react";
 import Moment from 'react-moment';
 import { useHistory } from 'react-router-dom';
+import Avatar from 'components/Profile/Avatar';
+import ShareModal from 'components/Modals/ShareModal';
+import UploadModal from 'components/Modals/UploadModal';
+import { reuploadFile } from 'api/fileFunctions';
 
 const FileRow = (props) => {
-  const { id, name, size, updatedAt, lastUpdater, type } = props.fileInfo;
+  const { id, name, size, updatedAt, lastUpdater, type, collaborators } = props.file;
+  const [shareModalOpen, setShareModalOpen] = useState(false);
+  const [reuploadModalOpen, setReploadModalOpen] = useState(false);
+
+  const toggleShareModal = () => {
+    setShareModalOpen((data) => !data);
+  };
+
+  const toggleReuploadModal = () => {
+    setReploadModalOpen((data) => !data);
+  };
+
+  const actions = [
+    {
+      name: 'Reupload',
+      icon: 'fa fa-cloud-upload',
+      color: '#000000',
+      action: toggleReuploadModal,
+    },
+    {
+      name: 'Check History',
+      icon: 'fa fa-history',
+      color: '#000000',
+      action: null,
+    },
+    {
+      name: 'Share',
+      icon: 'fa fa-share',
+      color: '#327C00',
+      action: toggleShareModal,
+    },
+    {
+      name: 'Delete',
+      icon: 'fa fa-trash',
+      color: '#9A0000',
+      action: null,
+    }
+  ];
+
+  return (
+    <tr>
+      <th scope="row">
+        <FileName {...props.file} />
+      </th>
+
+      <td>
+        <Collaborators collaborators={collaborators} />
+      </td>
+
+      <td>
+        <span className="mb-0 text-sm">
+          {size / 1000 + ' MB'}
+        </span>
+      </td>
+
+      <td>
+        <Moment format="MMM DD/YYYY hh:mm" date={updatedAt} />
+      </td>
+
+      <td className="text-right">
+        <ActionsDropdown actions={actions} />
+      </td>
+
+      <ShareModal isOpen={shareModalOpen} toggleOpen={toggleShareModal} title={"Add collaborators"} fileId={id} />
+      <UploadModal isOpen={reuploadModalOpen} toggleOpen={toggleReuploadModal} title={"Reupload a File"} uploadMethod={(formData) => reuploadFile(formData, id)} />
+    </tr>
+  )
+}
+
+const FileName = ({ id, name, type, lastUpdater }) => {
   const history = useHistory();
 
   const handleClick = () => {
@@ -28,159 +101,81 @@ const FileRow = (props) => {
   };
 
   return (
-    <tr onClick={handleClick} style={{cursor:'pointer'}}>
-      <th scope="row">
-        <Media className="align-items-center">
-          <i className="ni ni-single-copy-04 text-primary pr-3" />
-          {/* <FileIcon extension="docx"/> */}
-          <Media>
-            <span className="mb-0 text-sm">
-              {name}
-            </span>
-          </Media>
-        </Media>
-      </th>
-      <td>
-        {/* {FileRow.size} */}
+    <Media className="align-items-center">
+      <i className="ni ni-single-copy-04 text-primary pr-3" />
+      <Media onClick={handleClick} style={{ cursor: 'pointer' }}>
         <span className="mb-0 text-sm">
-          {size / 1000 + ' MB'}
+          {name}
         </span>
-      </td>
-      <td>
-        <div className="avatar-group">
-          <a
-            className="avatar avatar-sm"
-            href="#pablo"
-            id="tooltip742438047"
-            onClick={(e) => e.preventDefault()}
-          >
-            <img
-              alt="..."
-              className="rounded-circle"
-              src={
-                require('../../assets/img/theme/team-1-800x800.jpg')
-                  .default
-              }
-            />
-          </a>
-          <UncontrolledTooltip
-            delay={0}
-            target="tooltip742438047"
-          >
-            Ryan Tompson
-            {/* {collaborators[1]} */}
-          </UncontrolledTooltip>
-          <a
-            className="avatar avatar-sm"
-            href="#pablo"
-            id="tooltip941738690"
-            onClick={(e) => e.preventDefault()}
-          >
-            <img
-              alt="..."
-              className="rounded-circle"
-              src={
-                require('../../assets/img/theme/team-2-800x800.jpg')
-                  .default
-              }
-            />
-          </a>
-          <UncontrolledTooltip
-            delay={0}
-            target="tooltip941738690"
-          >
-            Romina Hadid
-          </UncontrolledTooltip>
-          <a
-            className="avatar avatar-sm"
-            href="#pablo"
-            id="tooltip804044742"
-            onClick={(e) => e.preventDefault()}
-          >
-            <img
-              alt="..."
-              className="rounded-circle"
-              src={
-                require('../../assets/img/theme/team-3-800x800.jpg')
-                  .default
-              }
-            />
-          </a>
-          <UncontrolledTooltip
-            delay={0}
-            target="tooltip804044742"
-          >
-            Alexander Smith
-          </UncontrolledTooltip>
-          <a
-            className="avatar avatar-sm"
-            href="#pablo"
-            id="tooltip996637554"
-            onClick={(e) => e.preventDefault()}
-          >
-            <img
-              alt="..."
-              className="rounded-circle"
-              src={
-                require('../../assets/img/theme/team-4-800x800.jpg')
-                  .default
-              }
-            />
-          </a>
-          <UncontrolledTooltip
-            delay={0}
-            target="tooltip996637554"
-          >
-            Jessica Doe
-          </UncontrolledTooltip>
-        </div>
-      </td>
-      <td> <Moment
-        format="MMM DD/YYYY hh:mm"
-        date={updatedAt} />
-      </td>
-      <td className="text-right">
-        <UncontrolledDropdown>
-          <DropdownToggle
-            className="btn-icon-only text-light"
-            href="#pablo"
-            role="button"
-            size="sm"
-            color=""
-            onClick={(e) => e.preventDefault()}
-          >
-            <i className="fas fa-ellipsis-v" />
-          </DropdownToggle>
-          <DropdownMenu
-            className="dropdown-menu-arrow"
-            right
-          >
-            <DropdownItem
-              href="#pablo"
-              onClick={(e) => e.preventDefault()}
-            >
-              Action
-            </DropdownItem>
-            <DropdownItem
-              href="#pablo"
-              onClick={(e) => e.preventDefault()}
-            >
-              Another action
-            </DropdownItem>
-            <DropdownItem
-              href="#pablo"
-              onClick={(e) => e.preventDefault()}
-            >
-              Something else here
-            </DropdownItem>
-          </DropdownMenu>
-        </UncontrolledDropdown>
-      </td>
-    </tr>
+      </Media>
+    </Media>
   )
 }
+
+const Collaborators = ({ collaborators }) => {
+
+  const renderAvatar = (collaborator) => {
+    const ref = createRef();
+
+    return (
+      <React.Fragment key={collaborator.id}>
+        <a
+          className="avatar avatar-sm"
+          href={`${collaborator.firstName} ${collaborator.lastName}`}
+          ref={ref}
+          id={collaborator.id}
+          onClick={(e) => e.preventDefault()}
+        >
+          <Avatar name={`${collaborator.firstName} ${collaborator.lastName}`} url={collaborator.image} />
+        </a>
+
+        <UncontrolledTooltip
+          delay={0}
+          target={ref}
+        >
+          {`${collaborator.firstName} ${collaborator.lastName}`}
+        </UncontrolledTooltip>
+      </React.Fragment>
+    )
+  }
+
+  return (
+    <div className="avatar-group">
+      {collaborators.map(collaborator => renderAvatar(collaborator))}
+    </div>
+  )
+}
+
+const ActionsDropdown = ({ actions }) => {
+
+  const renderDropdownItem = (item) => {
+    return (
+      <DropdownItem key={item.name} style={{ color: item.color }} onClick={item.action}>
+        <i className={item.icon} style={{ color: item.color }} />
+        {item.name}
+      </DropdownItem>
+    )
+  }
+
+  return (
+    <UncontrolledDropdown>
+      <DropdownToggle
+        className="btn-icon-only text-light"
+        role="button"
+        size="sm"
+        color=""
+        onClick={(e) => e.preventDefault()}
+      >
+        <i className="fas fa-ellipsis-v" />
+      </DropdownToggle>
+      <DropdownMenu
+        className="dropdown-menu-arrow"
+        right
+      >
+        {actions.map(item => renderDropdownItem(item))}
+      </DropdownMenu>
+    </UncontrolledDropdown>
+  )
+}
+
 export default FileRow;
-
-
-
-

@@ -20,7 +20,6 @@ import { useState } from 'react';
 import {
   NavLink as NavLinkRRD,
   Link,
-  useHistory,
 } from 'react-router-dom';
 // nodejs library to set properties for components
 import { PropTypes } from 'prop-types';
@@ -28,16 +27,11 @@ import { PropTypes } from 'prop-types';
 // reactstrap components
 import {
   Button,
-  Card,
-  CardHeader,
-  CardBody,
-  CardTitle,
   Collapse,
   DropdownMenu,
   DropdownItem,
   UncontrolledDropdown,
   DropdownToggle,
-  FormGroup,
   Form,
   Input,
   InputGroupAddon,
@@ -49,8 +43,6 @@ import {
   NavItem,
   NavLink,
   Nav,
-  Progress,
-  Table,
   Container,
   Row,
   Col,
@@ -60,15 +52,7 @@ var ps;
 
 const Sidebar = (props) => {
   const [collapseOpen, setCollapseOpen] = useState();
-  const history = useHistory();
-  console.log(history);
-  const isFileView = history.location.pathname.includes('file');
-  // verifies if routeName is the one active (in browser input)
-  const activeRoute = (routeName) => {
-    return props.location.pathname.indexOf(routeName) > -1
-      ? 'active'
-      : '';
-  };
+
   // toggles collapse between opened and closed (true/false)
   const toggleCollapse = () => {
     setCollapseOpen((data) => !data);
@@ -107,7 +91,6 @@ const Sidebar = (props) => {
     routes,
     logo,
     toggleUploadModal,
-    toggleReUploadModal,
   } = props;
   let navbarBrandProps;
   if (logo && logo.innerLink) {
@@ -267,20 +250,8 @@ const Sidebar = (props) => {
               </InputGroupAddon>
             </InputGroup>
           </Form>
+
           {/* File Upload Button */}
-          {isFileView ? (
-            <Button
-              className="btn-icon btn-3"
-              color="secondary"
-              type="button"
-              onClick={toggleReUploadModal}
-            >
-              <span className="btn-inner--icon">
-                <i className="ni ni-archive-2" />
-              </span>
-              <span className="btn-inner--text">Replace</span>
-            </Button>
-          ) : (
             <Button
               className="btn-icon btn-3"
               color="secondary"
@@ -292,7 +263,7 @@ const Sidebar = (props) => {
               </span>
               <span className="btn-inner--text">Upload</span>
             </Button>
-          )}
+          
           {/* Navigation */}
           <h1 className="navbar-heading text-light pt-5">Files</h1>
           <Nav navbar>{createLinks(routes)}</Nav>

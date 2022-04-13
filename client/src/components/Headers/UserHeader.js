@@ -19,7 +19,8 @@
 // reactstrap components
 import { Container, Row, Col } from 'reactstrap';
 
-const UserHeader = ({ firstName }) => {
+const UserHeader = ({ firstName, image }) => {
+  const background = image ? 'url(' + image + ')': '';
   return (
     <>
       <div
@@ -27,10 +28,7 @@ const UserHeader = ({ firstName }) => {
         style={{
           minHeight: '600px',
           backgroundImage:
-            'url(' +
-            require('../../assets/img/theme/chibi_julian.png')
-              .default +
-            ')',
+            background,
           backgroundSize: 'cover',
           backgroundPosition: 'center top',
         }}
