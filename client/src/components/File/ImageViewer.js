@@ -44,7 +44,11 @@ const ImageViewer = ({ file, actions, user }) => {
                 }}
               />
             ) : (
-              <AccessHistoryTable actions={actions} user={user} />
+              <AccessHistoryTable
+                file={file}
+                actions={actions}
+                user={user}
+              />
             )}
           </Col>
         </Row>
