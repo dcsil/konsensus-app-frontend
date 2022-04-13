@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import Cookies from 'js-cookie';
-import Web3 from 'web3';
 
 import 'assets/plugins/nucleo/css/nucleo.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -20,7 +19,6 @@ const initialState = {
 
 const App = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [account, setAccount] = useState(); // state variable to set account.
 
   useEffect(() => {
     if (!window.location.href.includes('auth')) {
@@ -28,16 +26,6 @@ const App = () => {
         window.location.href = '/auth/login';
       }
     }
-    async function load() {
-      const web3 = new Web3(
-        Web3.givenProvider || 'http://localhost:7545'
-      );
-      const accounts = await web3.eth.requestAccounts();
-
-      setAccount(accounts[0]);
-      console.log('Your account is: ', accounts[0]);
-    }
-    load();
   }, []);
 
   return (
