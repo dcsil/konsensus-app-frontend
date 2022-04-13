@@ -1,12 +1,11 @@
 import { Table, Card, CardHeader } from 'reactstrap';
 // core components
 import AccessHistoryRow from './AccessHistoryRow';
-import Moment from 'react-moment';
 import moment from 'moment';
 
 // For some reason reversing in place gives me an error
 function reverseArr(input) {
-  var ret = new Array();
+  var ret = [];
   for (var i = input.length - 1; i >= 0; i--) {
     ret.push(input[i]);
   }
@@ -39,6 +38,7 @@ const AccessHistoryTable = ({ file, actions, user }) => {
           {orderedActions.map((a) => {
             return (
               <AccessHistoryRow
+                key={a.time}
                 userName={a.userName}
                 action={a.action}
                 time={a.date}
