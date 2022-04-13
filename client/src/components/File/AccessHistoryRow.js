@@ -6,6 +6,10 @@ const AccessHistoryRow = ({ userName, action, time, role }) => {
     switch (action) {
       case 'viewed':
         return 'warning';
+      case 'updated':
+        return 'primary';
+      case 'created':
+        return 'success';
       default:
         return 'secondary';
     }
@@ -24,7 +28,7 @@ const AccessHistoryRow = ({ userName, action, time, role }) => {
       </td>
       <td>{role}</td>
       <td>
-        <Badge color={actionColorMapping(action)} className="mr-4">
+        <Badge color={actionColorMapping(action)}>
           <span className="text-white">{action}</span>
         </Badge>
       </td>
