@@ -3,6 +3,14 @@ import Avatar from 'components/Profile/Avatar';
 import Moment from 'react-moment';
 
 const AccessHistoryRow = ({ userName, action, time, role }) => {
+  const actionColorMapping = (action) => {
+    switch (action) {
+      case 'viewed':
+        return 'warning';
+      default:
+        return 'secondary';
+    }
+  };
   return (
     <tr>
       <td>
@@ -16,7 +24,11 @@ const AccessHistoryRow = ({ userName, action, time, role }) => {
         <span className="mb-0 text-sm">{userName}</span>
       </td>
       <td>{role}</td>
-      <td>{action}</td>
+      <td>
+        <Badge color={actionColorMapping(action)} className="mr-4">
+          <span className="text-white">{action}</span>
+        </Badge>
+      </td>
       <td>
         <Badge color="" className="badge-dot mr-4">
           <i className="bg-success" />
