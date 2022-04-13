@@ -17,6 +17,14 @@ module.exports = {
       network_id: '5777',
     },
   },
+  compilers: {
+    solc: {
+      optimizer: {
+        enabled: true,
+        runs: 200,
+      },
+    },
+  },
   mocha: {
     reporter: 'eth-gas-reporter',
     reporterOptions: {
