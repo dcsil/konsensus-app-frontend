@@ -2,8 +2,17 @@ import { Table, Card, CardHeader } from 'reactstrap';
 // core components
 import AccessHistoryRow from './AccessHistoryRow';
 
+// For some reason reversing in place gives me an error
+function reverseArr(input) {
+  var ret = new Array();
+  for (var i = input.length - 1; i >= 0; i--) {
+    ret.push(input[i]);
+  }
+  return ret;
+}
+
 const AccessHistoryTable = ({ actions, user }) => {
-  console.log(actions);
+  const orderedActions = reverseArr(actions);
   return (
     <Card className="bg-default shadow">
       <CardHeader className="bg-transparent border-0">
@@ -25,7 +34,7 @@ const AccessHistoryTable = ({ actions, user }) => {
           </tr>
         </thead>
         <tbody>
-          {actions.map((a) => {
+          {orderedActions.map((a) => {
             return (
               <AccessHistoryRow
                 userName={a.userName}

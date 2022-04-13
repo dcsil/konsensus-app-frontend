@@ -1,6 +1,5 @@
 import { Badge } from 'reactstrap';
 import Avatar from 'components/Profile/Avatar';
-import Moment from 'react-moment';
 
 const AccessHistoryRow = ({ userName, action, time, role }) => {
   const actionColorMapping = (action) => {
