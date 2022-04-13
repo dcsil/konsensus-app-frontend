@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect } from 'react';
 
 // reactstrap components
 import { Container } from 'reactstrap';
@@ -35,16 +35,15 @@ const File = () => {
     const userName = Cookies.get('userName');
 
     // Pass in file, date, userId, action, role;
-    userId &&
-      sendFileAction(
-        fileId,
-        fileName,
-        moment().format('MMM DD/YYYY hh:mmA'),
-        userId,
-        userName,
-        'viewed',
-        userRole
-      );
+    sendFileAction(
+      fileId,
+      fileName,
+      moment().format('MMM DD/YYYY hh:mmA'),
+      userId,
+      userName,
+      'viewed',
+      userRole
+    );
     getFileHistoryById(fileId, setActions);
   }, []);
 
