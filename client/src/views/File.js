@@ -7,7 +7,7 @@ import { Container } from 'reactstrap';
 import { useState } from 'react';
 
 import Header from 'components/Headers/Header.js';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import ImageViewer from 'components/File/ImageViewer';
 import Cookies from 'js-cookie';
 
@@ -20,6 +20,8 @@ import {
 import moment from 'moment';
 const File = () => {
   let history = useHistory();
+  const location = useLocation();
+
   const fileId = history.location.state.fileId;
   const fileName = history.location.state.name;
   const lastUpdater = history.location.state.lastUpdater;
@@ -33,8 +35,6 @@ const File = () => {
     const userId = Cookies.get('userId');
     const userRole = Cookies.get('userRole');
     const userName = Cookies.get('userName');
-
-    // Pass in file, date, userId, action, role;
     sendFileAction(
       fileId,
       fileName,
@@ -45,7 +45,7 @@ const File = () => {
       userRole
     );
     getFileHistoryById(fileId, setActions);
-  }, []);
+  }, [location]);
 
   return (
     <>
