@@ -6,7 +6,7 @@ import {
   Media,
   UncontrolledTooltip,
 } from 'reactstrap';
-import React, { createRef, useState } from "react";
+import React, { createRef, useState } from 'react';
 import Moment from 'react-moment';
 import { useHistory } from 'react-router-dom';
 import Avatar from 'components/Profile/Avatar';
@@ -15,9 +15,21 @@ import UploadModal from 'components/Modals/UploadModal';
 import { reuploadFile } from 'api/fileFunctions';
 
 const FileRow = (props) => {
-  const { id, name, size, updatedAt, lastUpdater, type, collaborators } = props.file;
   const [shareModalOpen, setShareModalOpen] = useState(false);
   const [reuploadModalOpen, setReploadModalOpen] = useState(false);
+
+  if (!props.file) {
+    return;
+  }
+  const {
+    id,
+    name,
+    size,
+    updatedAt,
+    lastUpdater,
+    type,
+    collaborators,
+  } = props.file;
 
   const toggleShareModal = () => {
     setShareModalOpen((data) => !data);
@@ -51,7 +63,7 @@ const FileRow = (props) => {
       icon: 'fa fa-trash',
       color: '#9A0000',
       action: null,
-    }
+    },
   ];
 
   return (
@@ -65,9 +77,7 @@ const FileRow = (props) => {
       </td>
 
       <td>
-        <span className="mb-0 text-sm">
-          {size / 1000 + ' MB'}
-        </span>
+        <span className="mb-0 text-sm">{size / 1000 + ' MB'}</span>
       </td>
 
       <td>
@@ -78,11 +88,21 @@ const FileRow = (props) => {
         <ActionsDropdown actions={actions} />
       </td>
 
-      <ShareModal isOpen={shareModalOpen} toggleOpen={toggleShareModal} title={"Add collaborators"} fileId={id} />
-      <UploadModal isOpen={reuploadModalOpen} toggleOpen={toggleReuploadModal} title={"Reupload a File"} uploadMethod={(formData) => reuploadFile(formData, id)} />
+      <ShareModal
+        isOpen={shareModalOpen}
+        toggleOpen={toggleShareModal}
+        title={'Add collaborators'}
+        fileId={id}
+      />
+      <UploadModal
+        isOpen={reuploadModalOpen}
+        toggleOpen={toggleReuploadModal}
+        title={'Reupload a File'}
+        uploadMethod={(formData) => reuploadFile(formData, id)}
+      />
     </tr>
-  )
-}
+  );
+};
 
 const FileName = ({ id, name, type, lastUpdater }) => {
   const history = useHistory();
@@ -104,16 +124,13 @@ const FileName = ({ id, name, type, lastUpdater }) => {
     <Media className="align-items-center">
       <i className="ni ni-single-copy-04 text-primary pr-3" />
       <Media onClick={handleClick} style={{ cursor: 'pointer' }}>
-        <span className="mb-0 text-sm">
-          {name}
-        </span>
+        <span className="mb-0 text-sm">{name}</span>
       </Media>
     </Media>
-  )
-}
+  );
+};
 
 const Collaborators = ({ collaborators }) => {
-
   const renderAvatar = (collaborator) => {
     const ref = createRef();
 
@@ -126,36 +143,41 @@ const Collaborators = ({ collaborators }) => {
           id={collaborator.id}
           onClick={(e) => e.preventDefault()}
         >
-          <Avatar name={`${collaborator.firstName} ${collaborator.lastName}`} url={collaborator.image} />
+          <Avatar
+            name={`${collaborator.firstName} ${collaborator.lastName}`}
+            url={collaborator.image}
+          />
         </a>
 
-        <UncontrolledTooltip
-          delay={0}
-          target={ref}
-        >
+        <UncontrolledTooltip delay={0} target={ref}>
           {`${collaborator.firstName} ${collaborator.lastName}`}
         </UncontrolledTooltip>
       </React.Fragment>
-    )
-  }
+    );
+  };
 
   return (
     <div className="avatar-group">
-      {collaborators.map(collaborator => renderAvatar(collaborator))}
+      {collaborators.map((collaborator) =>
+        renderAvatar(collaborator)
+      )}
     </div>
-  )
-}
+  );
+};
 
 const ActionsDropdown = ({ actions }) => {
-
   const renderDropdownItem = (item) => {
     return (
-      <DropdownItem key={item.name} style={{ color: item.color }} onClick={item.action}>
+      <DropdownItem
+        key={item.name}
+        style={{ color: item.color }}
+        onClick={item.action}
+      >
         <i className={item.icon} style={{ color: item.color }} />
         {item.name}
       </DropdownItem>
-    )
-  }
+    );
+  };
 
   return (
     <UncontrolledDropdown>
@@ -168,14 +190,11 @@ const ActionsDropdown = ({ actions }) => {
       >
         <i className="fas fa-ellipsis-v" />
       </DropdownToggle>
-      <DropdownMenu
-        className="dropdown-menu-arrow"
-        right
-      >
-        {actions.map(item => renderDropdownItem(item))}
+      <DropdownMenu className="dropdown-menu-arrow" right>
+        {actions.map((item) => renderDropdownItem(item))}
       </DropdownMenu>
     </UncontrolledDropdown>
-  )
-}
+  );
+};
 
 export default FileRow;
