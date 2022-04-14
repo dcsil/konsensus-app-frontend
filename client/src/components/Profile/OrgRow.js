@@ -1,3 +1,5 @@
+import React from 'react';
+
 import {
   DropdownMenu,
   DropdownItem,
@@ -19,19 +21,24 @@ const OrgRow = ({ user }) => {
             id="tooltip742438047"
             onClick={(e) => e.preventDefault()}
           >
-            <Avatar name={`${user.firstName} ${user.lastName}`} url={user.image}/>
+            {user && (
+              <Avatar
+                name={`${user.firstName} ${user.lastName}`}
+                url={user.image}
+              />
+            )}
           </a>
           <UncontrolledTooltip delay={0} target="tooltip742438047">
-            {user.email}
+            {user && user.email}
           </UncontrolledTooltip>
         </div>
       </td>
       <td>
         <span className="mb-0 text-sm">
-          {user.firstName} {user.lastName}
+          {user && user.firstName} {user && user.lastName}
         </span>
       </td>
-      <td>{user.role}</td>
+      <td>{user && user.role}</td>
 
       <td className="text-right">
         <UncontrolledDropdown>
