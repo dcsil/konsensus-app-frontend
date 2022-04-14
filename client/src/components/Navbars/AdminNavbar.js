@@ -16,7 +16,7 @@
 
 */
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { checkSession } from 'api/userFunctions';
 import Cookies from 'js-cookie';
 
@@ -43,9 +43,7 @@ const AdminNavbar = (props) => {
   const [user, setUser] = useState();
 
   useEffect(() => {
-    checkSession(
-      setUser
-    );
+    checkSession(setUser);
   }, []);
 
   const handleLogout = () => {
@@ -82,16 +80,21 @@ const AdminNavbar = (props) => {
           <Nav className="align-items-center d-none d-md-flex" navbar>
             <UncontrolledDropdown nav>
               <DropdownToggle className="pr-0" nav>
-                {user && <Media className="align-items-center">
-                  <span className="avatar avatar-sm rounded-circle">
-                    <Avatar name={`${user.firstName} ${user.lastName}`} url={user.image}/>
-                  </span>
-                  <Media className="ml-2 d-none d-lg-block">
-                    <span className="mb-0 text-sm font-weight-bold">
-                      {`${user.firstName} ${user.lastName}`}
+                {user && (
+                  <Media className="align-items-center">
+                    <span className="avatar avatar-sm rounded-circle">
+                      <Avatar
+                        name={`${user.firstName} ${user.lastName}`}
+                        url={user.image}
+                      />
                     </span>
-                  </Media> 
-                </Media> }
+                    <Media className="ml-2 d-none d-lg-block">
+                      <span className="mb-0 text-sm font-weight-bold">
+                        {`${user.firstName} ${user.lastName}`}
+                      </span>
+                    </Media>
+                  </Media>
+                )}
               </DropdownToggle>
               <DropdownMenu className="dropdown-menu-arrow" right>
                 <DropdownItem className="noti-title" header tag="div">
