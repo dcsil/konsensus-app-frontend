@@ -1,7 +1,12 @@
 import { Badge } from 'reactstrap';
+import React from 'react';
+
 import Avatar from 'components/Profile/Avatar';
 
 const AccessHistoryRow = ({ userName, action, time, role }) => {
+  if (!action) {
+    return;
+  }
   const actionColorMapping = (action) => {
     switch (action) {
       case 'viewed':
