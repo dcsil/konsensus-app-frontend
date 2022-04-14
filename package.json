@@ -19,7 +19,7 @@
   },
   "scripts": {
     "test": "truffle test",
-    "migrate": "truffle migrate --reset",
+    "migrate": "truffle migrate",
     "coverage": "truffle run coverage"
   },
   "repository": {
