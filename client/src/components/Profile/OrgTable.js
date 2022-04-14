@@ -1,3 +1,4 @@
+import React from 'react';
 import { Table } from 'reactstrap';
 // core components
 import OrgRow from './OrgRow';
@@ -14,9 +15,7 @@ const OrgTable = ({ user }) => {
         </tr>
       </thead>
       <tbody>
-        <OrgRow
-          user={user}
-        />
+        <OrgRow user={user} />
       </tbody>
     </Table>
   );
