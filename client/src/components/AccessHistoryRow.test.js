@@ -5,7 +5,7 @@ import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 configure({ adapter: new Adapter() });
 
-test('Test Sidebar component', () => {
+test('Test AccessHistoryRow component', () => {
   const wrapper = shallow(<AccessHistoryRow />);
   expect(wrapper).toMatchSnapshot();
 });
