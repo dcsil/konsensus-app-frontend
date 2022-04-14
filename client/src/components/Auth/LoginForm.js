@@ -13,6 +13,7 @@ import {
 } from 'reactstrap';
 import { login } from 'api/userFunctions';
 import { GlobalDispatchContext } from 'components/GlobalState';
+import Cookies from 'js-cookie';
 
 const LoginForm = (prop) => {
   const [email, setEmail] = useState('');
@@ -26,13 +27,13 @@ const LoginForm = (prop) => {
       password,
     };
 
-    const result = login(credentials, dispatch);
-    if (!result) {
-      setMessage('Invalid email/password combination.');
-    } else {
+    login(credentials, dispatch);
+    if (Cookies.get('access')) {
       setTimeout(function () {
         prop.history.push('/admin/index');
       }, 2000);
+    } else {
+      setMessage('Invalid email/password combination.');
     }
   };
 
