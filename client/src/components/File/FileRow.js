@@ -158,9 +158,10 @@ const Collaborators = ({ collaborators }) => {
 
   return (
     <div className="avatar-group">
-      {collaborators.map((collaborator) =>
-        renderAvatar(collaborator)
-      )}
+      {collaborators &&
+        collaborators.map((collaborator) =>
+          renderAvatar(collaborator)
+        )}
     </div>
   );
 };
