@@ -5,6 +5,9 @@ import AccessHistoryTable from './AccessHistoryTable';
 
 const ImageViewer = ({ file, actions, user }) => {
   const [tab, setTab] = useState('file');
+  if (!file) {
+    return;
+  }
   const fileName = file.name;
   const fileUrl = file.url;
 
