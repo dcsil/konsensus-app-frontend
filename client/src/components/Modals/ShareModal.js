@@ -105,18 +105,6 @@ const CollaboratorTable = ({ collaborators, setCollaborators }) => {
 }
 
 const CollaboratorRow = ({ collaborator, setCollaborators }) => {
-    const getRole = () => {
-        if (collaborator.isAdmin) {
-            return 'Admin';
-        }
-        if (collaborator.canShare) {
-            return 'Can Share';
-        }
-        if (collaborator.canEdit) {
-            return 'Can Edit';
-        }
-        return 'Can View';
-    }
 
     return (
         <tr>
