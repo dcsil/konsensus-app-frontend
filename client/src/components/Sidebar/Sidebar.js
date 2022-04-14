@@ -17,10 +17,9 @@
 */
 /*eslint-disable*/
 import { useState } from 'react';
-import {
-  NavLink as NavLinkRRD,
-  Link,
-} from 'react-router-dom';
+import React from 'react';
+
+import { NavLink as NavLinkRRD, Link } from 'react-router-dom';
 // nodejs library to set properties for components
 import { PropTypes } from 'prop-types';
 
@@ -86,12 +85,7 @@ const Sidebar = (props) => {
     });
   };
 
-  const {
-    bgColor,
-    routes,
-    logo,
-    toggleUploadModal,
-  } = props;
+  const { bgColor, routes, logo, toggleUploadModal } = props;
   let navbarBrandProps;
   if (logo && logo.innerLink) {
     navbarBrandProps = {
@@ -163,10 +157,7 @@ const Sidebar = (props) => {
                 <span className="avatar avatar-sm rounded-circle">
                   <img
                     alt="..."
-                    src={
-                      require('../../assets/img/theme/team-1-800x800.jpg')
-                        .default
-                    }
+                    src="assets/img/theme/team-1-800x800.jpg"
                   />
                 </span>
               </Media>
@@ -252,18 +243,18 @@ const Sidebar = (props) => {
           </Form>
 
           {/* File Upload Button */}
-            <Button
-              className="btn-icon btn-3"
-              color="secondary"
-              type="button"
-              onClick={toggleUploadModal}
-            >
-              <span className="btn-inner--icon">
-                <i className="ni ni-fat-add" />
-              </span>
-              <span className="btn-inner--text">Upload</span>
-            </Button>
-          
+          <Button
+            className="btn-icon btn-3"
+            color="secondary"
+            type="button"
+            onClick={toggleUploadModal}
+          >
+            <span className="btn-inner--icon">
+              <i className="ni ni-fat-add" />
+            </span>
+            <span className="btn-inner--text">Upload</span>
+          </Button>
+
           {/* Navigation */}
           <h1 className="navbar-heading text-light pt-5">Files</h1>
           <Nav navbar>{createLinks(routes)}</Nav>
