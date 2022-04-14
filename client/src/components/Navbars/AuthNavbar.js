@@ -15,6 +15,8 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
+import React from 'react';
+
 import { Link } from 'react-router-dom';
 // reactstrap components
 import {
@@ -29,7 +31,9 @@ import {
   Col,
 } from 'reactstrap';
 
-const AdminNavbar = () => {
+import logo from '../../assets/img/brand/konsensus_transparent.png';
+
+const AuthNavbar = () => {
   const logoStyle = {
     width: '5em',
     height: 'auto',
@@ -43,14 +47,7 @@ const AdminNavbar = () => {
       >
         <Container className="px-4">
           <NavbarBrand to="/" tag={Link}>
-            <img
-              alt="..."
-              style={logoStyle}
-              src={
-                require('../../assets/img/brand/konsensus_transparent.png')
-                  .default
-              }
-            />
+            <img alt="..." style={logoStyle} src={logo} />
           </NavbarBrand>
           <button
             className="navbar-toggler"
@@ -117,4 +114,4 @@ const AdminNavbar = () => {
   );
 };
 
-export default AdminNavbar;
+export default AuthNavbar;
