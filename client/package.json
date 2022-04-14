@@ -55,11 +55,11 @@
     "react-test-renderer": "^17.0.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "react-scripts start --node-flags --max-old-space-size=4096",
+    "build": "react-scripts build --node-flags --max-old-space-size=4096",
     "test": "npx jest -u --coverage --watchAll=false",
     "eject": "react-scripts eject",
-    "postinstall": "npm run build"
+    "postinstall": "npm run build --node-flags --max-old-space-size=4096"
   },
   "jest": {
     "collectCoverageFrom": [
