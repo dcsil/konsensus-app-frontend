@@ -21,6 +21,10 @@ const FileCard = ({ file, isStarred }) => {
     return split[1];
   };
 
+  if (!file) {
+    return;
+  }
+
   const truncate = (text) => {
     return text.length > 33 ? text.substring(0, 30) + '...' : text;
   };
