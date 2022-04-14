@@ -18,17 +18,17 @@
 
 // reactstrap components
 import { Container, Row, Col } from 'reactstrap';
+import React from 'react';
 
 const UserHeader = ({ firstName, image }) => {
-  const background = image ? 'url(' + image + ')': '';
+  const background = image ? 'url(' + image + ')' : '';
   return (
     <>
       <div
         className="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
         style={{
           minHeight: '600px',
-          backgroundImage:
-            background,
+          backgroundImage: background,
           backgroundSize: 'cover',
           backgroundPosition: 'center top',
         }}
