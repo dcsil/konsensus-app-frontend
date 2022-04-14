@@ -33,19 +33,7 @@ const Index = (props) => {
           </Col>
         </Row>
         <Row>
-          {recentFiles.map((file) => {
-            let isStarred = false;
-            starredFiles.forEach((f) => {
-              if (file.id === f.id) {
-                isStarred = true;
-              }
-            });
-            return (
-              <Col key={file.id} lg={{ size: 'auto' }}>
-                <FileCard file={file} isStarred={isStarred} />
-              </Col>
-            );
-          })}
+          <FileCards files={recentFiles} starredFiles={starredFiles}/>
         </Row>
         <Row className="pt-7">
           <Col className="mb-5 mb-xl-0" xl="8">
@@ -53,23 +41,36 @@ const Index = (props) => {
           </Col>
         </Row>
         <Row>
-          {allFiles.map((file) => {
-            let isStarred = false;
-            starredFiles.forEach((f) => {
-              if (file.id === f.id) {
-                isStarred = true;
-              }
-            });
-            return (
-              <Col key={file.id} lg={{ size: 'auto' }}>
-                <FileCard file={file} isStarred={isStarred} />
-              </Col>
-            );
-          })}
+          <FileCards files={allFiles} starredFiles={starredFiles}/>
         </Row>
       </Container>
     </>
   );
 };
+
+const FileCards = ({files, starredFiles}) => {
+  const isFileStarred = (file) => {
+    let isStarred = false;
+    starredFiles.forEach((f) => {
+      if (file.id === f.id) {
+        isStarred = true;
+      }
+    });
+    return isStarred;
+  };
+
+  return (
+    <>
+      {files.map((file) => {
+        const isStarred = isFileStarred(file);
+        return (
+          <Col key={file.id} lg={{ size: 'auto' }}>
+            <FileCard file={file} isStarred={isStarred} />
+          </Col>
+        );
+      })}
+    </>
+  )
+}
 
 export default Index;
