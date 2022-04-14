@@ -5,7 +5,7 @@ import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 configure({ adapter: new Adapter() });
 
-test('Test User Header component', () => {
+test('Test UserHeader component', () => {
   const wrapper = shallow(<UserHeader />);
   expect(wrapper).toMatchSnapshot();
 });
