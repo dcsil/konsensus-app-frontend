@@ -2,6 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://konsensus-client.herokuapp.com",
   "dependencies": {
     "@fortawesome/fontawesome-free": "5.15.3",
     "@sentry/react": "^6.18.2",
