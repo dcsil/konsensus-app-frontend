@@ -40,7 +40,7 @@ const UploadModal = (props) => {
       toggle={toggleOpen}
     >
       <div className="modal-header">
-        <h3 className="modal-title" id="exampleModalLabel">
+        <h3 className="modal-title" id="upload-modal">
           {title}
         </h3>
         <button
