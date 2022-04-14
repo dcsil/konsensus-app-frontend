@@ -58,8 +58,7 @@
     "start": "react-scripts start --node-flags --max-old-space-size=4096",
     "build": "react-scripts build --node-flags --max-old-space-size=4096",
     "test": "npx jest -u --coverage --watchAll=false",
-    "eject": "react-scripts eject",
-    "postinstall": "npm run build --node-flags --max-old-space-size=4096"
+    "eject": "react-scripts eject"
   },
   "jest": {
     "collectCoverageFrom": [
