@@ -36,7 +36,7 @@ const ShareModal = (props) => {
             toggle={toggleOpen}
         >
             <div className="modal-header">
-                <h3 className="modal-title" id="exampleModalLabel">
+                <h3 className="modal-title" id="share-modal">
                     {title}
                 </h3>
                 <button
@@ -151,7 +151,6 @@ const ChangeRoleDropdown = ({ collaborator, setCollaborators }) => {
     }
 
     const changeRole = (role) => {
-        console.log('collaborator :>> ', collaborator);
         const params = {
             email: collaborator.email,
             canEdit: false,
