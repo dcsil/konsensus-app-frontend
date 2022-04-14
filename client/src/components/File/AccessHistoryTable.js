@@ -1,4 +1,6 @@
 import { Table, Card, CardHeader } from 'reactstrap';
+import React from 'react';
+
 // core components
 import AccessHistoryRow from './AccessHistoryRow';
 import moment from 'moment';
@@ -13,7 +15,7 @@ function reverseArr(input) {
 }
 
 const AccessHistoryTable = ({ file, actions, user }) => {
-  const orderedActions = reverseArr(actions);
+  const orderedActions = actions ? reverseArr(actions) : [];
   return (
     <Card className="bg-default shadow">
       <CardHeader className="bg-transparent border-0">
@@ -46,18 +48,26 @@ const AccessHistoryTable = ({ file, actions, user }) => {
               />
             );
           })}
-          <AccessHistoryRow
-            userName={`${user.firstName} ${user.lastName}`}
-            action={'updated'}
-            time={moment(file.updatedAt).format('MMM DD/YYYY hh:mmA')}
-            role={user.role}
-          />
-          <AccessHistoryRow
-            userName={`${user.firstName} ${user.lastName}`}
-            action={'created'}
-            time={moment(file.createdAt).format('MMM DD/YYYY hh:mmA')}
-            role={user.role}
-          />
+          {file && (
+            <>
+              <AccessHistoryRow
+                userName={`${user.firstName} ${user.lastName}`}
+                action={'updated'}
+                time={moment(file.updatedAt).format(
+                  'MMM DD/YYYY hh:mmA'
+                )}
+                role={user.role}
+              />
+              <AccessHistoryRow
+                userName={`${user.firstName} ${user.lastName}`}
+                action={'created'}
+                time={moment(file.createdAt).format(
+                  'MMM DD/YYYY hh:mmA'
+                )}
+                role={user.role}
+              />
+            </>
+          )}
         </tbody>
       </Table>
     </Card>
