@@ -22,7 +22,7 @@ import Header from 'components/Headers/Header.js';
 import FileTable from 'components/File/FileTable.js';
 
 
-const MyFiles = () => {
+const MyFiles = (isStarred) => {
   const [ownedFiles, setOwnedFiles] = useState([]);
 
   useEffect(() => {
@@ -35,7 +35,9 @@ const MyFiles = () => {
   return (
     <>
       <Header />
-      <FileTable files={ownedFiles} />
+      <FileTable 
+      files={ownedFiles} 
+      isStarred={isStarred} />
     </>
   );
 };

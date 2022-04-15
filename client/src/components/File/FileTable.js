@@ -1,5 +1,11 @@
 import React from 'react';
 
+import { useEffect, useState } from 'react';
+import {
+    getFiles,
+  } from 'api/fileFunctions';
+
+
 // reactstrap components
 import {
   Card,
@@ -12,12 +18,6 @@ import {
   Container,
   Row,
 } from 'reactstrap';
-
-import { useEffect, useState } from 'react';
-import {
-    getFiles,
-  } from 'api/fileFunctions';
-
 
 import FileRow from 'components/File/FileRow.js';
 
@@ -39,39 +39,37 @@ const FileTable = (props) => {
       return isStarred;
     };
 
-    return (
-        <Container className="mt--7 pb-7" fluid>
-        <Row>
-          <div className="col">
-            <Card className="shadow">
-              <CardHeader className="border-0">
-                <h3 className="mb-0">Files</h3>
-              </CardHeader>
+  return (
+    <Container className="mt--7 pb-7" fluid>
+      <Row>
+        <div className="col">
+          <Card className="shadow">
+            <CardHeader className="border-0">
+              <h3 className="mb-0">Files</h3>
+            </CardHeader>
 
-              <Table
-                className="align-items-center table-flush"
-                responsive
-              >
-                {/* </File> */}
-                <thead className="thead-light">
-                  <tr>
-                    <th scope="col"></th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Size</th>
-                    <th scope="col">Collaborators</th>
-                    <th scope="col">Last Updated</th>
-                    <th scope="col" />
-                  </tr>
-                </thead>
-                <tbody>
-                {props.files.map((file) => {
-                  const isStarred= handleStarred(file);
-                  return ( 
-                    <FileRow fileInfo={file}
-                    key={file.id}
-                    isStarred={isStarred}>
-                    </FileRow>
-                  );})}
+            <Table
+              className="align-items-center table-flush"
+              responsive
+            >
+              {/* </File> */}
+              <thead className="thead-light">
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Size</th>
+                  <th scope="col">Collaborators</th>
+                  <th scope="col">Last Updated</th>
+                  <th scope="col" />
+                </tr>
+              </thead>
+              <tbody>
+                {props.files &&
+                  props.files.map((file) => {
+                    const isStarred=handleStarred(file);
+                    return (
+                      <FileRow file={file} key={file.id} isStarred={isStarred}></FileRow>
+                    )})}
               </tbody>
             </Table>
 
