@@ -33,16 +33,14 @@ const FileTable = (props) => {
   }, []);
 
   const handleStarred = () => {
-    props.file.map((file) => {
-      starredFiles.forEach((f) => {
-        if (file.id === f.id) {
-          isStarred = true;
-        }
+    starredFiles.forEach((f) => {
+      if (props.file.id === f.id) {
+        isStarred = true;
+      }
       });
       return (
-        <StarFile file={file} isStarred={isStarred}/>
-      );
-    })}
+        <StarFile file={props.file} isStarred={isStarred}/>
+      )};
 
     return (
         <Container className="mt--7 pb-7" fluid>
