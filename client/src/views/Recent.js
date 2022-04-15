@@ -1,12 +1,11 @@
 import { getFiles } from 'api/fileFunctions';
-
 import { useEffect, useState } from 'react';
 
 import Header from 'components/Headers/Header.js';
 import FileTable from 'components/File/FileTable.js';
 
 
-const Recent = () => {
+const Recent = (isStarred) => {
   // only re-renders when a state variable changes
   const [recentFiles, setRecentFiles] = useState([]);
   // useState() is to create state variables
@@ -22,7 +21,9 @@ const Recent = () => {
   return (
     <>
       <Header />
-      <FileTable files={recentFiles} />
+      <FileTable 
+      files={recentFiles}
+      isStarred={isStarred}/>
     </>
   );
 };

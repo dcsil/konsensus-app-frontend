@@ -3,11 +3,14 @@ import { BsStar, BsStarFill } from 'react-icons/bs';
 import { Col } from 'reactstrap';
 import { starFile } from 'api/fileFunctions';
 
+
+
 const StarFile = ({ file, isStarred }) => {
 
     const handleStar = () => {
         starFile(file.id);
         window.location.reload();
+        console.log(isStarred);
     };
 
     return (

@@ -11,9 +11,37 @@ import {
   Row,
 } from 'reactstrap';
 
+import { useEffect, useState } from 'react';
+import {
+    getFiles,
+  } from 'api/fileFunctions';
+
+
 import FileRow from 'components/File/FileRow.js';
+import StarFile from 'components/Star/Star.js'
+
 
 const FileTable = (props) => {
+
+  const [starredFiles, setStarredFiles] = useState([]);
+  let isStarred = props.isStarred;
+
+  useEffect(() => {
+    getFiles('/file/starred', setStarredFiles);
+  }, []);
+
+  const handleStarred = () => {
+    props.file.map((file) => {
+      starredFiles.forEach((f) => {
+        if (file.id === f.id) {
+          isStarred = true;
+        }
+      });
+      return (
+        <StarFile file={file} isStarred={isStarred}/>
+      );
+    })}
+
     return (
         <Container className="mt--7 pb-7" fluid>
         <Row>
@@ -40,7 +68,9 @@ const FileTable = (props) => {
                 </thead>
                 <tbody>
                   {props.files.map(file => (
-                    <FileRow file={file} key={file.id}>
+                    <FileRow file={file} 
+                    key={file.id}
+                    isStarred={handleStarred}>
                     </FileRow>
                   ))}
                 </tbody>
@@ -89,4 +119,4 @@ const FileTable = (props) => {
     )
 }
 
-export default FileTable
+export default FileTable;

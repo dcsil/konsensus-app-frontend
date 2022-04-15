@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   DropdownMenu,
   DropdownItem,
@@ -6,16 +7,25 @@ import {
   Media,
   UncontrolledTooltip,
 } from 'reactstrap';
-import React, { createRef, useState } from "react";
+
+import React, { createRef } from "react";
 import Moment from 'react-moment';
 import { useHistory } from 'react-router-dom';
 import Avatar from 'components/Profile/Avatar';
 import ShareModal from 'components/Modals/ShareModal';
 import UploadModal from 'components/Modals/UploadModal';
 import { reuploadFile } from 'api/fileFunctions';
+import StarFile from 'components/Star/Star.js';
 
 const FileRow = (props) => {
-  const { id, name, size, updatedAt, lastUpdater, type, collaborators } = props.file;
+  // parameter should only take in one thing
+  // destructure props as a parameter
+
+  // useState, useEffect, passing in properties in react 
+  const isStarred = props.isStarred;
+  const { id, size, updatedAt, collaborators } = props.file;
+  console.log(props.isStarred);
+
   const [shareModalOpen, setShareModalOpen] = useState(false);
   const [reuploadModalOpen, setReploadModalOpen] = useState(false);
 
@@ -26,6 +36,7 @@ const FileRow = (props) => {
   const toggleReuploadModal = () => {
     setReploadModalOpen((data) => !data);
   };
+
 
   const actions = [
     {
@@ -54,26 +65,26 @@ const FileRow = (props) => {
     }
   ];
 
+
   return (
     <tr>
-      <th>
-        <span className="fa fa-star text-blue">
+      <td>
+      <StarFile file={id}
+      isStarred={isStarred}/>
+      </td>
 
-        </span>
-
-      </th>
       <th scope="row">
         <FileName {...props.file} />
       </th>
 
       <td>
-        <Collaborators collaborators={collaborators} />
-      </td>
-
-      <td>
         <span className="mb-0 text-sm">
           {size / 1000 + ' MB'}
         </span>
+      </td>
+
+      <td>
+        <Collaborators collaborators={collaborators} />
       </td>
 
       <td>
@@ -83,7 +94,6 @@ const FileRow = (props) => {
       <td className="text-right">
         <ActionsDropdown actions={actions} />
       </td>
-
       <ShareModal isOpen={shareModalOpen} toggleOpen={toggleShareModal} title={"Add collaborators"} fileId={id} />
       <UploadModal isOpen={reuploadModalOpen} toggleOpen={toggleReuploadModal} title={"Reupload a File"} uploadMethod={(formData) => reuploadFile(formData, id)} />
     </tr>

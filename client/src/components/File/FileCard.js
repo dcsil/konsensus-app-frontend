@@ -74,8 +74,7 @@ const FileCard = ({ file, isStarred }) => {
                 </CardTitle>
               </Col>
               <StarFile file={file} 
-              isStarred={isStarred}>
-              </StarFile>
+              isStarred={isStarred}/>
             </Row>
             <Row className="pt-2">
               <Col>
