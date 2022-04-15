@@ -67,12 +67,10 @@ const FileTable = (props) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {props.files.map(file => (
-                    <FileRow file={file} 
-                    key={file.id}
+                    <FileRow file={props.file} 
+                    key={props.file.id}
                     isStarred={handleStarred}>
                     </FileRow>
-                  ))}
               </tbody>
             </Table>
 
