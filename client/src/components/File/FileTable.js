@@ -23,8 +23,6 @@ import FileRow from 'components/File/FileRow.js';
 
 const FileTable = (props) => {
 
-  console.log(props);
-
   const [starredFiles, setStarredFiles] = useState([]);
 
   useEffect(() => {
