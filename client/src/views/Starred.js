@@ -4,7 +4,7 @@ import { getFiles } from 'api/fileFunctions';
 import Header from 'components/Headers/Header.js';
 import FileTable from 'components/File/FileTable.js';
 
-const Starred = () => {
+const Starred = (isStarred) => {
   // only re-renders when a state variable changes
   const [starredFiles, setStarredFiles] = useState([]);
   // useState() is to create state variables
@@ -20,7 +20,8 @@ const Starred = () => {
   return (
     <>
       <Header />
-      <FileTable files={starredFiles} />
+      <FileTable files={starredFiles} 
+      isStarred={isStarred}/>
     </>
   );
 };

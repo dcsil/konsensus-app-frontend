@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   DropdownMenu,
   DropdownItem,
@@ -6,15 +7,18 @@ import {
   Media,
   UncontrolledTooltip,
 } from 'reactstrap';
-import React, { createRef, useState } from 'react';
+import React, { createRef } from 'react';
 import Moment from 'react-moment';
 import { useHistory } from 'react-router-dom';
 import Avatar from 'components/Profile/Avatar';
 import ShareModal from 'components/Modals/ShareModal';
 import UploadModal from 'components/Modals/UploadModal';
 import { reuploadFile } from 'api/fileFunctions';
+import StarFile from 'components/Star/Star.js';
 
 const FileRow = (props) => {
+  const isStarred = props.isStarred;
+
   const [shareModalOpen, setShareModalOpen] = useState(false);
   const [reuploadModalOpen, setReploadModalOpen] = useState(false);
 
@@ -23,11 +27,8 @@ const FileRow = (props) => {
   }
   const {
     id,
-    name,
     size,
     updatedAt,
-    lastUpdater,
-    type,
     collaborators,
   } = props.file;
 
@@ -38,6 +39,7 @@ const FileRow = (props) => {
   const toggleReuploadModal = () => {
     setReploadModalOpen((data) => !data);
   };
+
 
   const actions = [
     {
@@ -66,8 +68,14 @@ const FileRow = (props) => {
     },
   ];
 
+
   return (
     <tr>
+      <td>
+      <StarFile file={id}
+      isStarred={isStarred}/>
+      </td>
+
       <th scope="row">
         <FileName {...props.file} />
       </th>
@@ -78,6 +86,10 @@ const FileRow = (props) => {
 
       <td>
         <span className="mb-0 text-sm">{size / 1000 + ' MB'}</span>
+      </td>
+
+      <td>
+        <Collaborators collaborators={collaborators} />
       </td>
 
       <td>

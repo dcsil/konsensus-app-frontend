@@ -1,6 +1,5 @@
 import React from 'react';
 import { FileIcon, defaultStyles } from 'react-file-icon';
-import { BsStar, BsStarFill } from 'react-icons/bs';
 import {
   Card,
   CardBody,
@@ -9,9 +8,9 @@ import {
   Col,
   Badge,
 } from 'reactstrap';
-import { starFile } from 'api/fileFunctions';
 import Moment from 'react-moment';
 import { useHistory } from 'react-router-dom';
+import StarFile from 'components/Star/Star.js';
 
 const FileCard = ({ file, isStarred }) => {
   let history = useHistory();
@@ -42,10 +41,6 @@ const FileCard = ({ file, isStarred }) => {
     }
   };
 
-  const handleStar = () => {
-    starFile(file.id);
-    window.location.reload();
-  };
 
   return (
     <>
@@ -82,19 +77,8 @@ const FileCard = ({ file, isStarred }) => {
                   {truncate(file.name)}
                 </CardTitle>
               </Col>
-              <Col className="mr--3 mt--3" lg={{ size: 'auto' }}>
-                {isStarred ? (
-                  <BsStarFill
-                    style={{ cursor: 'pointer' }}
-                    onClick={() => handleStar()}
-                  />
-                ) : (
-                  <BsStar
-                    style={{ cursor: 'pointer' }}
-                    onClick={() => handleStar()}
-                  />
-                )}
-              </Col>
+              <StarFile file={file} 
+              isStarred={isStarred}/>
             </Row>
             <Row className="pt-2">
               <Col>
