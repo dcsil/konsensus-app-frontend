@@ -20,27 +20,26 @@ import {
 
 
 import FileRow from 'components/File/FileRow.js';
-import StarFile from 'components/Star/Star.js'
-
 
 const FileTable = (props) => {
 
+  console.log(props);
+
   const [starredFiles, setStarredFiles] = useState([]);
-  let isStarred = props.isStarred;
 
   useEffect(() => {
     getFiles('/file/starred', setStarredFiles);
   }, []);
 
-  const handleStarred = () => {
+  const handleStarred = (file) => {
+    let isStarred = false;
     starredFiles.forEach((f) => {
-      if (props.file.id === f.id) {
+      if (file.id === f.id) {
         isStarred = true;
       }
       });
-      return (
-        <StarFile file={props.file} isStarred={isStarred}/>
-      )};
+      return isStarred;
+    };
 
     return (
         <Container className="mt--7 pb-7" fluid>
@@ -67,10 +66,14 @@ const FileTable = (props) => {
                   </tr>
                 </thead>
                 <tbody>
-                    <FileRow file={props.file} 
-                    key={props.file.id}
-                    isStarred={handleStarred}>
+                {props.files.map((file) => {
+                  const isStarred= handleStarred(file);
+                  return ( 
+                    <FileRow fileInfo={file}
+                    key={file.id}
+                    isStarred={isStarred}>
                     </FileRow>
+                  );})}
               </tbody>
             </Table>
 
